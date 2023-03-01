@@ -1,3 +1,9 @@
+/*  nombre: Obtener el código ASCII
+    autor: David Emmanuel Santana Romero
+    versión: 1.0
+    fecha: 25 de enero de 2023
+*/
+
 #include <iostream>
 
 int main () {
