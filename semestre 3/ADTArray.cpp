@@ -1,5 +1,6 @@
 # include <iostream>
 # include <algorithm>
+# include <cmath>
 using namespace std;
 
 template < class T >
@@ -20,6 +21,15 @@ class Array {
             length = 0;
             A = new T [ size ];
         }
+        Array ( initializer_list<T> args ) {
+            this -> size = args.end() - args.begin();
+            length = 0;
+            A = new T [ size ];
+            for (int i = 0; i < size; i++) {
+                A[i] = *(args.begin() + i);
+                length++;
+            }
+        }
         ~ Array () {
             delete [] A;
         }
@@ -33,12 +43,19 @@ class Array {
         void Set ( int index , T x );
         void Reverse ();
         void Swap ( int a, int b );
+        //void InsertionSort ()
+        void Merge_S (int l, int m, int r, T * arr);
+        void MergeSort (int b, int e, T * arr);
+        void MergeSort ();
+        int Partition (int p, int r, T * arr);
+        void QuickSort (int p, int r, T * arr);
+        void QuickSort ();
 };
 
 template < class T >
 void Array < T > :: Display () {
     for ( int i = 0; i < length; i ++)
-    cout << A [ i ] << endl;
+        cout << A [ i ] << (i == length - 1 ? "\n" : ", ");
 }
 
 template < class T >
@@ -89,9 +106,9 @@ T Array < T > :: Get ( int index ) {
         return A [ index ];
     }
     else {
-        cout << "No se puede" << endl;
+        cout << "No se puede. Retornando primer elemento." << endl;
     }
-    return NULL;
+    return A[0];
 }
 
 template < class T >
@@ -115,35 +132,104 @@ void Array < T > :: Swap ( int a, int b ) {
     A [ b ] = temp;
 }
 
+template < class T >
+void Array < T > :: Merge_S (int l, int m, int r, T * arr) {
+    int debug = 135;
+    int leftArrSize = m - l + 1; cout << "Ejecutando línea " << ++debug << endl;
+    int rightArrSize = r - m; cout << "Ejecutando línea " << ++debug << endl;
+    int leftArr[leftArrSize]; cout << "Ejecutando línea " << ++debug << endl;
+    int rightArr[rightArrSize]; cout << "Ejecutando línea " << ++debug << endl;
+
+    for (int i = 0; i < leftArrSize; i++) {
+        leftArr[i] = arr [l + i]; cout << "Ejecutando línea " << ++debug << endl;
+    }
+    for (int i = 0; i < rightArrSize; i++) {
+        rightArr[i] = arr [m + 1 + i]; cout << "Ejecutando línea " << ++debug << endl;
+    }
+
+    int atLeft = 0, atRight = 0, atArr = l; cout << "Ejecutando línea " << ++debug << endl;
+
+    while (atLeft < leftArrSize && atRight < rightArrSize) {
+        if (leftArr[atLeft] <= rightArr[atRight]) {
+            arr[atArr] = leftArr[atLeft]; cout << "Ejecutando línea " << ++debug << endl;
+            atLeft++; cout << "Ejecutando línea " << ++debug << endl;
+        }
+        else {
+            arr[atArr] = rightArr[atRight];
+            atRight++; cout << "Ejecutando línea " << ++debug << endl;
+        }
+        atArr++; cout << "Ejecutando línea " << ++debug << endl;
+    }
+    while (atLeft < leftArrSize) {
+        arr[atArr] = leftArr[atLeft]; cout << "Ejecutando línea " << ++debug << endl;
+        atLeft++; cout << "Ejecutando línea " << ++debug << endl;
+        atArr++; cout << "Ejecutando línea " << ++debug << endl;
+    }
+    while (atRight < rightArrSize) {
+        arr[atArr] = rightArr[atRight]; cout << "Ejecutando línea " << ++debug << endl;
+        atRight++; cout << "Ejecutando línea " << ++debug << endl;
+        atArr++; cout << "Ejecutando línea " << ++debug << endl;
+    }
+}
+
+template < class T >
+void Array < T > :: MergeSort ( int const b, int const e, T * arr) {
+    cout << "mergesort w begin = " << b << " and end = " << e << endl;
+    if (b >= e) return;
+    int m = floor((e-b)/2);
+    MergeSort(b, m, arr);
+    MergeSort(m + 1, e, arr);
+    Merge_S (b, m, e, arr);
+}
+
+template < class T >
+void Array < T > :: MergeSort () {
+    MergeSort(1, size, A);
+}
+
+template < class T >
+int Array < T > :: Partition (int p, int r, T * arr) {
+    T x = arr[r];
+    int i = p - 1;
+    for (int j = p; j < r; j++) {
+        if (arr[j] <= x) {
+            i = i+1;
+            T tempEl = arr[i];
+            arr[i] = arr[j];
+            arr[j] = tempEl;
+        }
+    }
+    x = arr[r];
+    arr[r] = arr[i+1];
+    arr[i+1] = x;
+    return (i+1);
+}
+
+template < class T >
+void Array < T > :: QuickSort (int p, int r, T * arr) {
+    if (p < r) {
+        int q = Partition(p, r, arr);
+        QuickSort(p, q-1, arr);
+        QuickSort(q+1, r, arr);
+    }
+}
+
+template < class T >
+void Array < T > :: QuickSort () {
+    QuickSort(0, size, A);
+}
+
 int main ()
 {
-    Array < int > arr ( 5 );
-    arr.Add ( 2 );
-    arr.Add ( 5 );
-    arr.Add ( 6 );
-    arr.Add ( 8 );
-    arr.Add ( 7 );
-    
-    arr.Add ( 10 );
-    
-    arr.Display ();
-    cout << endl;
-    arr.Insert ( 1 , 23 );
-    arr.Display ();
-    cout << endl;
-    arr.Delete ( 1 );
-    arr.Display ();
-    cout << endl;
-    cout << arr.Get ( 1 )<< endl;
-    arr.Set ( 1 , 4 );
-    
-    arr.Display ();
+    Array < int > arr = {12, 44, 0, -1, 9, 7, 8};
 
-    cout << endl;
+    arr.Display();
 
-    arr.Reverse ();
-    arr.Display ();
-  
+    //arr.MergeSort();
+
+    arr.QuickSort();
+    arr.Display();
+
 
     return 0;
 }
