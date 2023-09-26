@@ -1,7 +1,9 @@
 # include <iostream>
 # include <algorithm>
 # include <cmath>
+# include <chrono>
 using namespace std;
+using namespace chrono;
 
 template < class T >
 class Array {
@@ -39,18 +41,26 @@ class Array {
         void Resize ();
         void Insert ( int index , T x );
         void Delete ( int index );
-        T Get ( int index );
+        T& Get ( int index );
         void Set ( int index , T x );
         void Reverse ();
         void Swap ( int a, int b );
-        //void InsertionSort ()
-        void Merge_S (int l, int m, int r, T * arr);
-        void MergeSort (int b, int e, T * arr);
+        void InsertionSort (Array<T>& arr);
+        void InsertionSort ();
+        void Merge_S (int l, int m, int r, Array<T>& arr);
+        void MergeSort (int b, int e, Array<T>& arr);
         void MergeSort ();
-        int Partition (int p, int r, T * arr);
-        void QuickSort (int p, int r, T * arr);
+        int Partition (int p, int r, Array<T>& arr);
+        void QuickSort (int p, int r, Array<T>& arr);
         void QuickSort ();
+
+        T& operator[] (int index);
 };
+
+template < class T >
+T& Array < T > :: operator[] (int index) {
+    return Get(index);
+}
 
 template < class T >
 void Array < T > :: Display () {
@@ -101,12 +111,12 @@ void Array < T > :: Delete ( int index ) {
     }
 }
 template < class T >
-T Array < T > :: Get ( int index ) {
+T& Array < T > :: Get ( int index ) {
     if ( index >= 0 && index < length ) {
         return A [ index ];
     }
     else {
-        cout << "No se puede. Retornando primer elemento." << endl;
+        cout << "No se puede acceder al elemento " << index << ", el tamaño es " << length << ". Retornando primer elemento." << endl;
     }
     return A[0];
 }
@@ -133,50 +143,66 @@ void Array < T > :: Swap ( int a, int b ) {
 }
 
 template < class T >
-void Array < T > :: Merge_S (int l, int m, int r, T * arr) {
-    int debug = 135;
-    int leftArrSize = m - l + 1; cout << "Ejecutando línea " << ++debug << endl;
-    int rightArrSize = r - m; cout << "Ejecutando línea " << ++debug << endl;
-    int leftArr[leftArrSize]; cout << "Ejecutando línea " << ++debug << endl;
-    int rightArr[rightArrSize]; cout << "Ejecutando línea " << ++debug << endl;
-
-    for (int i = 0; i < leftArrSize; i++) {
-        leftArr[i] = arr [l + i]; cout << "Ejecutando línea " << ++debug << endl;
-    }
-    for (int i = 0; i < rightArrSize; i++) {
-        rightArr[i] = arr [m + 1 + i]; cout << "Ejecutando línea " << ++debug << endl;
-    }
-
-    int atLeft = 0, atRight = 0, atArr = l; cout << "Ejecutando línea " << ++debug << endl;
-
-    while (atLeft < leftArrSize && atRight < rightArrSize) {
-        if (leftArr[atLeft] <= rightArr[atRight]) {
-            arr[atArr] = leftArr[atLeft]; cout << "Ejecutando línea " << ++debug << endl;
-            atLeft++; cout << "Ejecutando línea " << ++debug << endl;
+void Array < T > :: InsertionSort (Array<T>& arr) {
+    for (int j = 1; j < arr.length; j++) {
+        T key = arr[j];
+        int i = j - 1;
+        while (i >= 0 && arr[i] > key) {
+            arr[i+1] = arr[i];
+            i = i - 1;
         }
-        else {
-            arr[atArr] = rightArr[atRight];
-            atRight++; cout << "Ejecutando línea " << ++debug << endl;
-        }
-        atArr++; cout << "Ejecutando línea " << ++debug << endl;
-    }
-    while (atLeft < leftArrSize) {
-        arr[atArr] = leftArr[atLeft]; cout << "Ejecutando línea " << ++debug << endl;
-        atLeft++; cout << "Ejecutando línea " << ++debug << endl;
-        atArr++; cout << "Ejecutando línea " << ++debug << endl;
-    }
-    while (atRight < rightArrSize) {
-        arr[atArr] = rightArr[atRight]; cout << "Ejecutando línea " << ++debug << endl;
-        atRight++; cout << "Ejecutando línea " << ++debug << endl;
-        atArr++; cout << "Ejecutando línea " << ++debug << endl;
+        arr[i + 1] = key;
     }
 }
 
 template < class T >
-void Array < T > :: MergeSort ( int const b, int const e, T * arr) {
-    cout << "mergesort w begin = " << b << " and end = " << e << endl;
-    if (b >= e) return;
-    int m = floor((e-b)/2);
+void Array < T > :: InsertionSort () {
+    InsertionSort(*this);
+}
+
+template < class T >
+void Array < T > :: Merge_S (int l, int m, int r, Array<T>& arr) {
+    int leftArrSize = m - l + 1;
+    int rightArrSize = r - m;
+    T leftArr[leftArrSize];
+    T rightArr[rightArrSize];
+
+    for (int i = 0; i < leftArrSize; i++) {
+        leftArr[i] = arr [l + i];
+    }
+    for (int i = 0; i < rightArrSize; i++) {
+        rightArr[i] = arr [m + 1 + i];
+    }
+
+    int atLeft = 0, atRight = 0, atArr = l;
+
+    while (atLeft < leftArrSize && atRight < rightArrSize) {
+        if (leftArr[atLeft] <= rightArr[atRight]) {
+            arr[atArr] = leftArr[atLeft];
+            atLeft++;
+        }
+        else {
+            arr[atArr] = rightArr[atRight];
+            atRight++;
+        }
+        atArr++;
+    }
+    while (atLeft < leftArrSize) {
+        arr[atArr] = leftArr[atLeft];
+        atLeft++;
+        atArr++;
+    }
+    while (atRight < rightArrSize) {
+        arr[atArr] = rightArr[atRight];
+        atRight++;
+        atArr++;
+    }
+}
+
+template < class T >
+void Array < T > :: MergeSort ( int const b, int const e, Array<T>& arr) {
+    if (b > e) return;
+    int m = floor((b+e)/2);
     MergeSort(b, m, arr);
     MergeSort(m + 1, e, arr);
     Merge_S (b, m, e, arr);
@@ -184,11 +210,11 @@ void Array < T > :: MergeSort ( int const b, int const e, T * arr) {
 
 template < class T >
 void Array < T > :: MergeSort () {
-    MergeSort(1, size, A);
+    MergeSort(0, length-1, *this);
 }
 
 template < class T >
-int Array < T > :: Partition (int p, int r, T * arr) {
+int Array < T > :: Partition (int p, int r, Array<T>& arr) {
     T x = arr[r];
     int i = p - 1;
     for (int j = p; j < r; j++) {
@@ -206,7 +232,7 @@ int Array < T > :: Partition (int p, int r, T * arr) {
 }
 
 template < class T >
-void Array < T > :: QuickSort (int p, int r, T * arr) {
+void Array < T > :: QuickSort (int p, int r, Array<T>& arr) {
     if (p < r) {
         int q = Partition(p, r, arr);
         QuickSort(p, q-1, arr);
@@ -216,20 +242,40 @@ void Array < T > :: QuickSort (int p, int r, T * arr) {
 
 template < class T >
 void Array < T > :: QuickSort () {
-    QuickSort(0, size, A);
+    QuickSort(0, length-1, *this);
 }
 
 int main ()
 {
-    Array < int > arr = {12, 44, 0, -1, 9, 7, 8};
+    int BIGSIZE = 50;
+    Array < int > A (BIGSIZE);
+    for (int i = 0; i < BIGSIZE; i++) {
+        A.Add(rand() % INT_MAX);
+    }
+    Array < int > B = A;
+    Array < int > C = A;
 
-    arr.Display();
+    A.Display();
+    B.Display();
+    C.Display();
 
-    //arr.MergeSort();
+    auto ISstart = high_resolution_clock::now();
+    A.InsertionSort();
+    auto ISend = high_resolution_clock::now();
+    auto MSstart = high_resolution_clock::now();
+    B.MergeSort();
+    auto MSend = high_resolution_clock::now();
+    auto QSstart = high_resolution_clock::now();
+    C.QuickSort();
+    auto QSend = high_resolution_clock::now();
 
-    arr.QuickSort();
-    arr.Display();
+    A.Display();
+    B.Display();
+    C.Display();
 
+    cout << "Insertion Sort: " << (duration_cast<microseconds>(ISend - ISstart)).count() << "us." << endl;
+    cout << "Merge Sort: " << (duration_cast<microseconds>(MSend - MSstart)).count() << "us." << endl;
+    cout << "Quick Sort: " << (duration_cast<microseconds>(QSend - QSstart)).count() << "us." << endl;
 
     return 0;
 }
