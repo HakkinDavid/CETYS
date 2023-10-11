@@ -10,7 +10,7 @@ class Array {
     private :
         int size;
         int length;
-        T * A;
+        T * A = nullptr;
     
     public :
         Array () {
@@ -33,7 +33,9 @@ class Array {
             }
         }
         ~ Array () {
-            delete [] A;
+            if (A != nullptr) {
+                delete [] A;
+            }
         }
     
         void Display ();
@@ -47,8 +49,8 @@ class Array {
         void Swap ( int a, int b );
         void InsertionSort (Array<T>& arr);
         void InsertionSort ();
-        void Merge_S (int l, int m, int r, Array<T>& arr);
-        void MergeSort (int b, int e, Array<T>& arr);
+        void Merge_S (int p, int q, int r, Array<T>& arr);
+        void MergeSort (int p, int r, Array<T>& arr);
         void MergeSort ();
         int Partition (int p, int r, Array<T>& arr);
         void QuickSort (int p, int r, Array<T>& arr);
@@ -161,51 +163,41 @@ void Array < T > :: InsertionSort () {
 }
 
 template < class T >
-void Array < T > :: Merge_S (int l, int m, int r, Array<T>& arr) {
-    int leftArrSize = m - l + 1;
-    int rightArrSize = r - m;
-    T leftArr[leftArrSize];
-    T rightArr[rightArrSize];
+void Array < T > :: Merge_S (int p, int q, int r, Array<T>& arr) {
+    int n1 = q - p + 1;
+    int n2 = r - q;
+    T L[n1];
+    T R[n2];
 
-    for (int i = 0; i < leftArrSize; i++) {
-        leftArr[i] = arr [l + i];
+    for (int i = 0; i < n1; i++) {
+        L[i] = arr [p + i];
     }
-    for (int i = 0; i < rightArrSize; i++) {
-        rightArr[i] = arr [m + 1 + i];
+    for (int i = 0; i < n2; i++) {
+        R[i] = arr [q + i];
     }
 
-    int atLeft = 0, atRight = 0, atArr = l;
+    int atL = 0, atR = 0;
 
-    while (atLeft < leftArrSize && atRight < rightArrSize) {
-        if (leftArr[atLeft] <= rightArr[atRight]) {
-            arr[atArr] = leftArr[atLeft];
-            atLeft++;
+    for (int k = p; k < r; k++) {
+        if (L[atL] <= R[atR]) {
+            arr[k] = L[atL];
+            atL++;
         }
         else {
-            arr[atArr] = rightArr[atRight];
-            atRight++;
+            arr[k] = R[atR];
+            atR++;
         }
-        atArr++;
-    }
-    while (atLeft < leftArrSize) {
-        arr[atArr] = leftArr[atLeft];
-        atLeft++;
-        atArr++;
-    }
-    while (atRight < rightArrSize) {
-        arr[atArr] = rightArr[atRight];
-        atRight++;
-        atArr++;
     }
 }
 
 template < class T >
-void Array < T > :: MergeSort ( int const b, int const e, Array<T>& arr) {
-    if (b > e) return;
-    int m = floor((b+e)/2);
-    MergeSort(b, m, arr);
-    MergeSort(m + 1, e, arr);
-    Merge_S (b, m, e, arr);
+void Array < T > :: MergeSort ( int p, int r, Array<T>& arr ) {
+    if (p < r) {
+        int q = floor((p+r)/2);
+        MergeSort(p, q, arr);
+        MergeSort(q + 1, r, arr);
+        Merge_S (p, q, r, arr);
+    }
 }
 
 template < class T >
@@ -247,7 +239,7 @@ void Array < T > :: QuickSort () {
 
 int main ()
 {
-    int BIGSIZE = 50;
+    int BIGSIZE = 9999;
     Array < int > A (BIGSIZE);
     for (int i = 0; i < BIGSIZE; i++) {
         A.Add(rand() % INT_MAX);
@@ -255,9 +247,12 @@ int main ()
     Array < int > B = A;
     Array < int > C = A;
 
-    A.Display();
+    /*A.Display();
+    cout << endl;
     B.Display();
+    cout << endl;
     C.Display();
+    cout << endl;*/
 
     auto ISstart = high_resolution_clock::now();
     A.InsertionSort();
@@ -269,13 +264,16 @@ int main ()
     C.QuickSort();
     auto QSend = high_resolution_clock::now();
 
-    A.Display();
+    /*A.Display();
+    cout << endl;
     B.Display();
+    cout << endl;
     C.Display();
+    cout << endl;*/
 
-    cout << "Insertion Sort: " << (duration_cast<microseconds>(ISend - ISstart)).count() << "us." << endl;
-    cout << "Merge Sort: " << (duration_cast<microseconds>(MSend - MSstart)).count() << "us." << endl;
-    cout << "Quick Sort: " << (duration_cast<microseconds>(QSend - QSstart)).count() << "us." << endl;
+    cout << "Insertion Sort: " << (duration_cast<microseconds>(ISend - ISstart)).count() << "µs." << endl;
+    cout << "Merge Sort: " << (duration_cast<microseconds>(MSend - MSstart)).count() << "µs." << endl;
+    cout << "Quick Sort: " << (duration_cast<microseconds>(QSend - QSstart)).count() << "µs." << endl;
 
     return 0;
 }
