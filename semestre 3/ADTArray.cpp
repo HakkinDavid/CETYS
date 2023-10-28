@@ -34,7 +34,7 @@ class Array {
         }
         ~ Array () {
             if (A != nullptr) {
-                delete [] A;
+                //delete [] A;
             }
         }
     
