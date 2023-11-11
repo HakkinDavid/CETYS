@@ -413,11 +413,11 @@ class AdjacencyList {
             stringstream ts_string;
             stringstream linking_string;
             cout << "Topological Sort" << endl;
-            ts_string << "| ";
+            ts_string << "|";
             int* textpos = new int[nodes];
             for (int i = nodes-1; i >= 0; i--) {
-                textpos[TS[i]] = ts_string.str().size() + nickname[TS[i]].size()/2;
-                ts_string << nickname[TS[i]] << string(" | ");
+                textpos[TS[i]] = ts_string.str().size() + nickname[TS[i]].size()/2 - 1;
+                ts_string << nickname[TS[i]] << string("|");
             }
             for (int i = nodes-1; i >= 0; i--) {
                 bool in_range = false;
@@ -459,18 +459,19 @@ class AdjacencyList {
 };
 
 int main () {
-    AdjacencyList directedGraph (9, true, {"shirt", "tie", "jacket", "belt", "watch", "underwear", "pants", "shoes", "socks"});
+    cout << "Ingeniería en Minecraft" << endl;
+    AdjacencyList MinecraftEngineering (16, true, {"Combat", "Mine", "Explore", "Farm", "Craft", "Trade", "Tame", "Fish", "Redstone", "Cook", "Smelt", "Witchcraft", "Summon Entities", "Build", "Ranching", "Enchantment"});
 
-    directedGraph.link("shirt", {"belt", "tie"});
-    directedGraph.link("tie", "jacket");
-    directedGraph.link("belt", "jacket");
-    directedGraph.link("underwear", {"shoes", "pants"});
-    directedGraph.link("pants", {"shoes", "belt"});
-    directedGraph.link("socks", "shoes");
+    MinecraftEngineering.link("Combat", {"Witchcraft", "Summon Entities"});
+    MinecraftEngineering.link("Mine", {"Redstone", "Smelt", "Build", "Enchantment"});
+    MinecraftEngineering.link("Explore", {"Mine", "Trade", "Tame", "Ranching"});
+    MinecraftEngineering.link("Farm", {"Ranching", "Cook", "Witchcraft", "Tame"});
+    MinecraftEngineering.link("Craft", {"Farm", "Witchcraft", "Redstone", "Fish", "Enchantment", "Build"});
+    MinecraftEngineering.link("Cook", "Witchcraft");
+    MinecraftEngineering.link("Smelt", "Enchantment");
+    MinecraftEngineering.link("Build", {"Farm", "Ranching", "Redstone"});
 
-    directedGraph.DFS();
-    directedGraph.printDFS();
-    directedGraph.TopologicalSort();
-
-    getchar();
+    MinecraftEngineering.DFS();
+    MinecraftEngineering.printDFS();
+    MinecraftEngineering.TopologicalSort();
 }
