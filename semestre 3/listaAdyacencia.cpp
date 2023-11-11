@@ -7,6 +7,7 @@
 #include <iostream>
 #include <vector>
 #include <string>
+#include <sstream>
 using namespace std;
 
 // declarar la clase de lista de adyacencia
@@ -32,10 +33,18 @@ class AdjacencyList {
         int* color_DFS;
         // origen del último BFS ejecutado
         int BFS_source;
+        // raíces de los árboles del bosque DFS || i es el árbol, [i] es la raíz
         int* DFS_sources;
+        // tiempo de ejecución DFS
         int c_time;
+        // índice actual en el bosque DFS
         int c_tree_index;
+        // árboles a los que pertenecen los nodos
         int* DFS_tree;
+        // nodos ordenados topológicamente
+        int* TS;
+        // índice en el stack de Topological Sort
+        int TS_stack_i;
     public:
         // inicializar la clase
         // permitir al usuario definir el número de nodos
@@ -53,6 +62,7 @@ class AdjacencyList {
             BFS_source = -1;
             DFS_sources = new int[nodes];
             DFS_tree = new int[nodes];
+            TS = new int[nodes];
             for (int i = 0; i < nodes; i++) {
                 nickname[i] = (i >= nicknames.size() ? to_string(i) : *(nicknames.begin() + i));
                 time[i] = new int[2];
@@ -61,6 +71,7 @@ class AdjacencyList {
             this->nodes = nodes;
             c_time = -1;
             c_tree_index = -1;
+            TS_stack_i = -1;
         }
         // eliminar elementos de la lista
         // limpiar la memoria
@@ -79,10 +90,16 @@ class AdjacencyList {
             delete [] time;
             delete [] DFS_sources;
             delete [] DFS_tree;
+            delete [] TS;
         }
 
         // enlazar un nodo a otro
         void link (int i, int j, bool nested = false) {
+            // invalidar cálculos de BFS y DFS
+            if (c_time != -1 || BFS_source != -1) {
+                BFS_source = -1;
+                c_time = -1;
+            }
             // ¿están fuera del rango de operación?
             if (i >= nodes || j >= nodes || i < 0 || j < 0) {
                 cout << "NODE OUT OF RANGE." << endl;
@@ -334,6 +351,7 @@ class AdjacencyList {
         void DFS () {
             c_time = 0;
             c_tree_index = 0;
+            TS_stack_i = 0;
             for (int i = 0; i < nodes; i++) {
                 time[i][0] = 0;
                 time[i][1] = 0;
@@ -363,6 +381,7 @@ class AdjacencyList {
             }
             color_DFS[u] = 0;
             time[u][1] = ++c_time;
+            TS[TS_stack_i++] = u;
             if (DFS_tree[u] == -1) DFS_tree[u] = c_tree_index;
         }
 
@@ -388,18 +407,70 @@ class AdjacencyList {
                 cout << endl;
             }
         }
+
+        void TopologicalSort () {
+            if (c_time == -1) DFS();
+            stringstream ts_string;
+            stringstream linking_string;
+            cout << "Topological Sort" << endl;
+            ts_string << "| ";
+            int* textpos = new int[nodes];
+            for (int i = nodes-1; i >= 0; i--) {
+                textpos[TS[i]] = ts_string.str().size() + nickname[TS[i]].size()/2;
+                ts_string << nickname[TS[i]] << string(" | ");
+            }
+            for (int i = nodes-1; i >= 0; i--) {
+                bool in_range = false;
+                int linked_to = 0;
+                if (A[TS[i]].size() == 0) continue;
+                for (int s = 0; s < ts_string.str().size(); s++) {
+                    if (s == textpos[TS[i]]) {
+                        linking_string << "┗";
+                        in_range = true;
+                    }
+                    else if (in_range) {
+                        for (int j = 0; j < A[TS[i]].size(); j++) {
+                            if (s == textpos[A[TS[i]][j]]) {
+                                linking_string << "🠹";
+                                linked_to++;
+                                if (linked_to == A[TS[i]].size()) {
+                                    in_range = false;
+                                    break;
+                                }
+                            }
+                            else if (j == A[TS[i]].size()-1) {
+                                linking_string << "━";
+                            }
+                        }
+                    }
+                    else if (linked_to < A[TS[i]].size()) {
+                        linking_string << " ";
+                    }
+                    else {
+                        break;
+                    }
+                }
+                linking_string << endl;
+            }
+            cout << ts_string.str() << endl;
+            cout << linking_string.str();
+            delete [] textpos;
+        }
 };
 
 int main () {
-    AdjacencyList directedGraph (6, true, {"u", "v", "w", "x", "y", "z"});
+    AdjacencyList directedGraph (9, true, {"shirt", "tie", "jacket", "belt", "watch", "underwear", "pants", "shoes", "socks"});
 
-    directedGraph.link("u", {"v", "x"});
-    directedGraph.link("v", "y");
-    directedGraph.link("w", {"y", "z"});
-    directedGraph.link("x", "v");
-    directedGraph.link("y", "x");
-    directedGraph.link("z", "z");
+    directedGraph.link("shirt", {"belt", "tie"});
+    directedGraph.link("tie", "jacket");
+    directedGraph.link("belt", "jacket");
+    directedGraph.link("underwear", {"shoes", "pants"});
+    directedGraph.link("pants", {"shoes", "belt"});
+    directedGraph.link("socks", "shoes");
 
     directedGraph.DFS();
     directedGraph.printDFS();
+    directedGraph.TopologicalSort();
+
+    getchar();
 }
