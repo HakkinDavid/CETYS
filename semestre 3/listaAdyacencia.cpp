@@ -45,6 +45,8 @@ class AdjacencyList {
         int* TS;
         // índice en el stack de Topological Sort
         int TS_stack_i;
+        int* path;
+        int path_index;
     public:
         // inicializar la clase
         // permitir al usuario definir el número de nodos
@@ -63,6 +65,8 @@ class AdjacencyList {
             DFS_sources = new int[nodes];
             DFS_tree = new int[nodes];
             TS = new int[nodes];
+            path = new int[nodes];
+            path_index = 0;
             for (int i = 0; i < nodes; i++) {
                 nickname[i] = (i >= nicknames.size() ? to_string(i) : *(nicknames.begin() + i));
                 time[i] = new int[2];
@@ -348,10 +352,11 @@ class AdjacencyList {
             printBFS(unmask(origin));
         }
 
-        void DFS () {
+        void DFS (int origin = INT_MAX, int find = INT_MAX) {
             c_time = 0;
             c_tree_index = 0;
             TS_stack_i = 0;
+            path_index = 0;
             for (int i = 0; i < nodes; i++) {
                 time[i][0] = 0;
                 time[i][1] = 0;
@@ -359,8 +364,16 @@ class AdjacencyList {
                 color_DFS[i] = 2;
                 DFS_sources[i] = -1;
                 DFS_tree[i] = -1;
+                path[i] = -1;
+            }
+            if (origin != INT_MAX) {
+                DFS_sources[c_tree_index] = origin;
+                DFS_Visit(origin, find);
+                c_tree_index++;
+                if (path[path_index] == find) return;
             }
             for (int u = 0; u < nodes; u++) {
+                if (u == origin) continue;
                 if (color_DFS[u] == 2) {
                     DFS_sources[c_tree_index] = u;
                     DFS_Visit(u);
@@ -369,16 +382,18 @@ class AdjacencyList {
             }
         }
 
-        void DFS_Visit (int u) {
+        void DFS_Visit (int u, int find = INT_MAX) {
+            if (find != INT_MAX && path[path_index] != find) path[path_index++] = u;
             color_DFS[u] = 1;
             time[u][0] = ++c_time;
             for (int i = 0; i < A[u].size(); i++) {
                 int v = A[u][i];
                 if (color_DFS[v] == 2) {
                     parent_DFS[v] = u;
-                    DFS_Visit(v);
+                    DFS_Visit(v, find);
                 }
             }
+            if (find != INT_MAX && path[path_index] != find) path[path_index--] = -1;
             color_DFS[u] = 0;
             time[u][1] = ++c_time;
             TS[TS_stack_i++] = u;
@@ -456,22 +471,32 @@ class AdjacencyList {
             cout << linking_string.str();
             delete [] textpos;
         }
+
+        void getPath (int origin, int find) {
+            DFS(origin, find);
+            for (int i = 0; i < nodes; i++) {
+                if (path[i] != -1) cout << nickname[path[i]] << " -> ";
+            }
+            cout << "/";
+        }
 };
 
 int main () {
-    cout << "Ingeniería en Minecraft" << endl;
-    AdjacencyList MinecraftEngineering (16, true, {"Combat", "Mine", "Explore", "Farm", "Craft", "Trade", "Tame", "Fish", "Redstone", "Cook", "Smelt", "Witchcraft", "Summon Entities", "Build", "Ranching", "Enchantment"});
+    cout << "Laberinto" << endl;
 
-    MinecraftEngineering.link("Combat", {"Witchcraft", "Summon Entities"});
-    MinecraftEngineering.link("Mine", {"Redstone", "Smelt", "Build", "Enchantment"});
-    MinecraftEngineering.link("Explore", {"Mine", "Trade", "Tame", "Ranching"});
-    MinecraftEngineering.link("Farm", {"Ranching", "Cook", "Witchcraft", "Tame"});
-    MinecraftEngineering.link("Craft", {"Farm", "Witchcraft", "Redstone", "Fish", "Enchantment", "Build"});
-    MinecraftEngineering.link("Cook", "Witchcraft");
-    MinecraftEngineering.link("Smelt", "Enchantment");
-    MinecraftEngineering.link("Build", {"Farm", "Ranching", "Redstone"});
+    AdjacencyList L(24, true, {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24"});
 
-    MinecraftEngineering.DFS();
-    MinecraftEngineering.printDFS();
-    MinecraftEngineering.TopologicalSort();
+    L.link(12, 13);
+    L.link(13, {7, 19});
+    L.link(7, 8);
+    L.link(8, {2, 9});
+    L.link(9, 15);
+    L.link(15, 21);
+    L.link(21, 22);
+    L.link(22, 23);
+    L.link(23, 17);
+    L.link(17, 11);
+    L.link(11, 5);
+
+    L.getPath(12, 5);
 }
