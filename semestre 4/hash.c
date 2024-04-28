@@ -7,7 +7,7 @@
 
 const int primos[12] = {2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37};
 
-void hash_brown (char* input, char* output) { // tomar cadenas de 
+void hash_brown (char* input, char* output) { 
     srand(input[0]);
     const int prime_seed = primos[rand() % 12];
     int input_size = 0;
