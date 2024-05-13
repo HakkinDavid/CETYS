@@ -44,7 +44,7 @@ void max_sum () {
             Zt[m] += Zt[j];
         }
         std::cout << Zt[m] << std::endl;
-        if (Zt[m] > Z[m]) Z = Zt;
+        if (Zt[m] > Z[m]) Z.swap(Zt);
     }
     std::cout << "\tLa máxima suma es " << Z[m] << " con los elementos: ";
     for (int i = 0; i < m; i++) {
@@ -157,15 +157,17 @@ int min_coin_brute (int C) {
 
 void min_coin (int C) {
     std::vector<int> memory(C+1, INT_MAX); // Almacenar los cálculos intermedios
+    std::vector<int> memory_coin(C + 1, INT_MAX);
 
     memory[0] = 0; // Para obtener 0 no se necesitan monedas
 
     for (int i = 1; i <= C; i++) {
         for (int j = 0; j < n_coins; j++) {
             if (coins[j] <= i) {
-                int previous_result = memory[i - coins[j]];
+                int previous_result = memory[i - coins[j]]; // No hay penalización por mantenerse en esta cantidad de monedas
                 if (previous_result != INT_MAX && previous_result + 1 < memory[i]) { // Si encontramos una cantidad, asegurarse de que la nueva propuesta sea inferior
                     memory[i] = previous_result + 1; // Sumar la cantidad de monedas e incrementar en uno
+                    memory_coin[i] = j; // Guardar la moneda
                 }
             }
         }
@@ -174,7 +176,15 @@ void min_coin (int C) {
     std::cout << "Según la programación dinámica implementada, el mínimo de monedas necesario para obtener $" << C << " es " << memory[C] << "." << std::endl;
 
     std::cout << "Según la programación por fuerza bruta implementada, el mínimo de monedas necesario para obtener $" << C << " es " << min_coin_brute(C) << ", con " << llamadas_brutas << " llamadas a función." << std::endl;
-    
+
+    int amount = C;
+    std::cout << "Monedas utilizadas: ";
+    while (amount > 0) {
+        int coin_index = memory_coin[amount];
+        std::cout << "($" << coins[coin_index] << ") "; // Imprimir en pantalla
+        amount -= coins[coin_index];
+    }
+    std::cout << std::endl;    
 }
 
 void minimal_difference_subset() {
@@ -272,8 +282,8 @@ void minimal_difference_subset() {
 }
 
 int main () {
-    //max_sum (); // O(n*m) [fuerza bruta] vs O(n) [programación dinámica]
-    max_profit (); // O(nlgn) [fuerza bruta] vs O(nlgn) [programación dinámica]
-    min_coin (12); // O(n*2^n) [fuerza bruta] vs O(C*n) [programación dinámica] ... El programa tarda bastante alrededor de C >= 31 si se usa fuerza bruta.
-    minimal_difference_subset();
+    max_sum ();                     // O(n*m) [fuerza bruta] vs O(n) [programación dinámica]
+    max_profit ();                  // O(nlgn) [fuerza bruta] vs O(nlgn) [programación dinámica]
+    min_coin (38);                  // O(n*2^n) [fuerza bruta] vs O(C*n) [programación dinámica] ... El programa tarda bastante alrededor de C >= 31 si se usa fuerza bruta.
+    minimal_difference_subset();    // O(n*2^n) [fuerza bruta] vs O(n*|∑S|) [programación dinámica]
 }
