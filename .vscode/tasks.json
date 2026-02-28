@@ -1,48 +1,49 @@
 {
+    "version": "2.0.0",
     "tasks": [
         {
-            "type": "cppbuild",
-            "label": "C/C++: gcc.exe compilar archivo activo",
-            "command": "C:\\msys64\\mingw64\\bin\\gcc.exe",
+            "label": "g++ compile and run in external terminal",
+            "type": "shell",
+            "command": "g++",
             "args": [
-                "-fdiagnostics-color=always",
-                "-g",
+                "-std=c++23",
                 "${file}",
                 "-o",
-                "${fileDirname}\\${fileBasenameNoExtension}.exe"
+                "${fileDirname}/compiled/${fileBasenameNoExtension}"
             ],
-            "options": {
-                "cwd": "${fileDirname}"
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": false,
+                "panel": "shared",
+                "showReuseMessage": true
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": "build",
-            "detail": "Tarea generada por el depurador."
+            "group": {
+                "kind": "build",
+                "isDefault": false
+            },
+            "detail": "C/C++ compile and run in external terminal"
         },
         {
-            "type": "cppbuild",
-            "label": "C/C++: g++.exe compilar archivo activo",
-            "command": "C:\\msys64\\mingw64\\bin\\g++.exe",
+            "label": "Run in external terminal",
+            "type": "shell",
+            "command": "osascript",
             "args": [
-                "-fdiagnostics-color=always",
-                "-g",
-                "${file}",
-                "-o",
-                "${fileDirname}\\compiled\\${fileBasenameNoExtension}.exe"
+                "-e",
+                "tell app \"Terminal\" to do script \"\\\"${fileDirname}/compiled/${fileBasenameNoExtension}\\\"; exit\""
             ],
-            "options": {
-                "cwd": "${fileDirname}"
+            "dependsOn": "g++ compile and run in external terminal",
+            "presentation": {
+                "echo": true,
+                "reveal": "always",
+                "focus": true,
+                "panel": "shared"
             },
-            "problemMatcher": [
-                "$gcc"
-            ],
             "group": {
                 "kind": "build",
                 "isDefault": true
             },
-            "detail": "compilador: C:\\msys64\\mingw64\\bin\\g++.exe"
+            "problemMatcher": []
         }
-    ],
-    "version": "2.0.0"
+    ]
 }
