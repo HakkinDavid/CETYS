@@ -112,12 +112,12 @@ int main()
 
     if (std::get<3>(r.back()) != 1)
     {
-        cout << "❌ No existe el inverso multiplicativo (x) para " << A << endl;
+        cout << "❌ No existe el inverso multiplicativo para " << A << " bajo módulo " << B << endl;
         return 0;
     }
     else
     {
-        cout << "✅ Podemos proceder a despejar el inverso multiplicativo (x) para " << A << endl
+        cout << "✅ Podemos proceder a despejar el inverso multiplicativo para " << A << " bajo módulo " << B << endl
              << endl;
     }
 
@@ -139,10 +139,26 @@ int main()
         i++;
     }
 
+    cout << "Sustituyendo residuos hacia atrás" << endl;
+
     tuple<int, int, int> sAtB = resolver(1, A, B, r_despejado, r_id);
 
+    cout << endl;
+
+    if (std::get<0>(sAtB) < 0)
+    {
+        cout << "Elegiremos el valor positivo más próximo para s y ajustaremos t (por identidades de Bézout)" << endl
+             << std::get<0>(sAtB) << " + " << B << " = " << std::get<0>(sAtB) + B << " como s" << endl
+             << std::get<1>(sAtB) << " - " << A << " = " << std::get<1>(sAtB) - A << " como t"
+             << endl
+             << endl;
+        std::get<0>(sAtB) += B;
+        std::get<1>(sAtB) -= A;
+    }
+
     cout << "x = " << std::get<0>(sAtB) << endl
-         << std::get<0>(sAtB) << " es el inverso multiplicativo de " << A << " bajo módulo " << B << endl;
+         << std::get<0>(sAtB) << " es el primer inverso multiplicativo positivo de " << A << " bajo módulo " << B << endl
+         << endl;
 
     cout << "Podemos comprobar que " << std::get<0>(sAtB) << " * " << A << " + " << std::get<1>(sAtB) << " * " << B << " + " << std::get<2>(sAtB) << " = " << std::get<0>(sAtB) * A + std::get<1>(sAtB) * B + std::get<2>(sAtB) << endl;
 }
