@@ -6,9 +6,9 @@
 #include <algorithm>
 using namespace std;
 
-tuple<int, int, int> resolver(int v, const int A, const int B, vector<tuple<int, int, int, int>>& r_despejado, vector<int>& r_id)
+tuple<int, int, int> resolver(int v, const int A, const int B, vector<tuple<int, int, int, int>> &r_despejado, vector<int> &r_id, int profundidad = 0)
 {
-    tuple<int, int, int> ABc;
+    tuple<int, int, int> ABc = {0, 0, 0};
 
     if (v == A)
     {
@@ -18,6 +18,10 @@ tuple<int, int, int> resolver(int v, const int A, const int B, vector<tuple<int,
     {
         std::get<1>(ABc)++;
     }
+    else if (v == 0)
+    {
+        return ABc;
+    }
     else
     {
         auto r_id_it = std::find(r_id.begin(), r_id.end(), v);
@@ -25,13 +29,24 @@ tuple<int, int, int> resolver(int v, const int A, const int B, vector<tuple<int,
         {
             int r_id_idx = std::distance(r_id.begin(), r_id_it);
 
-            tuple<int, int, int, int>& r_despejado_elemento = r_despejado.at(r_id_idx);
+            tuple<int, int, int, int> &r_despejado_elemento = r_despejado.at(r_id_idx);
 
-            tuple<int, int, int> c1 = resolver(std::get<1>(r_despejado_elemento), A, B, r_despejado, r_id), c2 = resolver(std::get<2>(r_despejado_elemento), A, B, r_despejado, r_id), c3 = resolver(std::get<3>(r_despejado_elemento), A, B, r_despejado, r_id);
+            cout << string(profundidad, '\t') << "[" << profundidad << "] Expandiendo " << v << " = " << std::get<1>(r_despejado_elemento) << " - " << std::get<2>(r_despejado_elemento) << " * " << std::get<3>(r_despejado_elemento) << endl;
 
-            ABc = c1;
-            
-            tuple<int, int, int> c2xc3; // estoy perdidísimo...
+            tuple<int, int, int> a = resolver(std::get<1>(r_despejado_elemento), A, B, r_despejado, r_id, profundidad + 1), b = resolver(std::get<3>(r_despejado_elemento), A, B, r_despejado, r_id, profundidad + 1);
+            int q = std::get<2>(r_despejado_elemento);
+
+            ABc = a;
+
+            std::get<0>(b) *= q;
+            std::get<1>(b) *= q;
+            std::get<2>(b) *= q;
+
+            std::get<0>(ABc) -= std::get<0>(b);
+            std::get<1>(ABc) -= std::get<1>(b);
+            std::get<2>(ABc) -= std::get<2>(b);
+
+            cout << string(profundidad, '\t') << "[" << profundidad << "] Resuelto " << v << " = " << std::get<0>(ABc) << "A + " << std::get<1>(ABc) << "B + " << std::get<2>(ABc) << endl;
         }
         else
         {
@@ -45,27 +60,27 @@ int main()
 {
     int A, B;
     char canónico;
-    cout << "Proporciona el coeficiente de x" << endl;
+    cout << "¿A qué número buscaremos inverso multiplicativo?" << endl;
     cin >> A;
     cout << endl;
-    cout << "Proporciona el módulo" << endl;
+    cout << "¿Bajo qué módulo?" << endl;
     cin >> B;
     cout << endl;
-    cout << "¿Utilizar representante canónico? [y/n]" << endl;
+    cout << "¿Utilizaremos representante canónico? [y/n]" << endl;
     cin >> canónico;
     cout << endl;
 
     if (canónico == 'y')
     {
         cout << endl
-             << "Representante" << endl
+             << "Representante canónico" << endl
              << A << " mod " << B << " = " << A % B << endl
              << endl;
         A = A % B;
     }
 
     cout << "Operación de congruencia" << endl
-         << A << "x ≡ 1    mod " << B << endl
+         << A << "x ≡ 1\tmod " << B << endl
          << "gcd(" << A << ", " << B << ") = 1" << endl
          << A << "s + " << B << "t = 1" << endl
          << "A = " << A << ", B = " << B << endl
@@ -123,4 +138,9 @@ int main()
         cout << "[" << i << "]  " << std::get<0>(actual) << " = " << std::get<1>(actual) << " - " << std::get<2>(actual) << " * " << std::get<3>(actual) << endl;
         i++;
     }
+
+    tuple<int, int, int> sAtB = resolver(1, A, B, r_despejado, r_id);
+
+    cout << "x = " << std::get<0>(sAtB) << endl
+         << std::get<0>(sAtB) << " es el inverso multiplicativo de " << A << " bajo módulo " << B << endl;
 }
