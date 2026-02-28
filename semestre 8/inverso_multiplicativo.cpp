@@ -145,7 +145,7 @@ int main()
 
     cout << endl;
 
-    if (std::get<0>(sAtB) < 0)
+    while (std::get<0>(sAtB) < 0) // iteramos hasta dejar a s positivo
     {
         cout << "Elegiremos el valor positivo más próximo para s y ajustaremos t (por identidades de Bézout)" << endl
              << std::get<0>(sAtB) << " + " << B << " = " << std::get<0>(sAtB) + B << " como s" << endl
