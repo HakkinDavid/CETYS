@@ -143,4 +143,6 @@ int main()
 
     cout << "x = " << std::get<0>(sAtB) << endl
          << std::get<0>(sAtB) << " es el inverso multiplicativo de " << A << " bajo módulo " << B << endl;
+
+    cout << "Podemos comprobar que " << std::get<0>(sAtB) << " * " << A << " + " << std::get<1>(sAtB) << " * " << B << " + " << std::get<2>(sAtB) << " = " << std::get<0>(sAtB) * A + std::get<1>(sAtB) * B + std::get<2>(sAtB) << endl;
 }
