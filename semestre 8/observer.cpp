@@ -231,7 +231,8 @@ public:
 
     void display()
     {
-        std::cout << "La sensación térmica es de " << heatIndex << " grados Farenheit" << std::endl;
+        std::cout << "La sensación térmica es de " << heatIndex << " grados Farenheit" << std::endl
+                  << std::endl;
     }
 };
 
