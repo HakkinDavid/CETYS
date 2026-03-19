@@ -7,7 +7,7 @@ protected:
     std::string description = "Bebida desconocida";
 
 public:
-    std::string getDescription()
+    virtual std::string getDescription()
     {
         return description;
     }
@@ -163,20 +163,14 @@ int main()
     printOrder(beverage);
 
     Beverage *beverage2 = new DarkRoast();
-    printOrder(beverage2);
     beverage2 = new Mocha(beverage2);
-    printOrder(beverage2);
     beverage2 = new Mocha(beverage2);
-    printOrder(beverage2);
     beverage2 = new Whip(beverage2);
     printOrder(beverage2);
 
     Beverage *beverage3 = new HouseBlend();
-    printOrder(beverage3);
     beverage3 = new Soy(beverage3);
-    printOrder(beverage3);
     beverage3 = new Mocha(beverage3);
-    printOrder(beverage3);
     beverage3 = new Whip(beverage3);
     printOrder(beverage3);
 }
