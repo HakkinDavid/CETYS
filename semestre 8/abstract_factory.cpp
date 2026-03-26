@@ -172,6 +172,62 @@ public:
     }
 };
 
+class VeggiePizza : public Pizza
+{
+private:
+    PizzaIngredientFactory *ingredientFactory;
+    std::unique_ptr<Dough> dough;
+    std::unique_ptr<Sauce> sauce;
+    std::unique_ptr<Cheese> cheese;
+
+public:
+    VeggiePizza(PizzaIngredientFactory *factory) : ingredientFactory(factory) {}
+
+    void prepare() override
+    {
+        std::cout << "Preparing " << name << std::endl;
+
+        dough = ingredientFactory->createDough();
+        std::cout << "Adding dough: " << dough->toString() << std::endl;
+
+        sauce = ingredientFactory->createSauce();
+        std::cout << "Adding sauce: " << sauce->toString() << std::endl;
+
+        cheese = ingredientFactory->createCheese();
+        std::cout << "Adding cheese: " << cheese->toString() << std::endl;
+
+        std::cout << "Adding veggies: assorted vegetables" << std::endl;
+    }
+};
+
+class PepperoniPizza : public Pizza
+{
+private:
+    PizzaIngredientFactory *ingredientFactory;
+    std::unique_ptr<Dough> dough;
+    std::unique_ptr<Sauce> sauce;
+    std::unique_ptr<Cheese> cheese;
+
+public:
+    PepperoniPizza(PizzaIngredientFactory *factory) : ingredientFactory(factory) {}
+
+    void prepare() override
+    {
+        std::cout << "Preparing " << name << std::endl;
+
+        dough = ingredientFactory->createDough();
+        std::cout << "Adding dough: " << dough->toString() << std::endl;
+
+        sauce = ingredientFactory->createSauce();
+        std::cout << "Adding sauce: " << sauce->toString() << std::endl;
+
+        cheese = ingredientFactory->createCheese();
+        std::cout << "Adding cheese: " << cheese->toString() << std::endl;
+
+        std::cout << "Adding pepperoni slices" << std::endl;
+    }
+};
+
 class PizzaStore
 {
 public:
@@ -212,6 +268,16 @@ public:
             pizza = new ClamPizza(factory);
             pizza->setName("New York Style Clam Pizza");
         }
+        else if (item == "veggie")
+        {
+            pizza = new VeggiePizza(factory);
+            pizza->setName("New York Style Veggie Pizza");
+        }
+        else if (item == "pepperoni")
+        {
+            pizza = new PepperoniPizza(factory);
+            pizza->setName("New York Style Pepperoni Pizza");
+        }
 
         return std::unique_ptr<Pizza>(pizza);
     }
@@ -235,6 +301,16 @@ public:
             pizza = new ClamPizza(factory);
             pizza->setName("Chicago Style Clam Pizza");
         }
+        else if (item == "veggie")
+        {
+            pizza = new VeggiePizza(factory);
+            pizza->setName("Chicago Style Veggie Pizza");
+        }
+        else if (item == "pepperoni")
+        {
+            pizza = new PepperoniPizza(factory);
+            pizza->setName("Chicago Style Pepperoni Pizza");
+        }
 
         return std::unique_ptr<Pizza>(pizza);
     }
@@ -245,13 +321,25 @@ int main()
     std::unique_ptr<PizzaStore> nyStore = std::make_unique<NYPizzaStore>();
     std::unique_ptr<PizzaStore> chicagoStore = std::make_unique<ChicagoPizzaStore>();
 
-    auto pizza = nyStore->orderPizza("cheese");
-    if (pizza)
-        std::cout << "Ordered: " << pizza->getName() << std::endl;
+    std::string types[] = {"cheese", "clam", "veggie", "pepperoni"};
 
-    pizza = chicagoStore->orderPizza("clam");
-    if (pizza)
-        std::cout << "Ordered: " << pizza->getName() << std::endl;
+    std::cout << "[NY PIZZAS]" << std::endl;
+    for (const auto &type : types)
+    {
+        auto pizza = nyStore->orderPizza(type);
+        if (pizza)
+            std::cout << "Ordered: " << pizza->getName() << std::endl;
+        std::cout << std::endl;
+    }
+
+    std::cout << "[CHICAGO PIZZAS]" << std::endl;
+    for (const auto &type : types)
+    {
+        auto pizza = chicagoStore->orderPizza(type);
+        if (pizza)
+            std::cout << "Ordered: " << pizza->getName() << std::endl;
+        std::cout << std::endl;
+    }
 
     return 0;
 }
