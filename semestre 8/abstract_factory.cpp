@@ -1,5 +1,3 @@
-
-
 #include <iostream>
 #include <string>
 #include <memory>
@@ -134,8 +132,13 @@ public:
     {
         std::cout << "Preparing " << name << std::endl;
         dough = ingredientFactory->createDough();
+        std::cout << "Adding dough: " << dough->toString() << std::endl;
+
         sauce = ingredientFactory->createSauce();
+        std::cout << "Adding sauce: " << sauce->toString() << std::endl;
+
         cheese = ingredientFactory->createCheese();
+        std::cout << "Adding cheese: " << cheese->toString() << std::endl;
     }
 };
 
@@ -154,14 +157,21 @@ public:
     void prepare() override
     {
         std::cout << "Preparing " << name << std::endl;
+
         dough = ingredientFactory->createDough();
+        std::cout << "Adding dough: " << dough->toString() << std::endl;
+
         sauce = ingredientFactory->createSauce();
+        std::cout << "Adding sauce: " << sauce->toString() << std::endl;
+
         cheese = ingredientFactory->createCheese();
+        std::cout << "Adding cheese: " << cheese->toString() << std::endl;
+
         clam = ingredientFactory->createClam();
+        std::cout << "Adding clams: " << clam->toString() << std::endl;
     }
 };
 
-// ===== STORE (Factory Method + Abstract Factory) =====
 class PizzaStore
 {
 public:
