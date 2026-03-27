@@ -233,13 +233,25 @@ int main()
     PizzaStore *nyStore = new NYPizzaStore();
     PizzaStore *chicagoStore = new ChicagoPizzaStore();
 
-    Pizza *pizza = nyStore->orderPizza("cheese");
-    if (pizza)
-        std::cout << "Ordered: " << pizza->getName() << std::endl;
+    std::string types[] = {"cheese", "veggie", "clam", "pepperoni"};
 
-    pizza = chicagoStore->orderPizza("clam");
-    if (pizza)
-        std::cout << "Ordered: " << pizza->getName() << std::endl;
+    std::cout << "[NY PIZZAS]" << std::endl;
+    for (const auto &type : types)
+    {
+        Pizza *pizza = nyStore->orderPizza(type);
+        if (pizza)
+            std::cout << "Ordered: " << pizza->getName() << std::endl;
+        std::cout << std::endl;
+    }
+
+    std::cout << "[CHICAGO PIZZAS]" << std::endl;
+    for (const auto &type : types)
+    {
+        Pizza *pizza = chicagoStore->orderPizza(type);
+        if (pizza)
+            std::cout << "Ordered: " << pizza->getName() << std::endl;
+        std::cout << std::endl;
+    }
 
     delete nyStore;
     delete chicagoStore;
