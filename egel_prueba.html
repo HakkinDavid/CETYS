@@ -1,375 +1,469 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Banco EGEL Interactivo</title>
-<style>
-body { font-family: Arial; background:#f5f5f5; padding:20px; }
-.container {
-    max-width: 50%;
-    margin: 0 auto;
-}
-.card { background:white; padding:15px; margin:10px 0; border-radius:10px; box-shadow:0 2px 5px rgba(0,0,0,0.1);} 
-button { padding:10px 15px; margin-top:10px; cursor:pointer; }
-.correct { color:green; }
-.incorrect { color:red; }
-#topbar { display:flex; justify-content:space-between; align-items:center; margin-bottom:15px; }
-#timer { font-weight:bold; }
-#nav { margin-bottom:10px; }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banco EGEL Interactivo</title>
+    <style>
+        body {
+            font-family: Arial;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 50%;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: white;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        button {
+            padding: 10px 15px;
+            margin-top: 10px;
+            cursor: pointer;
+        }
+
+        .correct {
+            color: green;
+        }
+
+        .incorrect {
+            color: red;
+        }
+
+        #topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        #timer {
+            font-weight: bold;
+        }
+
+        #nav {
+            margin-bottom: 10px;
+        }
+    </style>
 </head>
+
 <body>
-<div class="container">
-    <div id="topbar">
-        <h2>Simulador EGEL PLUS para ICC</h2>
-        <h4>David Emmanuel Santana Romero</h4>
-        <div id="timer">Tiempo: 00:00</div>
+    <div class="container">
+        <div id="topbar">
+            <h2>Simulador EGEL PLUS para ICC</h2>
+            <h4>David Emmanuel Santana Romero</h4>
+            <div id="timer">Tiempo: 00:00</div>
+        </div>
+        <div id="levelSelector" style="margin-bottom:15px;">
+            <label><strong>Nivel de estudio:</strong></label>
+            <select id="level">
+                <option value="Ligero">Ligero (15 preguntas / 5 min)</option>
+                <option value="Moderado">Moderado (25 preguntas / 10 min)</option>
+                <option value="Intermedio" selected>Intermedio (40 preguntas / 15 min)</option>
+                <option value="Avanzado">Avanzado (60 preguntas / 25 min)</option>
+                <option value="CENEVAL">CENEVAL (120 preguntas / 180 min)</option>
+            </select>
+            <button onclick="startSelectedLevel()">Iniciar</button>
+        </div>
+        <div id="nav"></div>
+        <div id="quiz"></div>
+        <h3 id="result"></h3>
     </div>
-    <div id="nav"></div>
-    <div id="quiz"></div>
-    <h3 id="result"></h3>
-</div>
 
-<script>
-const questions = [
-{q:"Una institución financiera digital opera en un entorno donde múltiples usuarios realizan transferencias simultáneas entre cuentas, generando conflictos de concurrencia en los saldos. Además, el sistema debe mantener tiempos de respuesta bajos para no afectar la experiencia del usuario, y cualquier inconsistencia podría derivar en pérdidas económicas significativas. Considerando estas condiciones técnicas y operativas, ¿cuál es la solución más adecuada para garantizar integridad y rendimiento?", options:["Implementar bloqueo pesimista en toda la base de datos para evitar accesos concurrentes","Adoptar control de concurrencia multiversión (MVCC) para manejar lecturas y escrituras concurrentes","Eliminar la concurrencia limitando el sistema a operaciones secuenciales"], answer:1, area:"Aplicación"},
-{q:"Una empresa de transporte analiza rutas en tiempo real dentro de una red de carreteras modelada como grafo ponderado con pesos positivos. El sistema requiere recalcular rutas óptimas constantemente ante cambios dinámicos en tráfico, manteniendo eficiencia computacional. Dado este escenario operativo y las restricciones del modelo, ¿qué algoritmo resulta más adecuado?", options:["Aplicar búsqueda en profundidad para explorar posibles rutas","Utilizar el algoritmo de Dijkstra con una estructura eficiente de cola de prioridad","Ordenar nodos mediante un algoritmo de ordenamiento tradicional"], answer:1, area:"Algoritmia"},
-{q:"Una organización detecta accesos no autorizados dentro de su red interna. Se busca segmentar el tráfico para aislar dominios y reducir superficie de ataque sin modificar la infraestructura física existente. Además, se requiere una solución escalable y administrable. ¿Qué alternativa técnica es más adecuada?", options:["Implementar VLANs para segmentar la red lógicamente","Configurar servidores DNS adicionales","Utilizar protocolos ARP para control de tráfico"], answer:0, area:"Base"},
-{q:"Una empresa desea predecir la demanda mensual de productos utilizando datos históricos que presentan tendencias y patrones estacionales. Se requiere un modelo que capture relaciones continuas entre variables y permita generalización adecuada. ¿Qué enfoque es más apropiado?", options:["Aplicar técnicas de regresión para modelar variables continuas","Utilizar clustering para agrupar datos sin etiquetas","Implementar recorridos en grafos para análisis"], answer:0, area:"IA"},
-{q:"Un sistema de streaming maneja grandes volúmenes de contenido con alta frecuencia de acceso en lectura, mientras que las actualizaciones de datos son poco frecuentes. Se busca minimizar latencia y mejorar disponibilidad ante fallos. Considerando estas condiciones, ¿qué estrategia es más adecuada?", options:["Implementar cache distribuido para acelerar accesos frecuentes","Aplicar bloqueos exclusivos sobre los recursos","Normalizar completamente los datos"], answer:0, area:"Base"},
-{q:"Una plataforma de comercio electrónico desea recomendar productos a sus usuarios basándose en patrones de comportamiento similares entre diferentes clientes. Se requiere un enfoque que utilice datos históricos de interacción para generar sugerencias personalizadas. ¿Qué técnica es más adecuada?", options:["Aplicar filtrado colaborativo basado en usuarios","Ordenar productos por popularidad global","Utilizar funciones hash"], answer:0, area:"IA"},
-{q:"Una base de datos presenta redundancia significativa, lo que provoca inconsistencias durante actualizaciones y dificultades en mantenimiento. Se busca mejorar integridad sin sacrificar flexibilidad. ¿Qué acción es más adecuada?", options:["Normalizar el esquema de la base de datos","Replicar datos en múltiples nodos","Agregar capas de cache"], answer:0, area:"Aplicación"},
-{q:"Un sistema requiere ordenar grandes volúmenes de datos en memoria limitada. Se busca minimizar consumo de espacio adicional sin sacrificar demasiado rendimiento. ¿Qué algoritmo es más adecuado bajo estas restricciones?", options:["Merge sort con memoria auxiliar","QuickSort in-place","Bubble sort"], answer:1, area:"Algoritmia"},
-{q:"Un sistema distribuido necesita mantenerse disponible incluso ante fallos parciales de nodos, aceptando inconsistencias temporales que eventualmente se corrigen. ¿Qué modelo de consistencia refleja mejor este comportamiento?", options:["ACID estricto","Consistencia eventual","Serialización completa"], answer:1, area:"Base"},
-{q:"Una aplicación web maneja credenciales de usuarios y requiere evitar exposición de contraseñas incluso ante filtraciones de base de datos. ¿Qué práctica es más adecuada?", options:["Aplicar hash con sal a las contraseñas","Guardar contraseñas en texto plano","Cachear credenciales"], answer:0, area:"Aplicación"},
-{q:"Un laboratorio de investigación en biología computacional almacena grandes volúmenes de datos genómicos que requieren consultas agregadas eficientes, pero las actualizaciones son poco frecuentes. ¿Qué estrategia de almacenamiento puede mejorar el desempeño de las consultas?", options:["Utilizar vistas materializadas para acelerar consultas agregadas","Normalizar completamente todos los datos","Aplicar un esquema de replicación circular"], answer:0, area:"Aplicación"},
-{q:"En una red empresarial, se requiere garantizar la entrega ordenada y confiable de paquetes entre servidores críticos que comparten información sensible. ¿Qué protocolo de transporte es más adecuado para este escenario?", options:["TCP por su control de flujo y retransmisión de paquetes","UDP por su baja latencia y simplicidad","ICMP para mensajes de error"], answer:0, area:"Base"},
-{q:"Un sistema de análisis de sentimiento procesa comentarios de usuarios en redes sociales y necesita representar palabras en un espacio vectorial denso para capturar relaciones semánticas. ¿Qué técnica es la más adecuada?", options:["Utilizar embeddings como Word2Vec o GloVe para codificar palabras","Aplicar hashing simple a cada palabra","Clasificar palabras usando árboles de decisión"], answer:0, area:"IA"},
-{q:"Una empresa de logística debe encontrar rutas óptimas en un grafo de carreteras donde pueden existir aristas con pesos negativos, pero sin ciclos negativos. ¿Qué algoritmo de caminos mínimos es más adecuado?", options:["Bellman-Ford para admitir pesos negativos","Dijkstra para eficiencia en pesos positivos","BFS para grafos no ponderados"], answer:0, area:"Algoritmia"},
-{q:"Un sistema distribuido requiere asegurar tolerancia a fallos y disponibilidad, pero acepta que la consistencia puede ser eventual. ¿Qué principio arquitectónico describe mejor este compromiso?", options:["Modelo CAP priorizando disponibilidad y tolerancia a particiones","Modelo ACID estricto en todas las operaciones","Serialización total en cada transacción"], answer:0, area:"Base"},
-{q:"Una plataforma de aprendizaje automático detecta que su modelo presenta un alto error en datos de entrenamiento y validación, indicando que no logra capturar la complejidad de los datos. ¿Qué medida es más efectiva para mejorar el desempeño?", options:["Aumentar la complejidad del modelo para reducir underfitting","Aplicar regularización para evitar overfitting","Reducir el tamaño del conjunto de entrenamiento"], answer:0, area:"IA"},
-{q:"Un sistema de colas de mensajería requiere desacoplar el procesamiento de tareas entre productores y consumidores, permitiendo escalabilidad horizontal y tolerancia a fallos. ¿Qué componente es más adecuado para cumplir estos requisitos?", options:["Implementar una message queue persistente entre servicios","Utilizar llamadas RPC síncronas entre procesos","Almacenar tareas en archivos temporales"], answer:0, area:"Aplicación"},
-{q:"Una red empresarial expone servicios internos a través de una única dirección pública, ocultando las direcciones privadas de los hosts individuales. ¿Qué mecanismo de red proporciona esta funcionalidad?", options:["Traducción de direcciones de red (NAT)","Segmentación mediante VLANs","Protocolo ARP para resolución de direcciones"], answer:0, area:"Base"},
-{q:"En un sistema de recomendación de películas, se busca aumentar la diversidad de las sugerencias para evitar que los usuarios reciban siempre las mismas opciones populares. ¿Qué ajuste es más relevante?", options:["Incorporar técnicas de diversificación en el ranking de resultados","Aumentar únicamente la precisión del modelo sin modificar la diversidad","Eliminar los elementos menos populares de la base de datos"], answer:0, area:"IA"},
-{q:"Un sistema de archivos requiere mantener la integridad de los datos ante posibles fallos de energía o sistema. ¿Qué técnica de almacenamiento ayuda a prevenir corrupción de datos en estas circunstancias?", options:["Implementar journaling para registrar operaciones antes de aplicarlas","Utilizar únicamente cache en memoria para acelerar accesos","Deshabilitar logs para maximizar el rendimiento"], answer:0, area:"Aplicación"},
-{q:"Una empresa de análisis de datos necesita detectar patrones anómalos en registros históricos de transacciones, sin contar con etiquetas previas que indiquen qué es normal o anómalo. ¿Qué técnica de aprendizaje automático es la más indicada?", options:["Aplicar clustering no supervisado para identificar grupos atípicos","Usar clasificación supervisada con etiquetas generadas manualmente","Ordenar registros por fecha para buscar irregularidades"], answer:0, area:"IA"},
-{q:"Un sistema concurrente experimenta problemas de deadlocks frecuentes al acceder a recursos compartidos. ¿Qué estrategia de diseño puede reducir la probabilidad de que ocurran estos bloqueos?", options:["Establecer un orden global de adquisición de recursos","Incrementar el número de hilos en ejecución","Agregar más memoria al sistema"], answer:0, area:"Base"},
-{q:"En una base de datos relacional, se requiere garantizar que cada registro en una tabla secundaria tenga una correspondencia válida en la tabla primaria, evitando registros huérfanos. ¿Qué característica del modelo relacional asegura esta propiedad?", options:["Uso de llaves foráneas para integridad referencial","Implementación de índices para acelerar búsquedas","Creación de vistas materializadas"], answer:0, area:"Aplicación"},
-{q:"Un sistema de procesamiento de datos en tiempo real requiere procesar grandes volúmenes de información con baja latencia y actualizaciones continuas. ¿Qué arquitectura es más adecuada para este caso?", options:["Arquitectura de streaming de datos","Procesamiento batch tradicional","Almacenamiento en archivos planos"], answer:0, area:"Aplicación"},
-{q:"Un modelo de aprendizaje automático presenta un alto error en el conjunto de prueba comparado con el de entrenamiento, indicando sobreajuste. ¿Qué acción es más efectiva para mejorar su capacidad de generalización?", options:["Aplicar regularización para penalizar la complejidad del modelo","Aumentar el número de parámetros del modelo","Reducir el tamaño del conjunto de entrenamiento"], answer:0, area:"IA"},
-{q:"Una red de computadoras debe segmentar dominios de broadcast para reducir el tráfico innecesario y mejorar la seguridad. ¿Qué tecnología permite lograr este objetivo sin modificar el cableado físico?", options:["Implementar VLANs para segmentación lógica","Configurar NAT en cada dispositivo","Utilizar el protocolo ARP para filtrado"], answer:0, area:"Base"},
-{q:"Un algoritmo debe encontrar el árbol generador mínimo en un grafo no dirigido y denso con miles de nodos. ¿Qué algoritmo es más eficiente para este propósito?", options:["Algoritmo de Prim utilizando colas de prioridad","Recorridos DFS para explorar componentes","Algoritmo greedy sin estructura auxiliar"], answer:0, area:"Algoritmia"},
-{q:"Una aplicación web de alta demanda debe protegerse contra ataques de falsificación de solicitudes entre sitios (CSRF) sin afectar la usabilidad del usuario. ¿Qué mecanismo es el más adecuado?", options:["Implementar tokens CSRF únicos por sesión","Permitir solicitudes CORS sin restricciones","Cachear formularios para acelerar respuestas"], answer:0, area:"Aplicación"},
-{q:"Un sistema de archivos distribuido requiere alta disponibilidad y consistencia de datos incluso ante fallos de nodos individuales. ¿Qué estrategia de replicación es más adecuada?", options:["Replicación con quorum para escritura y lectura","Mantener todos los datos en un solo nodo","Deshabilitar la replicación para evitar inconsistencias"], answer:0, area:"Base"},
-{q:"Un modelo de clasificación enfrenta un severo desbalanceo de clases en el conjunto de entrenamiento. ¿Qué técnica puede mejorar el desempeño del modelo en este escenario?", options:["Aplicar remuestreo para balancear las clases","Reducir el tamaño del conjunto de datos","Eliminar las clases minoritarias"], answer:0, area:"IA"},
-{q:"Un sistema de autenticación distribuido necesita mantener sesiones válidas en múltiples instancias de servidor sin compartir estado entre ellas. ¿Qué mecanismo es más apropiado?", options:["Emplear tokens JWT para autenticación sin estado","Almacenar sesiones en memoria local de cada instancia","Utilizar cookies sin firma"], answer:0, area:"Aplicación"},
-{q:"En una red interna, se requiere cifrado de extremo a extremo entre servicios para proteger la confidencialidad de la información transmitida. ¿Qué tecnología es más adecuada?", options:["Implementar mTLS (mutual TLS) para canal seguro","Utilizar HTTP sin cifrado por simplicidad","Emplear FTP para transferencias"], answer:0, area:"Base"},
-{q:"Un algoritmo debe seleccionar rápidamente los k elementos más pequeños de una lista muy grande, sin necesidad de ordenar toda la lista. ¿Qué técnica es más eficiente?", options:["Quickselect para obtener los k menores elementos","Merge sort para ordenar la lista completa","Bubble sort por simplicidad"], answer:0, area:"Algoritmia"},
-{q:"Un sistema de cache distribuido requiere invalidar datos automáticamente después de cierto tiempo para evitar servir información obsoleta. ¿Qué política de expiración es más adecuada?", options:["Time-To-Live (TTL) para cada entrada en cache","Política LRU para reemplazo de caché","FIFO para eliminación de datos antiguos"], answer:0, area:"Base"},
-{q:"Un modelo de procesamiento de lenguaje natural necesita explicar cómo toma decisiones para facilitar su adopción en entornos regulados. ¿Qué característica es prioritaria?", options:["Seleccionar modelos interpretables y explicables","Aumentar la profundidad de la red neuronal","Incrementar la complejidad sin restricción"], answer:0, area:"IA"},
-{q:"Un sistema de archivos requiere detectar y corregir errores de transmisión de datos entre nodos. ¿Qué mecanismo es más efectivo para este fin?", options:["Utilizar códigos CRC para verificación de integridad","Implementar ARP para resolución de direcciones","Aplicar NAT para traducción de direcciones"], answer:0, area:"Base"},
-{q:"Un algoritmo de búsqueda necesita recorrer todos los nodos de un grafo por niveles, asegurando que los nodos más cercanos a la raíz se visiten primero. ¿Qué método es más adecuado?", options:["Búsqueda en anchura (BFS)","Búsqueda en profundidad (DFS)","Heap para priorizar nodos"], answer:0, area:"Algoritmia"},
-{q:"Un sistema financiero requiere auditar todos los cambios realizados en registros críticos, permitiendo reconstruir el historial completo de modificaciones. ¿Qué componente es esencial para cumplir este requerimiento?", options:["Implementar logs transaccionales detallados","Utilizar cache en memoria para acelerar accesos","Aplicar recorridos DFS en los registros"], answer:0, area:"Aplicación"},
-{q:"Una red empresarial necesita ocultar las direcciones IP internas de sus dispositivos al comunicarse con Internet, permitiendo que múltiples equipos compartan una sola IP pública. ¿Qué mecanismo proporciona esta funcionalidad?", options:["Traducción de direcciones de red (NAT)","Configuración de servidores DNS adicionales","ARP para resolución de direcciones"], answer:0, area:"Base"},
-{q:"Un algoritmo debe identificar componentes conexas en un grafo no dirigido, donde es necesario explorar todos los nodos alcanzables desde cada vértice. ¿Qué método es más eficiente?", options:["Búsqueda en profundidad (DFS) para recorrer componentes","Ordenar nodos por grado de conexión","Utilizar hashing para identificar nodos"], answer:0, area:"Algoritmia"},
-{q:"Una plataforma de pagos electrónicos requiere consistencia fuerte en los saldos de las cuentas, pero también alta disponibilidad y tolerancia a fallos. ¿Qué compromiso arquitectónico es más adecuado para este escenario?", options:["Priorizar consistencia mediante replicación síncrona","Aceptar consistencia eventual para mayor disponibilidad","Eliminar replicación para evitar conflictos"], answer:0, area:"Base"},
-{q:"Un sistema de aprendizaje automático requiere validar la capacidad de generalización de un modelo antes de su despliegue en producción. ¿Qué técnica es más apropiada?", options:["Realizar validación cruzada (cross-validation) con particiones de los datos","Entrenar el modelo con todos los datos disponibles","Eliminar el conjunto de test para simplificar"], answer:0, area:"IA"},
-{q:"Una API pública experimenta abuso por parte de clientes automatizados, generando saturación y disminución de la calidad del servicio para usuarios legítimos. ¿Qué mecanismo puede mitigar este problema sin afectar a los usuarios válidos?", options:["Aplicar rate limiting con API keys para controlar el acceso","Bloquear masivamente direcciones IP sospechosas","Deshabilitar el servicio temporalmente"], answer:0, area:"Aplicación"},
-{q:"Un sistema distribuido requiere consenso entre múltiples nodos para mantener una copia consistente del estado global, incluso ante fallos parciales. ¿Qué protocolo es más adecuado para lograr este objetivo?", options:["Protocolo Raft para consenso distribuido","Utilizar HTTP para sincronización básica","Aplicar ARP para resolución de nodos"], answer:0, area:"Base"},
-{q:"Un algoritmo debe obtener un orden topológico válido de las tareas en un grafo dirigido acíclico (DAG) para respetar dependencias entre ellas. ¿Qué algoritmo es más eficiente?", options:["Algoritmo de Kahn para orden topológico","Dijkstra para caminos mínimos","DFS simple sin seguimiento de dependencias"], answer:0, area:"Algoritmia"},
-{q:"Una base de datos relacional sufre contención y bloqueos frecuentes durante operaciones de lectura y escritura concurrentes. ¿Qué estrategia puede reducir estos problemas y mejorar el rendimiento?", options:["Aplicar control de concurrencia multiversión (MVCC)","Implementar bloqueos globales en la base de datos","Serializar todas las transacciones"], answer:0, area:"Aplicación"},
-{q:"En un entorno de microservicios, se requiere comunicación segura entre servicios internos, asegurando autenticación mutua y cifrado de datos. ¿Qué tecnología es más adecuada?", options:["Implementar mTLS para autenticación y cifrado mutuo","Utilizar HTTP simple por facilidad","Emplear FTP para transferencias"], answer:0, area:"Base"},
-{q:"Un modelo de reducción de dimensionalidad busca preservar la mayor cantidad de varianza posible en los datos originales al proyectarlos en menos dimensiones. ¿Qué técnica es la más común para este propósito?", options:["Análisis de componentes principales (PCA)","K-vecinos más cercanos (KNN)","Hashing de características"], answer:0, area:"IA"},
-{q:"Un sistema de procesamiento de tareas críticas requiere colas durables que garanticen que las tareas no se pierdan ante caídas del sistema. ¿Qué componente es más adecuado?", options:["Broker de mensajes con persistencia en disco","Array en memoria para almacenar tareas","Logs temporales sin respaldo"], answer:0, area:"Aplicación"},
-{q:"Un sistema concurrente requiere evitar condiciones de carrera al acceder a memoria compartida con mínima espera activa. ¿Qué mecanismo es más adecuado?", options:["Mutex para exclusión mutua","Incrementar número de hilos","Eliminar paralelismo"], answer:0, area:"Base"},
-{q:"En teoría de lenguajes, se desea reconocer cadenas con estructura anidada arbitraria. ¿Qué modelo computacional es adecuado?", options:["Autómata de pila","Autómata finito determinista","Expresiones regulares simples"], answer:0, area:"Base"},
-{q:"Un algoritmo requiere encontrar el elemento mediano sin ordenar completamente la lista. ¿Qué técnica es más eficiente?", options:["Quickselect","Merge sort","Insertion sort"], answer:0, area:"Algoritmia"},
-{q:"Se desea resolver un sistema de ecuaciones lineales de gran tamaño de forma determinista. ¿Qué método es más adecuado?", options:["Eliminación de Gauss","Búsqueda en profundidad","Hashing"], answer:0, area:"Matemáticas"},
-{q:"Un sistema operativo necesita evitar inanición en procesos de baja prioridad. ¿Qué estrategia es más adecuada?", options:["Aging en planificación","FIFO estricto","Eliminación de prioridades"], answer:0, area:"Base"},
-{q:"Un modelo de aprendizaje requiere separar clases linealmente separables maximizando margen. ¿Qué algoritmo es adecuado?", options:["SVM","K-means","Naive Bayes"], answer:0, area:"IA"},
-{q:"Un sistema distribuido requiere coordinar acceso a recurso único sin punto único de fallo. ¿Qué técnica es adecuada?", options:["Algoritmo de consenso distribuido","Bloqueo local","Variables globales"], answer:0, area:"Base"},
-{q:"Se requiere recorrer un grafo ponderado para encontrar rutas mínimas repetidamente. ¿Qué estructura optimiza Dijkstra?", options:["Heap binario","Lista simple","Matriz sin optimización"], answer:0, area:"Algoritmia"},
-{q:"Un compilador necesita transformar código fuente en representación intermedia optimizable. ¿Qué fase realiza esto?", options:["Análisis semántico y generación IR","Análisis léxico","Ejecución directa"], answer:0, area:"Base"},
-{q:"Un modelo presenta alta varianza. ¿Qué técnica reduce este efecto?", options:["Regularización","Aumentar parámetros","Reducir datos"], answer:0, area:"IA"},
-{q:"Se requiere garantizar atomicidad en operaciones de base de datos. ¿Qué propiedad lo asegura?", options:["Transacciones ACID","Indexación","Cache"], answer:0, area:"Base"},
-{q:"Un algoritmo necesita explorar todas las combinaciones posibles de solución. ¿Qué paradigma aplica?", options:["Backtracking","Greedy","Divide y vencerás"], answer:0, area:"Algoritmia"},
-{q:"Una red requiere detectar errores en transmisión de datos. ¿Qué mecanismo aplica?", options:["Checksum o CRC","ARP","NAT"], answer:0, area:"Base"},
-{q:"Se desea clasificar datos con probabilidad condicional bajo independencia. ¿Qué modelo aplica?", options:["Naive Bayes","SVM","KNN"], answer:0, area:"IA"},
-{q:"Un sistema requiere almacenamiento persistente tolerante a fallos. ¿Qué técnica es adecuada?", options:["RAID","Cache volátil","Memoria temporal"], answer:0, area:"Base"},
-{q:"Se requiere evaluar expresión matemática con precedencia de operadores. ¿Qué estructura es adecuada?", options:["Pila","Cola","Lista enlazada simple"], answer:0, area:"Algoritmia"},
-{q:"Un sistema distribuido requiere replicar datos con consistencia fuerte. ¿Qué estrategia es adecuada?", options:["Replicación síncrona","Cache local","Eventual inconsistency"], answer:0, area:"Base"},
-{q:"Un modelo requiere agrupar datos sin etiquetas. ¿Qué técnica aplica?", options:["Clustering","Regresión","Clasificación supervisada"], answer:0, area:"IA"},
-{q:"Se desea minimizar complejidad espacial en ordenamiento. ¿Qué algoritmo es adecuado?", options:["QuickSort in-place","Merge sort","Heap sort con estructura externa"], answer:0, area:"Algoritmia"},
-{q:"Un sistema necesita comunicación confiable entre procesos distribuidos. ¿Qué protocolo es adecuado?", options:["TCP","UDP","ICMP"], answer:0, area:"Base"},
-{q:"Un sistema de gestión de bases de datos relacional opera en un entorno bancario donde múltiples transacciones concurrentes modifican balances y requieren garantizar consistencia fuerte incluso ante fallos parciales del sistema. Además, se necesita evitar lecturas sucias y asegurar aislamiento adecuado sin degradar severamente el rendimiento. ¿Qué mecanismo interno del DBMS es más adecuado para cumplir estos requisitos?", options:["Control de concurrencia mediante locking con niveles de aislamiento serializable","Cacheo agresivo de consultas sin control transaccional","Ejecución secuencial de todas las transacciones"], answer:0, area:"Aplicación"},
-{q:"En el diseño de un compilador para un lenguaje de programación moderno, se requiere validar la correcta estructura sintáctica de expresiones anidadas, como llamadas recursivas y bloques condicionales, a partir de una gramática libre de contexto. ¿Qué componente es responsable directo de esta verificación estructural?", options:["Analizador sintáctico basado en parsing descendente o ascendente","Analizador léxico mediante expresiones regulares","Generador de código intermedio"], answer:0, area:"Base"},
-{q:"Una aplicación de navegación urbana debe recalcular rutas óptimas constantemente ante cambios dinámicos en tráfico, utilizando un grafo ponderado con pesos positivos. Se requiere eficiencia en tiempo real y reutilización parcial de resultados previos. ¿Qué algoritmo es más adecuado como base?", options:["Dijkstra con cola de prioridad","DFS con backtracking","Ordenamiento topológico"], answer:0, area:"Algoritmia"},
-{q:"Un sistema distribuido basado en microservicios requiere garantizar que múltiples instancias mantengan consistencia de estado crítico mediante consenso, incluso cuando algunos nodos fallen o se desconecten temporalmente. ¿Qué protocolo es más adecuado para este objetivo?", options:["Raft para consenso distribuido","HTTP simple entre nodos","Balanceo de carga sin sincronización"], answer:0, area:"Base"},
-{q:"Una empresa de análisis de datos necesita reducir la dimensionalidad de un conjunto de datos altamente correlacionados, preservando la mayor cantidad de varianza posible para facilitar visualización y modelado. ¿Qué técnica es más adecuada?", options:["Análisis de Componentes Principales (PCA)","K-means clustering","Regresión logística"], answer:0, area:"IA"},
-{q:"Un sistema operativo debe planificar procesos en un entorno interactivo donde se prioriza la equidad y la capacidad de respuesta, evitando que procesos de baja prioridad sufran inanición. ¿Qué algoritmo de planificación es más adecuado?", options:["Round Robin con quantum adecuado","FIFO sin interrupciones","Shortest Job First no preemptivo"], answer:0, area:"Base"},
-{q:"Un sistema de archivos distribuido requiere tolerancia a fallos y recuperación consistente tras interrupciones inesperadas de energía, manteniendo integridad de metadatos y operaciones pendientes. ¿Qué técnica es más adecuada?", options:["Journaling para registrar operaciones antes de commit","Cache en memoria sin persistencia","Eliminación de logs para eficiencia"], answer:0, area:"Aplicación"},
-{q:"En un sistema de aprendizaje automático, se detecta que el modelo tiene bajo error en entrenamiento pero alto en validación, indicando sobreajuste. ¿Qué estrategia es más adecuada para mejorar la generalización?", options:["Aplicar regularización para penalizar complejidad","Incrementar número de parámetros","Eliminar validación"], answer:0, area:"IA"},
-{q:"Un algoritmo debe recorrer un grafo no dirigido para identificar componentes conexas, asegurando visitar todos los nodos alcanzables desde cada vértice sin redundancia. ¿Qué técnica es más adecuada?", options:["DFS para exploración completa","BFS únicamente desde un nodo","Ordenamiento de nodos"], answer:0, area:"Algoritmia"},
-{q:"Una red empresarial requiere segmentar dominios de broadcast sin modificar infraestructura física, permitiendo aislar tráfico entre departamentos y mejorar seguridad. ¿Qué solución es más adecuada?", options:["Implementación de VLANs","Uso de NAT en cada host","Configuración de ARP manual"], answer:0, area:"Base"},
-{q:"Un sistema concurrente presenta deadlocks frecuentes debido a adquisición inconsistente de recursos entre hilos. ¿Qué estrategia de diseño reduce este problema?", options:["Orden global de adquisición de recursos","Incrementar número de hilos","Reducir memoria disponible"], answer:0, area:"Base"},
-{q:"Una plataforma de e-commerce requiere recomendar productos personalizados basándose en similitudes entre usuarios con historiales de compra similares. ¿Qué técnica es más adecuada?", options:["Filtrado colaborativo basado en usuarios","Ordenamiento por popularidad global","Hashing de productos"], answer:0, area:"IA"},
-{q:"Un algoritmo debe encontrar el árbol generador mínimo en un grafo denso de gran tamaño con eficiencia computacional. ¿Qué enfoque es más adecuado?", options:["Algoritmo de Prim con heap","DFS simple","Búsqueda exhaustiva"], answer:0, area:"Algoritmia"},
-{q:"Un sistema web requiere proteger formularios contra ataques CSRF sin afectar experiencia del usuario. ¿Qué mecanismo es más adecuado?", options:["Tokens CSRF únicos por sesión","Deshabilitar cookies","Cachear formularios"], answer:0, area:"Aplicación"},
-{q:"Un modelo de lenguaje natural necesita representar palabras en vectores densos capturando relaciones semánticas. ¿Qué técnica es más adecuada?", options:["Word2Vec o embeddings similares","Hashing simple","One-hot encoding exclusivamente"], answer:0, area:"IA"},
-{q:"Un sistema distribuido prioriza disponibilidad y tolerancia a particiones, aceptando inconsistencias temporales que eventualmente se corrigen. ¿Qué modelo describe este comportamiento?", options:["Consistencia eventual bajo CAP","ACID estricto","Serialización total"], answer:0, area:"Base"},
-{q:"Una base de datos requiere garantizar integridad referencial entre tablas relacionadas evitando registros huérfanos. ¿Qué mecanismo lo asegura?", options:["Llaves foráneas","Índices secundarios","Cache distribuido"], answer:0, area:"Aplicación"},
-{q:"Un algoritmo debe encontrar los k elementos más pequeños sin ordenar completamente la lista. ¿Qué técnica es más eficiente?", options:["Quickselect","Merge sort","Bubble sort"], answer:0, area:"Algoritmia"},
-{q:"Un sistema requiere autenticación sin estado en múltiples instancias distribuidas, evitando almacenamiento de sesión en servidor. ¿Qué mecanismo es más adecuado?", options:["JWT firmados","Sesiones en memoria local","Cookies sin firma"], answer:0, area:"Aplicación"},
-{q:"Una red requiere ocultar direcciones IP internas al comunicarse con internet, permitiendo compartir una IP pública. ¿Qué técnica lo permite?", options:["NAT","ARP","DNS"], answer:0, area:"Base"},
-{q:"Un modelo de clasificación enfrenta desbalance severo entre clases. ¿Qué técnica mejora desempeño?", options:["Oversampling o undersampling","Eliminar clases minoritarias","Reducir datos"], answer:0, area:"IA"},
-{q:"Un sistema requiere colas durables que no pierdan mensajes ante fallos. ¿Qué componente es adecuado?", options:["Message broker persistente","Array en memoria","Logs temporales"], answer:0, area:"Aplicación"},
-{q:"Un algoritmo debe recorrer un grafo por niveles asegurando visitar primero nodos cercanos. ¿Qué técnica aplica?", options:["BFS","DFS","Heap traversal"], answer:0, area:"Algoritmia"},
-{q:"Un sistema requiere cifrado mutuo entre servicios internos para autenticación fuerte. ¿Qué tecnología es adecuada?", options:["mTLS","HTTP plano","FTP"], answer:0, area:"Base"},
-{q:"Un sistema de cache requiere invalidar datos tras cierto tiempo para evitar obsolescencia. ¿Qué política es adecuada?", options:["TTL","LRU","FIFO"], answer:0, area:"Base"},
-{q:"Un compilador necesita transformar código fuente a representación optimizable independiente de máquina. ¿Qué fase realiza esto?", options:["Generación de IR","Análisis léxico","Ejecución directa"], answer:0, area:"Base"},
-{q:"Un sistema de recomendación busca aumentar diversidad en resultados. ¿Qué técnica es adecuada?", options:["Diversificación en ranking","Aumentar precisión únicamente","Eliminar datos"], answer:0, area:"IA"},
-{q:"Un sistema requiere detectar errores en transmisión de datos. ¿Qué técnica aplica?", options:["CRC","ARP","NAT"], answer:0, area:"Base"},
-{q:"Un algoritmo debe ordenar con bajo uso de memoria adicional. ¿Qué opción es adecuada?", options:["QuickSort in-place","Merge sort","Counting sort"], answer:0, area:"Algoritmia"},
-{q:"Un sistema financiero requiere auditoría completa de cambios en datos críticos. ¿Qué componente es esencial?", options:["Logs transaccionales","Cache","DFS"], answer:0, area:"Aplicación"},
-{q:"Un sistema de base de datos distribuido maneja réplicas en múltiples regiones geográficas y requiere minimizar latencia de lectura sin comprometer consistencia en operaciones críticas de escritura. Se busca un equilibrio práctico entre disponibilidad y coherencia. ¿Qué estrategia es más adecuada?", options:["Lecturas desde réplicas con escrituras en nodo líder y sincronización controlada","Permitir escrituras en cualquier nodo sin coordinación","Deshabilitar replicación"], answer:0, area:"Base"},
-{q:"En análisis de algoritmos, se requiere determinar la complejidad temporal de una función recursiva que divide el problema en dos subproblemas de tamaño n/2 y combina en tiempo lineal. ¿Qué técnica es más adecuada para resolverla?", options:["Teorema Maestro","Simulación manual únicamente","Pruebas empíricas"], answer:0, area:"Algoritmia"},
-{q:"Un sistema operativo administra memoria virtual para múltiples procesos y necesita evitar fragmentación externa mientras mantiene eficiencia en asignación. ¿Qué técnica es más adecuada?", options:["Paginación","Asignación contigua fija","Segmentación sin control"], answer:0, area:"Base"},
-{q:"Una red requiere asegurar confidencialidad e integridad de datos transmitidos entre clientes y servidores en internet público. ¿Qué protocolo es más adecuado?", options:["TLS","HTTP","FTP"], answer:0, area:"Base"},
-{q:"Un modelo de machine learning necesita evaluar su desempeño de forma robusta usando múltiples particiones del conjunto de datos. ¿Qué técnica es más adecuada?", options:["Validación cruzada","Entrenamiento único","Eliminación de test"], answer:0, area:"IA"},
-{q:"Un sistema de procesamiento de eventos requiere manejar flujos continuos de datos con baja latencia y procesamiento incremental. ¿Qué arquitectura es más adecuada?", options:["Streaming","Batch","Archivos planos"], answer:0, area:"Aplicación"},
-{q:"Un algoritmo necesita detectar ciclos en un grafo dirigido para validar dependencias entre tareas. ¿Qué técnica es más adecuada?", options:["DFS con detección de back edges","BFS simple","Ordenamiento aleatorio"], answer:0, area:"Algoritmia"},
-{q:"Una base de datos requiere mejorar rendimiento en consultas repetitivas sin modificar esquema subyacente. ¿Qué técnica es más adecuada?", options:["Índices","Eliminar normalización","Duplicar tablas manualmente"], answer:0, area:"Aplicación"},
-{q:"Un sistema distribuido necesita coordinar acceso exclusivo a un recurso compartido entre múltiples nodos. ¿Qué mecanismo es más adecuado?", options:["Algoritmo de exclusión mutua distribuida","Bloqueo local","Variables globales"], answer:0, area:"Base"},
-{q:"Un modelo de clasificación requiere interpretar resultados para cumplir regulaciones. ¿Qué característica es más adecuada?", options:["Modelos explicables","Redes profundas complejas","Aumentar capas"], answer:0, area:"IA"},
-{q:"Un sistema requiere ordenar grandes volúmenes de datos externos que no caben en memoria. ¿Qué técnica es más adecuada?", options:["External merge sort","QuickSort","Bubble sort"], answer:0, area:"Algoritmia"},
-{q:"Una red empresarial necesita resolver nombres de dominio a direcciones IP internas. ¿Qué servicio es adecuado?", options:["DNS","ARP","NAT"], answer:0, area:"Base"},
-{q:"Un sistema concurrente requiere comunicación segura entre hilos evitando condiciones de carrera. ¿Qué mecanismo es adecuado?", options:["Locks","Aumentar CPU","Eliminar sincronización"], answer:0, area:"Base"},
-{q:"Un modelo de clustering requiere determinar número óptimo de grupos. ¿Qué técnica es adecuada?", options:["Método del codo","Regresión","Clasificación"], answer:0, area:"IA"},
-{q:"Un sistema de almacenamiento necesita redundancia para tolerar fallos de disco. ¿Qué técnica es adecuada?", options:["RAID 1 o 5","Cache","Memoria temporal"], answer:0, area:"Base"},
-{q:"Un algoritmo debe encontrar caminos mínimos en grafos con pesos negativos sin ciclos negativos. ¿Qué algoritmo es adecuado?", options:["Bellman-Ford","Dijkstra","BFS"], answer:0, area:"Algoritmia"},
-{q:"Un sistema web necesita escalar horizontalmente sin compartir estado. ¿Qué diseño es adecuado?", options:["Arquitectura stateless","Sesiones locales","Variables globales"], answer:0, area:"Aplicación"},
-{q:"Un modelo supervisado requiere reducir overfitting. ¿Qué técnica es adecuada?", options:["Regularización","Aumentar complejidad","Reducir datos"], answer:0, area:"IA"},
-{q:"Una red requiere identificar direcciones MAC a partir de IP. ¿Qué protocolo se utiliza?", options:["ARP","DNS","TCP"], answer:0, area:"Base"},
-{q:"Un algoritmo necesita seleccionar elementos en tiempo lineal esperado. ¿Qué técnica es adecuada?", options:["Quickselect","Merge sort","Heap sort"], answer:0, area:"Algoritmia"},
-{q:"Un sistema requiere autenticación segura basada en claves públicas. ¿Qué mecanismo es adecuado?", options:["Criptografía asimétrica","Texto plano","Hash simple"], answer:0, area:"Aplicación"},
-{q:"Un sistema de archivos requiere acceso rápido a datos recientes. ¿Qué técnica es adecuada?", options:["Cache","Deshabilitar memoria","Lectura directa siempre"], answer:0, area:"Base"},
-{q:"Un modelo requiere clasificar datos no linealmente separables. ¿Qué técnica es adecuada?", options:["Kernel SVM","Regresión lineal","Naive Bayes"], answer:0, area:"IA"},
-{q:"Un algoritmo debe generar permutaciones de elementos. ¿Qué técnica aplica?", options:["Backtracking","Greedy","Divide y vencerás"], answer:0, area:"Algoritmia"},
-{q:"Un sistema distribuido necesita balancear carga entre servidores. ¿Qué técnica es adecuada?", options:["Load balancing","Cache","Logs"], answer:0, area:"Aplicación"},
-{q:"Una base de datos requiere eliminar redundancia y mejorar integridad. ¿Qué proceso aplica?", options:["Normalización","Replicación","Cache"], answer:0, area:"Aplicación"},
-{q:"Un sistema requiere transmisión eficiente sin necesidad de confiabilidad. ¿Qué protocolo es adecuado?", options:["UDP","TCP","HTTP"], answer:0, area:"Base"},
-{q:"Un modelo de NLP requiere representar contexto de palabras. ¿Qué técnica es adecuada?", options:["Embeddings","Hashing","One-hot"], answer:0, area:"IA"},
-{q:"Un algoritmo debe recorrer árbol binario en orden. ¿Qué recorrido aplica?", options:["Inorder","Preorder","Postorder"], answer:0, area:"Algoritmia"},
-{q:"Un sistema necesita detectar anomalías sin etiquetas. ¿Qué técnica es adecuada?", options:["Clustering","Clasificación","Regresión"], answer:0, area:"IA"},
-{q:"Un sistema requiere consistencia fuerte en transacciones críticas. ¿Qué propiedad aplica?", options:["ACID","CAP","BASE"], answer:0, area:"Base"},
-{q:"Un sistema financiero de alta frecuencia procesa órdenes de compra y venta en milisegundos y requiere consistencia estricta en balances mientras mantiene latencias mínimas bajo alta concurrencia. ¿Qué estrategia de concurrencia es más adecuada?", options:["MVCC con control de versiones para lecturas no bloqueantes","Bloqueo global de toda la base de datos","Ejecución secuencial de transacciones"], answer:0, area:"Aplicación"},
-{q:"Un compilador necesita optimizar código eliminando subexpresiones redundantes sin alterar semántica del programa. ¿Qué técnica de optimización es adecuada?", options:["Eliminación de subexpresiones comunes","Inlining indiscriminado","Duplicación de código"], answer:0, area:"Base"},
-{q:"Un sistema distribuido requiere garantizar que múltiples nodos lleguen al mismo estado incluso con mensajes retrasados o perdidos, priorizando consistencia fuerte. ¿Qué enfoque es adecuado?", options:["Consenso con quórum","Eventual consistency sin coordinación","Actualización local independiente"], answer:0, area:"Base"},
-{q:"Un algoritmo necesita encontrar el camino más corto entre todos los pares de nodos en un grafo denso. ¿Qué algoritmo es más adecuado?", options:["Floyd-Warshall","Dijkstra repetido sin optimización","DFS"], answer:0, area:"Algoritmia"},
-{q:"Un modelo de machine learning presenta underfitting al no capturar patrones complejos en los datos. ¿Qué acción es más adecuada?", options:["Incrementar complejidad del modelo","Reducir número de features","Aplicar regularización fuerte"], answer:0, area:"IA"},
-{q:"Un sistema operativo requiere administrar memoria evitando swapping excesivo que degrade rendimiento. ¿Qué técnica es adecuada?", options:["Algoritmo de reemplazo LRU","Asignación aleatoria","Eliminar memoria virtual"], answer:0, area:"Base"},
-{q:"Una red empresarial requiere autenticar dispositivos antes de permitir acceso a recursos internos. ¿Qué mecanismo es adecuado?", options:["802.1X","ARP","ICMP"], answer:0, area:"Base"},
-{q:"Un sistema de archivos necesita manejar millones de archivos pequeños con acceso frecuente. ¿Qué estructura mejora desempeño?", options:["Índices tipo B-tree","Lista lineal","Array simple"], answer:0, area:"Aplicación"},
-{q:"Un algoritmo debe evaluar expresiones aritméticas con paréntesis y operadores. ¿Qué técnica es adecuada?", options:["Uso de pila para parsing","BFS","DFS"], answer:0, area:"Algoritmia"},
-{q:"Un modelo de clustering requiere manejar datos con formas no esféricas. ¿Qué técnica es adecuada?", options:["DBSCAN","K-means","Regresión"], answer:0, area:"IA"},
-{q:"Un sistema distribuido necesita detectar fallos de nodos rápidamente. ¿Qué mecanismo es adecuado?", options:["Heartbeat messages","Polling manual","Logs offline"], answer:0, area:"Base"},
-{q:"Un sistema web requiere distribuir tráfico entrante entre múltiples instancias. ¿Qué técnica es adecuada?", options:["Load balancer","Cache local","Logs"], answer:0, area:"Aplicación"},
-{q:"Un algoritmo necesita ordenar datos parcialmente ordenados eficientemente. ¿Qué técnica es adecuada?", options:["Insertion sort","Bubble sort","Selection sort"], answer:0, area:"Algoritmia"},
-{q:"Un sistema requiere proteger datos almacenados contra acceso no autorizado. ¿Qué técnica es adecuada?", options:["Cifrado en reposo","Texto plano","Hash reversible"], answer:0, area:"Aplicación"},
-{q:"Un modelo supervisado requiere evaluar precisión en clases desbalanceadas. ¿Qué métrica es adecuada?", options:["F1-score","Accuracy simple","Error total"], answer:0, area:"IA"},
-{q:"Una red requiere encapsular paquetes para transmisión entre redes distintas. ¿Qué protocolo aplica?", options:["IP","ARP","DNS"], answer:0, area:"Base"},
-{q:"Un sistema concurrente necesita evitar inanición en hilos de baja prioridad. ¿Qué técnica es adecuada?", options:["Aging","FIFO","Eliminación de prioridades"], answer:0, area:"Base"},
-{q:"Un algoritmo debe encontrar elementos duplicados en una lista grande eficientemente. ¿Qué técnica es adecuada?", options:["Hashing","Búsqueda lineal repetida","Ordenamiento burbuja"], answer:0, area:"Algoritmia"},
-{q:"Un sistema distribuido requiere almacenar datos con alta disponibilidad y particionado automático. ¿Qué enfoque es adecuado?", options:["Sharding","Base única","Sin replicación"], answer:0, area:"Aplicación"},
-{q:"Un modelo de NLP necesita capturar dependencias contextuales largas. ¿Qué arquitectura es adecuada?", options:["Transformers","Naive Bayes","KNN"], answer:0, area:"IA"},
-{q:"Un sistema requiere garantizar integridad de datos durante transmisión. ¿Qué técnica es adecuada?", options:["Checksum","ARP","DNS"], answer:0, area:"Base"},
-{q:"Un algoritmo necesita explorar todas las rutas posibles en un problema combinatorio. ¿Qué técnica aplica?", options:["Backtracking","Greedy","Divide y vencerás"], answer:0, area:"Algoritmia"},
-{q:"Un sistema web requiere evitar ataques de inyección SQL. ¿Qué práctica es adecuada?", options:["Consultas parametrizadas","Concatenación de strings","Deshabilitar validación"], answer:0, area:"Aplicación"},
-{q:"Un modelo requiere seleccionar características relevantes. ¿Qué técnica es adecuada?", options:["Feature selection","Clustering","Ordenamiento"], answer:0, area:"IA"},
-{q:"Un sistema distribuido necesita sincronizar relojes entre nodos. ¿Qué protocolo es adecuado?", options:["NTP","HTTP","FTP"], answer:0, area:"Base"},
-{q:"Un algoritmo debe encontrar el máximo en un heap. ¿Qué operación aplica?", options:["Peek raíz","Recorrido completo","Ordenamiento"], answer:0, area:"Algoritmia"},
-{q:"Un sistema requiere control de acceso basado en roles. ¿Qué modelo es adecuado?", options:["RBAC","ACL simple","Hashing"], answer:0, area:"Aplicación"},
-{q:"Un modelo necesita evaluar probabilidades condicionales. ¿Qué teorema aplica?", options:["Bayes","Pitagoras","Euler"], answer:0, area:"IA"},
-{q:"Una red requiere traducir nombres a IP. ¿Qué sistema aplica?", options:["DNS","ARP","ICMP"], answer:0, area:"Base"},
-{q:"Un algoritmo debe detectar ciclos en grafo no dirigido. ¿Qué técnica es adecuada?", options:["DFS con padre","BFS simple","Ordenamiento"], answer:0, area:"Algoritmia"},
-{q:"Un sistema necesita logs persistentes para auditoría. ¿Qué técnica es adecuada?", options:["Logging en disco","Cache","Memoria volátil"], answer:0, area:"Aplicación"},
-{q:"Un sistema de base de datos en una plataforma de pagos internacionales requiere manejar transacciones distribuidas entre múltiples nodos geográficamente separados, garantizando atomicidad global incluso ante fallos parciales de red. ¿Qué protocolo es más adecuado para coordinar estas transacciones?", options:["Two-Phase Commit (2PC)","Ejecución independiente por nodo","Cache local sin sincronización"], answer:0, area:"Base"},
-{q:"En un compilador, se necesita optimizar código eliminando variables que nunca se utilizan para reducir uso de memoria y mejorar eficiencia. ¿Qué técnica es adecuada?", options:["Eliminación de código muerto","Inlining","Loop unrolling"], answer:0, area:"Base"},
-{q:"Un algoritmo debe determinar si un grafo es bipartito en tiempo lineal respecto a vértices y aristas. ¿Qué técnica es adecuada?", options:["BFS con coloreo","DFS sin control","Ordenamiento topológico"], answer:0, area:"Algoritmia"},
-{q:"Un sistema operativo necesita evitar condiciones de interbloqueo detectando ciclos en la asignación de recursos. ¿Qué método es adecuado?", options:["Algoritmo del grafo de espera","Round Robin","FIFO"], answer:0, area:"Base"},
-{q:"Una red empresarial requiere priorizar tráfico de voz sobre datos para mantener calidad de servicio. ¿Qué mecanismo es adecuado?", options:["QoS (Quality of Service)","ARP","DNS"], answer:0, area:"Base"},
-{q:"Un modelo de aprendizaje automático requiere ajustar hiperparámetros de manera sistemática para mejorar desempeño. ¿Qué técnica es adecuada?", options:["Grid search","Clustering","Ordenamiento"], answer:0, area:"IA"},
-{q:"Un sistema distribuido necesita replicar datos entre nodos garantizando que lecturas reflejen al menos un estado consistente reciente. ¿Qué estrategia es adecuada?", options:["Quorum de lectura/escritura","Cache local","Replicación asíncrona sin control"], answer:0, area:"Base"},
-{q:"Un algoritmo debe encontrar la subsecuencia común más larga entre dos cadenas. ¿Qué técnica es adecuada?", options:["Programación dinámica","Greedy","Divide y vencerás"], answer:0, area:"Algoritmia"},
-{q:"Un sistema web requiere almacenar sesiones compartidas entre múltiples instancias. ¿Qué solución es adecuada?", options:["Almacenamiento centralizado como Redis","Memoria local","Variables globales"], answer:0, area:"Aplicación"},
-{q:"Un modelo de clasificación requiere evaluar desempeño en múltiples clases. ¿Qué métrica es adecuada?", options:["Matriz de confusión","Error absoluto","Media simple"], answer:0, area:"IA"},
-{q:"Una red requiere enrutar paquetes entre diferentes subredes. ¿Qué dispositivo es adecuado?", options:["Router","Switch","Hub"], answer:0, area:"Base"},
-{q:"Un sistema concurrente necesita coordinar acceso a recursos limitados. ¿Qué técnica es adecuada?", options:["Semáforos","Eliminar concurrencia","Duplicar recursos sin control"], answer:0, area:"Base"},
-{q:"Un algoritmo debe encontrar el k-ésimo mayor elemento en una lista. ¿Qué técnica es adecuada?", options:["Quickselect","Merge sort","Bubble sort"], answer:0, area:"Algoritmia"},
-{q:"Un sistema requiere validar entradas de usuario para prevenir ataques. ¿Qué práctica es adecuada?", options:["Validación y sanitización de entradas","Confiar en el cliente","Ignorar validación"], answer:0, area:"Aplicación"},
-{q:"Un modelo de machine learning necesita reducir dimensionalidad preservando relaciones locales. ¿Qué técnica es adecuada?", options:["t-SNE","Regresión lineal","KNN"], answer:0, area:"IA"},
-{q:"Un sistema distribuido requiere detectar inconsistencias entre réplicas. ¿Qué técnica es adecuada?", options:["Checksum y comparación","Logs locales","Cache"], answer:0, area:"Base"},
-{q:"Un algoritmo debe recorrer un árbol en postorden. ¿Qué técnica es adecuada?", options:["Postorder traversal","Inorder","Preorder"], answer:0, area:"Algoritmia"},
-{q:"Un sistema necesita autenticación multifactor para mayor seguridad. ¿Qué práctica es adecuada?", options:["MFA","Contraseña simple","Sin autenticación"], answer:0, area:"Aplicación"},
-{q:"Un modelo requiere ajustar pesos mediante descenso de gradiente. ¿Qué componente es clave?", options:["Función de pérdida","Ordenamiento","Hashing"], answer:0, area:"IA"},
-{q:"Una red requiere control de acceso a nivel de paquetes. ¿Qué mecanismo es adecuado?", options:["Firewall","DNS","ARP"], answer:0, area:"Base"},
-{q:"Un algoritmo debe detectar si una cadena es palíndromo eficientemente. ¿Qué técnica es adecuada?", options:["Comparación de extremos","DFS","BFS"], answer:0, area:"Algoritmia"},
-{q:"Un sistema requiere replicación para alta disponibilidad. ¿Qué técnica es adecuada?", options:["Replicación activa","Cache","Logs"], answer:0, area:"Aplicación"},
-{q:"Un modelo necesita evitar overfitting mediante reducción de complejidad. ¿Qué técnica es adecuada?", options:["Regularización L2","Aumentar capas","Reducir datos"], answer:0, area:"IA"},
-{q:"Un sistema operativo necesita aislar procesos entre sí. ¿Qué mecanismo es adecuado?", options:["Espacio de direcciones separado","Memoria compartida sin control","Variables globales"], answer:0, area:"Base"},
-{q:"Un algoritmo debe fusionar dos listas ordenadas. ¿Qué técnica es adecuada?", options:["Merge","Quickselect","DFS"], answer:0, area:"Algoritmia"},
-{q:"Un sistema web requiere escalabilidad automática ante picos de tráfico. ¿Qué técnica es adecuada?", options:["Auto-scaling","Cache local","Logs"], answer:0, area:"Aplicación"},
-{q:"Un modelo requiere clasificar datos con frontera no lineal compleja. ¿Qué técnica es adecuada?", options:["Red neuronal","Regresión lineal","Naive Bayes"], answer:0, area:"IA"},
-{q:"Una red requiere cifrado de extremo a extremo. ¿Qué protocolo es adecuado?", options:["TLS","HTTP","FTP"], answer:0, area:"Base"},
-{q:"Un algoritmo debe invertir una lista enlazada. ¿Qué técnica es adecuada?", options:["Iteración con punteros","Ordenamiento","BFS"], answer:0, area:"Algoritmia"},
-{q:"Un sistema necesita monitoreo continuo de desempeño. ¿Qué herramienta es adecuada?", options:["Logs y métricas","Cache","Variables locales"], answer:0, area:"Aplicación"}
-];
+    <script>
+        const questions = [
+            { q: "Una institución financiera digital opera en un entorno donde múltiples usuarios realizan transferencias simultáneas entre cuentas, generando conflictos de concurrencia en los saldos. Además, el sistema debe mantener tiempos de respuesta bajos para no afectar la experiencia del usuario, y cualquier inconsistencia podría derivar en pérdidas económicas significativas. Considerando estas condiciones técnicas y operativas, ¿cuál es la solución más adecuada para garantizar integridad y rendimiento?", options: ["Implementar bloqueo pesimista en toda la base de datos para evitar accesos concurrentes", "Adoptar control de concurrencia multiversión (MVCC) para manejar lecturas y escrituras concurrentes", "Eliminar la concurrencia limitando el sistema a operaciones secuenciales"], answer: 1, area: "Aplicación" },
+            { q: "Una empresa de transporte analiza rutas en tiempo real dentro de una red de carreteras modelada como grafo ponderado con pesos positivos. El sistema requiere recalcular rutas óptimas constantemente ante cambios dinámicos en tráfico, manteniendo eficiencia computacional. Dado este escenario operativo y las restricciones del modelo, ¿qué algoritmo resulta más adecuado?", options: ["Aplicar búsqueda en profundidad para explorar posibles rutas", "Utilizar el algoritmo de Dijkstra con una estructura eficiente de cola de prioridad", "Ordenar nodos mediante un algoritmo de ordenamiento tradicional"], answer: 1, area: "Algoritmia" },
+            { q: "Una organización detecta accesos no autorizados dentro de su red interna. Se busca segmentar el tráfico para aislar dominios y reducir superficie de ataque sin modificar la infraestructura física existente. Además, se requiere una solución escalable y administrable. ¿Qué alternativa técnica es más adecuada?", options: ["Implementar VLANs para segmentar la red lógicamente", "Configurar servidores DNS adicionales", "Utilizar protocolos ARP para control de tráfico"], answer: 0, area: "Base" },
+            { q: "Una empresa desea predecir la demanda mensual de productos utilizando datos históricos que presentan tendencias y patrones estacionales. Se requiere un modelo que capture relaciones continuas entre variables y permita generalización adecuada. ¿Qué enfoque es más apropiado?", options: ["Aplicar técnicas de regresión para modelar variables continuas", "Utilizar clustering para agrupar datos sin etiquetas", "Implementar recorridos en grafos para análisis"], answer: 0, area: "IA" },
+            { q: "Un sistema de streaming maneja grandes volúmenes de contenido con alta frecuencia de acceso en lectura, mientras que las actualizaciones de datos son poco frecuentes. Se busca minimizar latencia y mejorar disponibilidad ante fallos. Considerando estas condiciones, ¿qué estrategia es más adecuada?", options: ["Implementar cache distribuido para acelerar accesos frecuentes", "Aplicar bloqueos exclusivos sobre los recursos", "Normalizar completamente los datos"], answer: 0, area: "Base" },
+            { q: "Una plataforma de comercio electrónico desea recomendar productos a sus usuarios basándose en patrones de comportamiento similares entre diferentes clientes. Se requiere un enfoque que utilice datos históricos de interacción para generar sugerencias personalizadas. ¿Qué técnica es más adecuada?", options: ["Aplicar filtrado colaborativo basado en usuarios", "Ordenar productos por popularidad global", "Utilizar funciones hash"], answer: 0, area: "IA" },
+            { q: "Una base de datos presenta redundancia significativa, lo que provoca inconsistencias durante actualizaciones y dificultades en mantenimiento. Se busca mejorar integridad sin sacrificar flexibilidad. ¿Qué acción es más adecuada?", options: ["Normalizar el esquema de la base de datos", "Replicar datos en múltiples nodos", "Agregar capas de cache"], answer: 0, area: "Aplicación" },
+            { q: "Un sistema requiere ordenar grandes volúmenes de datos en memoria limitada. Se busca minimizar consumo de espacio adicional sin sacrificar demasiado rendimiento. ¿Qué algoritmo es más adecuado bajo estas restricciones?", options: ["Merge sort con memoria auxiliar", "QuickSort in-place", "Bubble sort"], answer: 1, area: "Algoritmia" },
+            { q: "Un sistema distribuido necesita mantenerse disponible incluso ante fallos parciales de nodos, aceptando inconsistencias temporales que eventualmente se corrigen. ¿Qué modelo de consistencia refleja mejor este comportamiento?", options: ["ACID estricto", "Consistencia eventual", "Serialización completa"], answer: 1, area: "Base" },
+            { q: "Una aplicación web maneja credenciales de usuarios y requiere evitar exposición de contraseñas incluso ante filtraciones de base de datos. ¿Qué práctica es más adecuada?", options: ["Aplicar hash con sal a las contraseñas", "Guardar contraseñas en texto plano", "Cachear credenciales"], answer: 0, area: "Aplicación" },
+            { q: "Un laboratorio de investigación en biología computacional almacena grandes volúmenes de datos genómicos que requieren consultas agregadas eficientes, pero las actualizaciones son poco frecuentes. ¿Qué estrategia de almacenamiento puede mejorar el desempeño de las consultas?", options: ["Utilizar vistas materializadas para acelerar consultas agregadas", "Normalizar completamente todos los datos", "Aplicar un esquema de replicación circular"], answer: 0, area: "Aplicación" },
+            { q: "En una red empresarial, se requiere garantizar la entrega ordenada y confiable de paquetes entre servidores críticos que comparten información sensible. ¿Qué protocolo de transporte es más adecuado para este escenario?", options: ["TCP por su control de flujo y retransmisión de paquetes", "UDP por su baja latencia y simplicidad", "ICMP para mensajes de error"], answer: 0, area: "Base" },
+            { q: "Un sistema de análisis de sentimiento procesa comentarios de usuarios en redes sociales y necesita representar palabras en un espacio vectorial denso para capturar relaciones semánticas. ¿Qué técnica es la más adecuada?", options: ["Utilizar embeddings como Word2Vec o GloVe para codificar palabras", "Aplicar hashing simple a cada palabra", "Clasificar palabras usando árboles de decisión"], answer: 0, area: "IA" },
+            { q: "Una empresa de logística debe encontrar rutas óptimas en un grafo de carreteras donde pueden existir aristas con pesos negativos, pero sin ciclos negativos. ¿Qué algoritmo de caminos mínimos es más adecuado?", options: ["Bellman-Ford para admitir pesos negativos", "Dijkstra para eficiencia en pesos positivos", "BFS para grafos no ponderados"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema distribuido requiere asegurar tolerancia a fallos y disponibilidad, pero acepta que la consistencia puede ser eventual. ¿Qué principio arquitectónico describe mejor este compromiso?", options: ["Modelo CAP priorizando disponibilidad y tolerancia a particiones", "Modelo ACID estricto en todas las operaciones", "Serialización total en cada transacción"], answer: 0, area: "Base" },
+            { q: "Una plataforma de aprendizaje automático detecta que su modelo presenta un alto error en datos de entrenamiento y validación, indicando que no logra capturar la complejidad de los datos. ¿Qué medida es más efectiva para mejorar el desempeño?", options: ["Aumentar la complejidad del modelo para reducir underfitting", "Aplicar regularización para evitar overfitting", "Reducir el tamaño del conjunto de entrenamiento"], answer: 0, area: "IA" },
+            { q: "Un sistema de colas de mensajería requiere desacoplar el procesamiento de tareas entre productores y consumidores, permitiendo escalabilidad horizontal y tolerancia a fallos. ¿Qué componente es más adecuado para cumplir estos requisitos?", options: ["Implementar una message queue persistente entre servicios", "Utilizar llamadas RPC síncronas entre procesos", "Almacenar tareas en archivos temporales"], answer: 0, area: "Aplicación" },
+            { q: "Una red empresarial expone servicios internos a través de una única dirección pública, ocultando las direcciones privadas de los hosts individuales. ¿Qué mecanismo de red proporciona esta funcionalidad?", options: ["Traducción de direcciones de red (NAT)", "Segmentación mediante VLANs", "Protocolo ARP para resolución de direcciones"], answer: 0, area: "Base" },
+            { q: "En un sistema de recomendación de películas, se busca aumentar la diversidad de las sugerencias para evitar que los usuarios reciban siempre las mismas opciones populares. ¿Qué ajuste es más relevante?", options: ["Incorporar técnicas de diversificación en el ranking de resultados", "Aumentar únicamente la precisión del modelo sin modificar la diversidad", "Eliminar los elementos menos populares de la base de datos"], answer: 0, area: "IA" },
+            { q: "Un sistema de archivos requiere mantener la integridad de los datos ante posibles fallos de energía o sistema. ¿Qué técnica de almacenamiento ayuda a prevenir corrupción de datos en estas circunstancias?", options: ["Implementar journaling para registrar operaciones antes de aplicarlas", "Utilizar únicamente cache en memoria para acelerar accesos", "Deshabilitar logs para maximizar el rendimiento"], answer: 0, area: "Aplicación" },
+            { q: "Una empresa de análisis de datos necesita detectar patrones anómalos en registros históricos de transacciones, sin contar con etiquetas previas que indiquen qué es normal o anómalo. ¿Qué técnica de aprendizaje automático es la más indicada?", options: ["Aplicar clustering no supervisado para identificar grupos atípicos", "Usar clasificación supervisada con etiquetas generadas manualmente", "Ordenar registros por fecha para buscar irregularidades"], answer: 0, area: "IA" },
+            { q: "Un sistema concurrente experimenta problemas de deadlocks frecuentes al acceder a recursos compartidos. ¿Qué estrategia de diseño puede reducir la probabilidad de que ocurran estos bloqueos?", options: ["Establecer un orden global de adquisición de recursos", "Incrementar el número de hilos en ejecución", "Agregar más memoria al sistema"], answer: 0, area: "Base" },
+            { q: "En una base de datos relacional, se requiere garantizar que cada registro en una tabla secundaria tenga una correspondencia válida en la tabla primaria, evitando registros huérfanos. ¿Qué característica del modelo relacional asegura esta propiedad?", options: ["Uso de llaves foráneas para integridad referencial", "Implementación de índices para acelerar búsquedas", "Creación de vistas materializadas"], answer: 0, area: "Aplicación" },
+            { q: "Un sistema de procesamiento de datos en tiempo real requiere procesar grandes volúmenes de información con baja latencia y actualizaciones continuas. ¿Qué arquitectura es más adecuada para este caso?", options: ["Arquitectura de streaming de datos", "Procesamiento batch tradicional", "Almacenamiento en archivos planos"], answer: 0, area: "Aplicación" },
+            { q: "Un modelo de aprendizaje automático presenta un alto error en el conjunto de prueba comparado con el de entrenamiento, indicando sobreajuste. ¿Qué acción es más efectiva para mejorar su capacidad de generalización?", options: ["Aplicar regularización para penalizar la complejidad del modelo", "Aumentar el número de parámetros del modelo", "Reducir el tamaño del conjunto de entrenamiento"], answer: 0, area: "IA" },
+            { q: "Una red de computadoras debe segmentar dominios de broadcast para reducir el tráfico innecesario y mejorar la seguridad. ¿Qué tecnología permite lograr este objetivo sin modificar el cableado físico?", options: ["Implementar VLANs para segmentación lógica", "Configurar NAT en cada dispositivo", "Utilizar el protocolo ARP para filtrado"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe encontrar el árbol generador mínimo en un grafo no dirigido y denso con miles de nodos. ¿Qué algoritmo es más eficiente para este propósito?", options: ["Algoritmo de Prim utilizando colas de prioridad", "Recorridos DFS para explorar componentes", "Algoritmo greedy sin estructura auxiliar"], answer: 0, area: "Algoritmia" },
+            { q: "Una aplicación web de alta demanda debe protegerse contra ataques de falsificación de solicitudes entre sitios (CSRF) sin afectar la usabilidad del usuario. ¿Qué mecanismo es el más adecuado?", options: ["Implementar tokens CSRF únicos por sesión", "Permitir solicitudes CORS sin restricciones", "Cachear formularios para acelerar respuestas"], answer: 0, area: "Aplicación" },
+            { q: "Un sistema de archivos distribuido requiere alta disponibilidad y consistencia de datos incluso ante fallos de nodos individuales. ¿Qué estrategia de replicación es más adecuada?", options: ["Replicación con quorum para escritura y lectura", "Mantener todos los datos en un solo nodo", "Deshabilitar la replicación para evitar inconsistencias"], answer: 0, area: "Base" },
+            { q: "Un modelo de clasificación enfrenta un severo desbalanceo de clases en el conjunto de entrenamiento. ¿Qué técnica puede mejorar el desempeño del modelo en este escenario?", options: ["Aplicar remuestreo para balancear las clases", "Reducir el tamaño del conjunto de datos", "Eliminar las clases minoritarias"], answer: 0, area: "IA" },
+            { q: "Un sistema de autenticación distribuido necesita mantener sesiones válidas en múltiples instancias de servidor sin compartir estado entre ellas. ¿Qué mecanismo es más apropiado?", options: ["Emplear tokens JWT para autenticación sin estado", "Almacenar sesiones en memoria local de cada instancia", "Utilizar cookies sin firma"], answer: 0, area: "Aplicación" },
+            { q: "En una red interna, se requiere cifrado de extremo a extremo entre servicios para proteger la confidencialidad de la información transmitida. ¿Qué tecnología es más adecuada?", options: ["Implementar mTLS (mutual TLS) para canal seguro", "Utilizar HTTP sin cifrado por simplicidad", "Emplear FTP para transferencias"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe seleccionar rápidamente los k elementos más pequeños de una lista muy grande, sin necesidad de ordenar toda la lista. ¿Qué técnica es más eficiente?", options: ["Quickselect para obtener los k menores elementos", "Merge sort para ordenar la lista completa", "Bubble sort por simplicidad"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema de cache distribuido requiere invalidar datos automáticamente después de cierto tiempo para evitar servir información obsoleta. ¿Qué política de expiración es más adecuada?", options: ["Time-To-Live (TTL) para cada entrada en cache", "Política LRU para reemplazo de caché", "FIFO para eliminación de datos antiguos"], answer: 0, area: "Base" },
+            { q: "Un modelo de procesamiento de lenguaje natural necesita explicar cómo toma decisiones para facilitar su adopción en entornos regulados. ¿Qué característica es prioritaria?", options: ["Seleccionar modelos interpretables y explicables", "Aumentar la profundidad de la red neuronal", "Incrementar la complejidad sin restricción"], answer: 0, area: "IA" },
+            { q: "Un sistema de archivos requiere detectar y corregir errores de transmisión de datos entre nodos. ¿Qué mecanismo es más efectivo para este fin?", options: ["Utilizar códigos CRC para verificación de integridad", "Implementar ARP para resolución de direcciones", "Aplicar NAT para traducción de direcciones"], answer: 0, area: "Base" },
+            { q: "Un algoritmo de búsqueda necesita recorrer todos los nodos de un grafo por niveles, asegurando que los nodos más cercanos a la raíz se visiten primero. ¿Qué método es más adecuado?", options: ["Búsqueda en anchura (BFS)", "Búsqueda en profundidad (DFS)", "Heap para priorizar nodos"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema financiero requiere auditar todos los cambios realizados en registros críticos, permitiendo reconstruir el historial completo de modificaciones. ¿Qué componente es esencial para cumplir este requerimiento?", options: ["Implementar logs transaccionales detallados", "Utilizar cache en memoria para acelerar accesos", "Aplicar recorridos DFS en los registros"], answer: 0, area: "Aplicación" },
+            { q: "Una red empresarial necesita ocultar las direcciones IP internas de sus dispositivos al comunicarse con Internet, permitiendo que múltiples equipos compartan una sola IP pública. ¿Qué mecanismo proporciona esta funcionalidad?", options: ["Traducción de direcciones de red (NAT)", "Configuración de servidores DNS adicionales", "ARP para resolución de direcciones"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe identificar componentes conexas en un grafo no dirigido, donde es necesario explorar todos los nodos alcanzables desde cada vértice. ¿Qué método es más eficiente?", options: ["Búsqueda en profundidad (DFS) para recorrer componentes", "Ordenar nodos por grado de conexión", "Utilizar hashing para identificar nodos"], answer: 0, area: "Algoritmia" },
+            { q: "Una plataforma de pagos electrónicos requiere consistencia fuerte en los saldos de las cuentas, pero también alta disponibilidad y tolerancia a fallos. ¿Qué compromiso arquitectónico es más adecuado para este escenario?", options: ["Priorizar consistencia mediante replicación síncrona", "Aceptar consistencia eventual para mayor disponibilidad", "Eliminar replicación para evitar conflictos"], answer: 0, area: "Base" },
+            { q: "Un sistema de aprendizaje automático requiere validar la capacidad de generalización de un modelo antes de su despliegue en producción. ¿Qué técnica es más apropiada?", options: ["Realizar validación cruzada (cross-validation) con particiones de los datos", "Entrenar el modelo con todos los datos disponibles", "Eliminar el conjunto de test para simplificar"], answer: 0, area: "IA" },
+            { q: "Una API pública experimenta abuso por parte de clientes automatizados, generando saturación y disminución de la calidad del servicio para usuarios legítimos. ¿Qué mecanismo puede mitigar este problema sin afectar a los usuarios válidos?", options: ["Aplicar rate limiting con API keys para controlar el acceso", "Bloquear masivamente direcciones IP sospechosas", "Deshabilitar el servicio temporalmente"], answer: 0, area: "Aplicación" },
+            { q: "Un sistema distribuido requiere consenso entre múltiples nodos para mantener una copia consistente del estado global, incluso ante fallos parciales. ¿Qué protocolo es más adecuado para lograr este objetivo?", options: ["Protocolo Raft para consenso distribuido", "Utilizar HTTP para sincronización básica", "Aplicar ARP para resolución de nodos"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe obtener un orden topológico válido de las tareas en un grafo dirigido acíclico (DAG) para respetar dependencias entre ellas. ¿Qué algoritmo es más eficiente?", options: ["Algoritmo de Kahn para orden topológico", "Dijkstra para caminos mínimos", "DFS simple sin seguimiento de dependencias"], answer: 0, area: "Algoritmia" },
+            { q: "Una base de datos relacional sufre contención y bloqueos frecuentes durante operaciones de lectura y escritura concurrentes. ¿Qué estrategia puede reducir estos problemas y mejorar el rendimiento?", options: ["Aplicar control de concurrencia multiversión (MVCC)", "Implementar bloqueos globales en la base de datos", "Serializar todas las transacciones"], answer: 0, area: "Aplicación" },
+            { q: "En un entorno de microservicios, se requiere comunicación segura entre servicios internos, asegurando autenticación mutua y cifrado de datos. ¿Qué tecnología es más adecuada?", options: ["Implementar mTLS para autenticación y cifrado mutuo", "Utilizar HTTP simple por facilidad", "Emplear FTP para transferencias"], answer: 0, area: "Base" },
+            { q: "Un modelo de reducción de dimensionalidad busca preservar la mayor cantidad de varianza posible en los datos originales al proyectarlos en menos dimensiones. ¿Qué técnica es la más común para este propósito?", options: ["Análisis de componentes principales (PCA)", "K-vecinos más cercanos (KNN)", "Hashing de características"], answer: 0, area: "IA" },
+            { q: "Un sistema de procesamiento de tareas críticas requiere colas durables que garanticen que las tareas no se pierdan ante caídas del sistema. ¿Qué componente es más adecuado?", options: ["Broker de mensajes con persistencia en disco", "Array en memoria para almacenar tareas", "Logs temporales sin respaldo"], answer: 0, area: "Aplicación" },
+            { q: "Un sistema concurrente requiere evitar condiciones de carrera al acceder a memoria compartida con mínima espera activa. ¿Qué mecanismo es más adecuado?", options: ["Mutex para exclusión mutua", "Incrementar número de hilos", "Eliminar paralelismo"], answer: 0, area: "Base" },
+            { q: "En teoría de lenguajes, se desea reconocer cadenas con estructura anidada arbitraria. ¿Qué modelo computacional es adecuado?", options: ["Autómata de pila", "Autómata finito determinista", "Expresiones regulares simples"], answer: 0, area: "Base" },
+            { q: "Un algoritmo requiere encontrar el elemento mediano sin ordenar completamente la lista. ¿Qué técnica es más eficiente?", options: ["Quickselect", "Merge sort", "Insertion sort"], answer: 0, area: "Algoritmia" },
+            { q: "Se desea resolver un sistema de ecuaciones lineales de gran tamaño de forma determinista. ¿Qué método es más adecuado?", options: ["Eliminación de Gauss", "Búsqueda en profundidad", "Hashing"], answer: 0, area: "Matemáticas" },
+            { q: "Un sistema operativo necesita evitar inanición en procesos de baja prioridad. ¿Qué estrategia es más adecuada?", options: ["Aging en planificación", "FIFO estricto", "Eliminación de prioridades"], answer: 0, area: "Base" },
+            { q: "Un modelo de aprendizaje requiere separar clases linealmente separables maximizando margen. ¿Qué algoritmo es adecuado?", options: ["SVM", "K-means", "Naive Bayes"], answer: 0, area: "IA" },
+            { q: "Un sistema distribuido requiere coordinar acceso a recurso único sin punto único de fallo. ¿Qué técnica es adecuada?", options: ["Algoritmo de consenso distribuido", "Bloqueo local", "Variables globales"], answer: 0, area: "Base" },
+            { q: "Se requiere recorrer un grafo ponderado para encontrar rutas mínimas repetidamente. ¿Qué estructura optimiza Dijkstra?", options: ["Heap binario", "Lista simple", "Matriz sin optimización"], answer: 0, area: "Algoritmia" },
+            { q: "Un compilador necesita transformar código fuente en representación intermedia optimizable. ¿Qué fase realiza esto?", options: ["Análisis semántico y generación IR", "Análisis léxico", "Ejecución directa"], answer: 0, area: "Base" },
+            { q: "Un modelo presenta alta varianza. ¿Qué técnica reduce este efecto?", options: ["Regularización", "Aumentar parámetros", "Reducir datos"], answer: 0, area: "IA" },
+            { q: "Se requiere garantizar atomicidad en operaciones de base de datos. ¿Qué propiedad lo asegura?", options: ["Transacciones ACID", "Indexación", "Cache"], answer: 0, area: "Base" },
+            { q: "Un algoritmo necesita explorar todas las combinaciones posibles de solución. ¿Qué paradigma aplica?", options: ["Backtracking", "Greedy", "Divide y vencerás"], answer: 0, area: "Algoritmia" },
+            { q: "Una red requiere detectar errores en transmisión de datos. ¿Qué mecanismo aplica?", options: ["Checksum o CRC", "ARP", "NAT"], answer: 0, area: "Base" },
+            { q: "Se desea clasificar datos con probabilidad condicional bajo independencia. ¿Qué modelo aplica?", options: ["Naive Bayes", "SVM", "KNN"], answer: 0, area: "IA" },
+            { q: "Un sistema requiere almacenamiento persistente tolerante a fallos. ¿Qué técnica es adecuada?", options: ["RAID", "Cache volátil", "Memoria temporal"], answer: 0, area: "Base" },
+            { q: "Se requiere evaluar expresión matemática con precedencia de operadores. ¿Qué estructura es adecuada?", options: ["Pila", "Cola", "Lista enlazada simple"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema distribuido requiere replicar datos con consistencia fuerte. ¿Qué estrategia es adecuada?", options: ["Replicación síncrona", "Cache local", "Eventual inconsistency"], answer: 0, area: "Base" },
+            { q: "Un modelo requiere agrupar datos sin etiquetas. ¿Qué técnica aplica?", options: ["Clustering", "Regresión", "Clasificación supervisada"], answer: 0, area: "IA" },
+            { q: "Se desea minimizar complejidad espacial en ordenamiento. ¿Qué algoritmo es adecuado?", options: ["QuickSort in-place", "Merge sort", "Heap sort con estructura externa"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema necesita comunicación confiable entre procesos distribuidos. ¿Qué protocolo es adecuado?", options: ["TCP", "UDP", "ICMP"], answer: 0, area: "Base" },
+            { q: "Un sistema de gestión de bases de datos relacional opera en un entorno bancario donde múltiples transacciones concurrentes modifican balances y requieren garantizar consistencia fuerte incluso ante fallos parciales del sistema. Además, se necesita evitar lecturas sucias y asegurar aislamiento adecuado sin degradar severamente el rendimiento. ¿Qué mecanismo interno del DBMS es más adecuado para cumplir estos requisitos?", options: ["Control de concurrencia mediante locking con niveles de aislamiento serializable", "Cacheo agresivo de consultas sin control transaccional", "Ejecución secuencial de todas las transacciones"], answer: 0, area: "Aplicación" },
+            { q: "En el diseño de un compilador para un lenguaje de programación moderno, se requiere validar la correcta estructura sintáctica de expresiones anidadas, como llamadas recursivas y bloques condicionales, a partir de una gramática libre de contexto. ¿Qué componente es responsable directo de esta verificación estructural?", options: ["Analizador sintáctico basado en parsing descendente o ascendente", "Analizador léxico mediante expresiones regulares", "Generador de código intermedio"], answer: 0, area: "Base" },
+            { q: "Una aplicación de navegación urbana debe recalcular rutas óptimas constantemente ante cambios dinámicos en tráfico, utilizando un grafo ponderado con pesos positivos. Se requiere eficiencia en tiempo real y reutilización parcial de resultados previos. ¿Qué algoritmo es más adecuado como base?", options: ["Dijkstra con cola de prioridad", "DFS con backtracking", "Ordenamiento topológico"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema distribuido basado en microservicios requiere garantizar que múltiples instancias mantengan consistencia de estado crítico mediante consenso, incluso cuando algunos nodos fallen o se desconecten temporalmente. ¿Qué protocolo es más adecuado para este objetivo?", options: ["Raft para consenso distribuido", "HTTP simple entre nodos", "Balanceo de carga sin sincronización"], answer: 0, area: "Base" },
+            { q: "Una empresa de análisis de datos necesita reducir la dimensionalidad de un conjunto de datos altamente correlacionados, preservando la mayor cantidad de varianza posible para facilitar visualización y modelado. ¿Qué técnica es más adecuada?", options: ["Análisis de Componentes Principales (PCA)", "K-means clustering", "Regresión logística"], answer: 0, area: "IA" },
+            { q: "Un sistema operativo debe planificar procesos en un entorno interactivo donde se prioriza la equidad y la capacidad de respuesta, evitando que procesos de baja prioridad sufran inanición. ¿Qué algoritmo de planificación es más adecuado?", options: ["Round Robin con quantum adecuado", "FIFO sin interrupciones", "Shortest Job First no preemptivo"], answer: 0, area: "Base" },
+            { q: "Un sistema de archivos distribuido requiere tolerancia a fallos y recuperación consistente tras interrupciones inesperadas de energía, manteniendo integridad de metadatos y operaciones pendientes. ¿Qué técnica es más adecuada?", options: ["Journaling para registrar operaciones antes de commit", "Cache en memoria sin persistencia", "Eliminación de logs para eficiencia"], answer: 0, area: "Aplicación" },
+            { q: "En un sistema de aprendizaje automático, se detecta que el modelo tiene bajo error en entrenamiento pero alto en validación, indicando sobreajuste. ¿Qué estrategia es más adecuada para mejorar la generalización?", options: ["Aplicar regularización para penalizar complejidad", "Incrementar número de parámetros", "Eliminar validación"], answer: 0, area: "IA" },
+            { q: "Un algoritmo debe recorrer un grafo no dirigido para identificar componentes conexas, asegurando visitar todos los nodos alcanzables desde cada vértice sin redundancia. ¿Qué técnica es más adecuada?", options: ["DFS para exploración completa", "BFS únicamente desde un nodo", "Ordenamiento de nodos"], answer: 0, area: "Algoritmia" },
+            { q: "Una red empresarial requiere segmentar dominios de broadcast sin modificar infraestructura física, permitiendo aislar tráfico entre departamentos y mejorar seguridad. ¿Qué solución es más adecuada?", options: ["Implementación de VLANs", "Uso de NAT en cada host", "Configuración de ARP manual"], answer: 0, area: "Base" },
+            { q: "Un sistema concurrente presenta deadlocks frecuentes debido a adquisición inconsistente de recursos entre hilos. ¿Qué estrategia de diseño reduce este problema?", options: ["Orden global de adquisición de recursos", "Incrementar número de hilos", "Reducir memoria disponible"], answer: 0, area: "Base" },
+            { q: "Una plataforma de e-commerce requiere recomendar productos personalizados basándose en similitudes entre usuarios con historiales de compra similares. ¿Qué técnica es más adecuada?", options: ["Filtrado colaborativo basado en usuarios", "Ordenamiento por popularidad global", "Hashing de productos"], answer: 0, area: "IA" },
+            { q: "Un algoritmo debe encontrar el árbol generador mínimo en un grafo denso de gran tamaño con eficiencia computacional. ¿Qué enfoque es más adecuado?", options: ["Algoritmo de Prim con heap", "DFS simple", "Búsqueda exhaustiva"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema web requiere proteger formularios contra ataques CSRF sin afectar experiencia del usuario. ¿Qué mecanismo es más adecuado?", options: ["Tokens CSRF únicos por sesión", "Deshabilitar cookies", "Cachear formularios"], answer: 0, area: "Aplicación" },
+            { q: "Un modelo de lenguaje natural necesita representar palabras en vectores densos capturando relaciones semánticas. ¿Qué técnica es más adecuada?", options: ["Word2Vec o embeddings similares", "Hashing simple", "One-hot encoding exclusivamente"], answer: 0, area: "IA" },
+            { q: "Un sistema distribuido prioriza disponibilidad y tolerancia a particiones, aceptando inconsistencias temporales que eventualmente se corrigen. ¿Qué modelo describe este comportamiento?", options: ["Consistencia eventual bajo CAP", "ACID estricto", "Serialización total"], answer: 0, area: "Base" },
+            { q: "Una base de datos requiere garantizar integridad referencial entre tablas relacionadas evitando registros huérfanos. ¿Qué mecanismo lo asegura?", options: ["Llaves foráneas", "Índices secundarios", "Cache distribuido"], answer: 0, area: "Aplicación" },
+            { q: "Un algoritmo debe encontrar los k elementos más pequeños sin ordenar completamente la lista. ¿Qué técnica es más eficiente?", options: ["Quickselect", "Merge sort", "Bubble sort"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema requiere autenticación sin estado en múltiples instancias distribuidas, evitando almacenamiento de sesión en servidor. ¿Qué mecanismo es más adecuado?", options: ["JWT firmados", "Sesiones en memoria local", "Cookies sin firma"], answer: 0, area: "Aplicación" },
+            { q: "Una red requiere ocultar direcciones IP internas al comunicarse con internet, permitiendo compartir una IP pública. ¿Qué técnica lo permite?", options: ["NAT", "ARP", "DNS"], answer: 0, area: "Base" },
+            { q: "Un modelo de clasificación enfrenta desbalance severo entre clases. ¿Qué técnica mejora desempeño?", options: ["Oversampling o undersampling", "Eliminar clases minoritarias", "Reducir datos"], answer: 0, area: "IA" },
+            { q: "Un sistema requiere colas durables que no pierdan mensajes ante fallos. ¿Qué componente es adecuado?", options: ["Message broker persistente", "Array en memoria", "Logs temporales"], answer: 0, area: "Aplicación" },
+            { q: "Un algoritmo debe recorrer un grafo por niveles asegurando visitar primero nodos cercanos. ¿Qué técnica aplica?", options: ["BFS", "DFS", "Heap traversal"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema requiere cifrado mutuo entre servicios internos para autenticación fuerte. ¿Qué tecnología es adecuada?", options: ["mTLS", "HTTP plano", "FTP"], answer: 0, area: "Base" },
+            { q: "Un sistema de cache requiere invalidar datos tras cierto tiempo para evitar obsolescencia. ¿Qué política es adecuada?", options: ["TTL", "LRU", "FIFO"], answer: 0, area: "Base" },
+            { q: "Un compilador necesita transformar código fuente a representación optimizable independiente de máquina. ¿Qué fase realiza esto?", options: ["Generación de IR", "Análisis léxico", "Ejecución directa"], answer: 0, area: "Base" },
+            { q: "Un sistema de recomendación busca aumentar diversidad en resultados. ¿Qué técnica es adecuada?", options: ["Diversificación en ranking", "Aumentar precisión únicamente", "Eliminar datos"], answer: 0, area: "IA" },
+            { q: "Un sistema requiere detectar errores en transmisión de datos. ¿Qué técnica aplica?", options: ["CRC", "ARP", "NAT"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe ordenar con bajo uso de memoria adicional. ¿Qué opción es adecuada?", options: ["QuickSort in-place", "Merge sort", "Counting sort"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema financiero requiere auditoría completa de cambios en datos críticos. ¿Qué componente es esencial?", options: ["Logs transaccionales", "Cache", "DFS"], answer: 0, area: "Aplicación" },
+            { q: "Un sistema de base de datos distribuido maneja réplicas en múltiples regiones geográficas y requiere minimizar latencia de lectura sin comprometer consistencia en operaciones críticas de escritura. Se busca un equilibrio práctico entre disponibilidad y coherencia. ¿Qué estrategia es más adecuada?", options: ["Lecturas desde réplicas con escrituras en nodo líder y sincronización controlada", "Permitir escrituras en cualquier nodo sin coordinación", "Deshabilitar replicación"], answer: 0, area: "Base" },
+            { q: "En análisis de algoritmos, se requiere determinar la complejidad temporal de una función recursiva que divide el problema en dos subproblemas de tamaño n/2 y combina en tiempo lineal. ¿Qué técnica es más adecuada para resolverla?", options: ["Teorema Maestro", "Simulación manual únicamente", "Pruebas empíricas"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema operativo administra memoria virtual para múltiples procesos y necesita evitar fragmentación externa mientras mantiene eficiencia en asignación. ¿Qué técnica es más adecuada?", options: ["Paginación", "Asignación contigua fija", "Segmentación sin control"], answer: 0, area: "Base" },
+            { q: "Una red requiere asegurar confidencialidad e integridad de datos transmitidos entre clientes y servidores en internet público. ¿Qué protocolo es más adecuado?", options: ["TLS", "HTTP", "FTP"], answer: 0, area: "Base" },
+            { q: "Un modelo de machine learning necesita evaluar su desempeño de forma robusta usando múltiples particiones del conjunto de datos. ¿Qué técnica es más adecuada?", options: ["Validación cruzada", "Entrenamiento único", "Eliminación de test"], answer: 0, area: "IA" },
+            { q: "Un sistema de procesamiento de eventos requiere manejar flujos continuos de datos con baja latencia y procesamiento incremental. ¿Qué arquitectura es más adecuada?", options: ["Streaming", "Batch", "Archivos planos"], answer: 0, area: "Aplicación" },
+            { q: "Un algoritmo necesita detectar ciclos en un grafo dirigido para validar dependencias entre tareas. ¿Qué técnica es más adecuada?", options: ["DFS con detección de back edges", "BFS simple", "Ordenamiento aleatorio"], answer: 0, area: "Algoritmia" },
+            { q: "Una base de datos requiere mejorar rendimiento en consultas repetitivas sin modificar esquema subyacente. ¿Qué técnica es más adecuada?", options: ["Índices", "Eliminar normalización", "Duplicar tablas manualmente"], answer: 0, area: "Aplicación" },
+            { q: "Un sistema distribuido necesita coordinar acceso exclusivo a un recurso compartido entre múltiples nodos. ¿Qué mecanismo es más adecuado?", options: ["Algoritmo de exclusión mutua distribuida", "Bloqueo local", "Variables globales"], answer: 0, area: "Base" },
+            { q: "Un modelo de clasificación requiere interpretar resultados para cumplir regulaciones. ¿Qué característica es más adecuada?", options: ["Modelos explicables", "Redes profundas complejas", "Aumentar capas"], answer: 0, area: "IA" },
+            { q: "Un sistema requiere ordenar grandes volúmenes de datos externos que no caben en memoria. ¿Qué técnica es más adecuada?", options: ["External merge sort", "QuickSort", "Bubble sort"], answer: 0, area: "Algoritmia" },
+            { q: "Una red empresarial necesita resolver nombres de dominio a direcciones IP internas. ¿Qué servicio es adecuado?", options: ["DNS", "ARP", "NAT"], answer: 0, area: "Base" },
+            { q: "Un sistema concurrente requiere comunicación segura entre hilos evitando condiciones de carrera. ¿Qué mecanismo es adecuado?", options: ["Locks", "Aumentar CPU", "Eliminar sincronización"], answer: 0, area: "Base" },
+            { q: "Un modelo de clustering requiere determinar número óptimo de grupos. ¿Qué técnica es adecuada?", options: ["Método del codo", "Regresión", "Clasificación"], answer: 0, area: "IA" },
+            { q: "Un sistema de almacenamiento necesita redundancia para tolerar fallos de disco. ¿Qué técnica es adecuada?", options: ["RAID 1 o 5", "Cache", "Memoria temporal"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe encontrar caminos mínimos en grafos con pesos negativos sin ciclos negativos. ¿Qué algoritmo es adecuado?", options: ["Bellman-Ford", "Dijkstra", "BFS"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema web necesita escalar horizontalmente sin compartir estado. ¿Qué diseño es adecuado?", options: ["Arquitectura stateless", "Sesiones locales", "Variables globales"], answer: 0, area: "Aplicación" },
+            { q: "Un modelo supervisado requiere reducir overfitting. ¿Qué técnica es adecuada?", options: ["Regularización", "Aumentar complejidad", "Reducir datos"], answer: 0, area: "IA" },
+            { q: "Una red requiere identificar direcciones MAC a partir de IP. ¿Qué protocolo se utiliza?", options: ["ARP", "DNS", "TCP"], answer: 0, area: "Base" },
+            { q: "Un algoritmo necesita seleccionar elementos en tiempo lineal esperado. ¿Qué técnica es adecuada?", options: ["Quickselect", "Merge sort", "Heap sort"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema requiere autenticación segura basada en claves públicas. ¿Qué mecanismo es adecuado?", options: ["Criptografía asimétrica", "Texto plano", "Hash simple"], answer: 0, area: "Aplicación" },
+            { q: "Un sistema de archivos requiere acceso rápido a datos recientes. ¿Qué técnica es adecuada?", options: ["Cache", "Deshabilitar memoria", "Lectura directa siempre"], answer: 0, area: "Base" },
+            { q: "Un modelo requiere clasificar datos no linealmente separables. ¿Qué técnica es adecuada?", options: ["Kernel SVM", "Regresión lineal", "Naive Bayes"], answer: 0, area: "IA" },
+            { q: "Un algoritmo debe generar permutaciones de elementos. ¿Qué técnica aplica?", options: ["Backtracking", "Greedy", "Divide y vencerás"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema distribuido necesita balancear carga entre servidores. ¿Qué técnica es adecuada?", options: ["Load balancing", "Cache", "Logs"], answer: 0, area: "Aplicación" },
+            { q: "Una base de datos requiere eliminar redundancia y mejorar integridad. ¿Qué proceso aplica?", options: ["Normalización", "Replicación", "Cache"], answer: 0, area: "Aplicación" },
+            { q: "Un sistema requiere transmisión eficiente sin necesidad de confiabilidad. ¿Qué protocolo es adecuado?", options: ["UDP", "TCP", "HTTP"], answer: 0, area: "Base" },
+            { q: "Un modelo de NLP requiere representar contexto de palabras. ¿Qué técnica es adecuada?", options: ["Embeddings", "Hashing", "One-hot"], answer: 0, area: "IA" },
+            { q: "Un algoritmo debe recorrer árbol binario en orden. ¿Qué recorrido aplica?", options: ["Inorder", "Preorder", "Postorder"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema necesita detectar anomalías sin etiquetas. ¿Qué técnica es adecuada?", options: ["Clustering", "Clasificación", "Regresión"], answer: 0, area: "IA" },
+            { q: "Un sistema requiere consistencia fuerte en transacciones críticas. ¿Qué propiedad aplica?", options: ["ACID", "CAP", "BASE"], answer: 0, area: "Base" },
+            { q: "Un sistema financiero de alta frecuencia procesa órdenes de compra y venta en milisegundos y requiere consistencia estricta en balances mientras mantiene latencias mínimas bajo alta concurrencia. ¿Qué estrategia de concurrencia es más adecuada?", options: ["MVCC con control de versiones para lecturas no bloqueantes", "Bloqueo global de toda la base de datos", "Ejecución secuencial de transacciones"], answer: 0, area: "Aplicación" },
+            { q: "Un compilador necesita optimizar código eliminando subexpresiones redundantes sin alterar semántica del programa. ¿Qué técnica de optimización es adecuada?", options: ["Eliminación de subexpresiones comunes", "Inlining indiscriminado", "Duplicación de código"], answer: 0, area: "Base" },
+            { q: "Un sistema distribuido requiere garantizar que múltiples nodos lleguen al mismo estado incluso con mensajes retrasados o perdidos, priorizando consistencia fuerte. ¿Qué enfoque es adecuado?", options: ["Consenso con quórum", "Eventual consistency sin coordinación", "Actualización local independiente"], answer: 0, area: "Base" },
+            { q: "Un algoritmo necesita encontrar el camino más corto entre todos los pares de nodos en un grafo denso. ¿Qué algoritmo es más adecuado?", options: ["Floyd-Warshall", "Dijkstra repetido sin optimización", "DFS"], answer: 0, area: "Algoritmia" },
+            { q: "Un modelo de machine learning presenta underfitting al no capturar patrones complejos en los datos. ¿Qué acción es más adecuada?", options: ["Incrementar complejidad del modelo", "Reducir número de features", "Aplicar regularización fuerte"], answer: 0, area: "IA" },
+            { q: "Un sistema operativo requiere administrar memoria evitando swapping excesivo que degrade rendimiento. ¿Qué técnica es adecuada?", options: ["Algoritmo de reemplazo LRU", "Asignación aleatoria", "Eliminar memoria virtual"], answer: 0, area: "Base" },
+            { q: "Una red empresarial requiere autenticar dispositivos antes de permitir acceso a recursos internos. ¿Qué mecanismo es adecuado?", options: ["802.1X", "ARP", "ICMP"], answer: 0, area: "Base" },
+            { q: "Un sistema de archivos necesita manejar millones de archivos pequeños con acceso frecuente. ¿Qué estructura mejora desempeño?", options: ["Índices tipo B-tree", "Lista lineal", "Array simple"], answer: 0, area: "Aplicación" },
+            { q: "Un algoritmo debe evaluar expresiones aritméticas con paréntesis y operadores. ¿Qué técnica es adecuada?", options: ["Uso de pila para parsing", "BFS", "DFS"], answer: 0, area: "Algoritmia" },
+            { q: "Un modelo de clustering requiere manejar datos con formas no esféricas. ¿Qué técnica es adecuada?", options: ["DBSCAN", "K-means", "Regresión"], answer: 0, area: "IA" },
+            { q: "Un sistema distribuido necesita detectar fallos de nodos rápidamente. ¿Qué mecanismo es adecuado?", options: ["Heartbeat messages", "Polling manual", "Logs offline"], answer: 0, area: "Base" },
+            { q: "Un sistema web requiere distribuir tráfico entrante entre múltiples instancias. ¿Qué técnica es adecuada?", options: ["Load balancer", "Cache local", "Logs"], answer: 0, area: "Aplicación" },
+            { q: "Un algoritmo necesita ordenar datos parcialmente ordenados eficientemente. ¿Qué técnica es adecuada?", options: ["Insertion sort", "Bubble sort", "Selection sort"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema requiere proteger datos almacenados contra acceso no autorizado. ¿Qué técnica es adecuada?", options: ["Cifrado en reposo", "Texto plano", "Hash reversible"], answer: 0, area: "Aplicación" },
+            { q: "Un modelo supervisado requiere evaluar precisión en clases desbalanceadas. ¿Qué métrica es adecuada?", options: ["F1-score", "Accuracy simple", "Error total"], answer: 0, area: "IA" },
+            { q: "Una red requiere encapsular paquetes para transmisión entre redes distintas. ¿Qué protocolo aplica?", options: ["IP", "ARP", "DNS"], answer: 0, area: "Base" },
+            { q: "Un sistema concurrente necesita evitar inanición en hilos de baja prioridad. ¿Qué técnica es adecuada?", options: ["Aging", "FIFO", "Eliminación de prioridades"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe encontrar elementos duplicados en una lista grande eficientemente. ¿Qué técnica es adecuada?", options: ["Hashing", "Búsqueda lineal repetida", "Ordenamiento burbuja"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema distribuido requiere almacenar datos con alta disponibilidad y particionado automático. ¿Qué enfoque es adecuado?", options: ["Sharding", "Base única", "Sin replicación"], answer: 0, area: "Aplicación" },
+            { q: "Un modelo de NLP necesita capturar dependencias contextuales largas. ¿Qué arquitectura es adecuada?", options: ["Transformers", "Naive Bayes", "KNN"], answer: 0, area: "IA" },
+            { q: "Un sistema requiere garantizar integridad de datos durante transmisión. ¿Qué técnica es adecuada?", options: ["Checksum", "ARP", "DNS"], answer: 0, area: "Base" },
+            { q: "Un algoritmo necesita explorar todas las rutas posibles en un problema combinatorio. ¿Qué técnica aplica?", options: ["Backtracking", "Greedy", "Divide y vencerás"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema web requiere evitar ataques de inyección SQL. ¿Qué práctica es adecuada?", options: ["Consultas parametrizadas", "Concatenación de strings", "Deshabilitar validación"], answer: 0, area: "Aplicación" },
+            { q: "Un modelo requiere seleccionar características relevantes. ¿Qué técnica es adecuada?", options: ["Feature selection", "Clustering", "Ordenamiento"], answer: 0, area: "IA" },
+            { q: "Un sistema distribuido necesita sincronizar relojes entre nodos. ¿Qué protocolo es adecuado?", options: ["NTP", "HTTP", "FTP"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe encontrar el máximo en un heap. ¿Qué operación aplica?", options: ["Peek raíz", "Recorrido completo", "Ordenamiento"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema requiere control de acceso basado en roles. ¿Qué modelo es adecuado?", options: ["RBAC", "ACL simple", "Hashing"], answer: 0, area: "Aplicación" },
+            { q: "Un modelo necesita evaluar probabilidades condicionales. ¿Qué teorema aplica?", options: ["Bayes", "Pitagoras", "Euler"], answer: 0, area: "IA" },
+            { q: "Una red requiere traducir nombres a IP. ¿Qué sistema aplica?", options: ["DNS", "ARP", "ICMP"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe detectar ciclos en grafo no dirigido. ¿Qué técnica es adecuada?", options: ["DFS con padre", "BFS simple", "Ordenamiento"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema necesita logs persistentes para auditoría. ¿Qué técnica es adecuada?", options: ["Logging en disco", "Cache", "Memoria volátil"], answer: 0, area: "Aplicación" },
+            { q: "Un sistema de base de datos en una plataforma de pagos internacionales requiere manejar transacciones distribuidas entre múltiples nodos geográficamente separados, garantizando atomicidad global incluso ante fallos parciales de red. ¿Qué protocolo es más adecuado para coordinar estas transacciones?", options: ["Two-Phase Commit (2PC)", "Ejecución independiente por nodo", "Cache local sin sincronización"], answer: 0, area: "Base" },
+            { q: "En un compilador, se necesita optimizar código eliminando variables que nunca se utilizan para reducir uso de memoria y mejorar eficiencia. ¿Qué técnica es adecuada?", options: ["Eliminación de código muerto", "Inlining", "Loop unrolling"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe determinar si un grafo es bipartito en tiempo lineal respecto a vértices y aristas. ¿Qué técnica es adecuada?", options: ["BFS con coloreo", "DFS sin control", "Ordenamiento topológico"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema operativo necesita evitar condiciones de interbloqueo detectando ciclos en la asignación de recursos. ¿Qué método es adecuado?", options: ["Algoritmo del grafo de espera", "Round Robin", "FIFO"], answer: 0, area: "Base" },
+            { q: "Una red empresarial requiere priorizar tráfico de voz sobre datos para mantener calidad de servicio. ¿Qué mecanismo es adecuado?", options: ["QoS (Quality of Service)", "ARP", "DNS"], answer: 0, area: "Base" },
+            { q: "Un modelo de aprendizaje automático requiere ajustar hiperparámetros de manera sistemática para mejorar desempeño. ¿Qué técnica es adecuada?", options: ["Grid search", "Clustering", "Ordenamiento"], answer: 0, area: "IA" },
+            { q: "Un sistema distribuido necesita replicar datos entre nodos garantizando que lecturas reflejen al menos un estado consistente reciente. ¿Qué estrategia es adecuada?", options: ["Quorum de lectura/escritura", "Cache local", "Replicación asíncrona sin control"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe encontrar la subsecuencia común más larga entre dos cadenas. ¿Qué técnica es adecuada?", options: ["Programación dinámica", "Greedy", "Divide y vencerás"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema web requiere almacenar sesiones compartidas entre múltiples instancias. ¿Qué solución es adecuada?", options: ["Almacenamiento centralizado como Redis", "Memoria local", "Variables globales"], answer: 0, area: "Aplicación" },
+            { q: "Un modelo de clasificación requiere evaluar desempeño en múltiples clases. ¿Qué métrica es adecuada?", options: ["Matriz de confusión", "Error absoluto", "Media simple"], answer: 0, area: "IA" },
+            { q: "Una red requiere enrutar paquetes entre diferentes subredes. ¿Qué dispositivo es adecuado?", options: ["Router", "Switch", "Hub"], answer: 0, area: "Base" },
+            { q: "Un sistema concurrente necesita coordinar acceso a recursos limitados. ¿Qué técnica es adecuada?", options: ["Semáforos", "Eliminar concurrencia", "Duplicar recursos sin control"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe encontrar el k-ésimo mayor elemento en una lista. ¿Qué técnica es adecuada?", options: ["Quickselect", "Merge sort", "Bubble sort"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema requiere validar entradas de usuario para prevenir ataques. ¿Qué práctica es adecuada?", options: ["Validación y sanitización de entradas", "Confiar en el cliente", "Ignorar validación"], answer: 0, area: "Aplicación" },
+            { q: "Un modelo de machine learning necesita reducir dimensionalidad preservando relaciones locales. ¿Qué técnica es adecuada?", options: ["t-SNE", "Regresión lineal", "KNN"], answer: 0, area: "IA" },
+            { q: "Un sistema distribuido requiere detectar inconsistencias entre réplicas. ¿Qué técnica es adecuada?", options: ["Checksum y comparación", "Logs locales", "Cache"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe recorrer un árbol en postorden. ¿Qué técnica es adecuada?", options: ["Postorder traversal", "Inorder", "Preorder"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema necesita autenticación multifactor para mayor seguridad. ¿Qué práctica es adecuada?", options: ["MFA", "Contraseña simple", "Sin autenticación"], answer: 0, area: "Aplicación" },
+            { q: "Un modelo requiere ajustar pesos mediante descenso de gradiente. ¿Qué componente es clave?", options: ["Función de pérdida", "Ordenamiento", "Hashing"], answer: 0, area: "IA" },
+            { q: "Una red requiere control de acceso a nivel de paquetes. ¿Qué mecanismo es adecuado?", options: ["Firewall", "DNS", "ARP"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe detectar si una cadena es palíndromo eficientemente. ¿Qué técnica es adecuada?", options: ["Comparación de extremos", "DFS", "BFS"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema requiere replicación para alta disponibilidad. ¿Qué técnica es adecuada?", options: ["Replicación activa", "Cache", "Logs"], answer: 0, area: "Aplicación" },
+            { q: "Un modelo necesita evitar overfitting mediante reducción de complejidad. ¿Qué técnica es adecuada?", options: ["Regularización L2", "Aumentar capas", "Reducir datos"], answer: 0, area: "IA" },
+            { q: "Un sistema operativo necesita aislar procesos entre sí. ¿Qué mecanismo es adecuado?", options: ["Espacio de direcciones separado", "Memoria compartida sin control", "Variables globales"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe fusionar dos listas ordenadas. ¿Qué técnica es adecuada?", options: ["Merge", "Quickselect", "DFS"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema web requiere escalabilidad automática ante picos de tráfico. ¿Qué técnica es adecuada?", options: ["Auto-scaling", "Cache local", "Logs"], answer: 0, area: "Aplicación" },
+            { q: "Un modelo requiere clasificar datos con frontera no lineal compleja. ¿Qué técnica es adecuada?", options: ["Red neuronal", "Regresión lineal", "Naive Bayes"], answer: 0, area: "IA" },
+            { q: "Una red requiere cifrado de extremo a extremo. ¿Qué protocolo es adecuado?", options: ["TLS", "HTTP", "FTP"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe invertir una lista enlazada. ¿Qué técnica es adecuada?", options: ["Iteración con punteros", "Ordenamiento", "BFS"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema necesita monitoreo continuo de desempeño. ¿Qué herramienta es adecuada?", options: ["Logs y métricas", "Cache", "Variables locales"], answer: 0, area: "Aplicación" },
+            { q: "Un sistema de bases de datos en una plataforma de trading de alta frecuencia requiere minimizar bloqueos durante lecturas masivas mientras mantiene consistencia en escrituras críticas. Además, debe escalar horizontalmente sin degradar latencia. ¿Qué estrategia es más adecuada?", options: ["MVCC combinado con replicación líder-seguidor", "Bloqueo exclusivo global", "Serialización completa de operaciones"], answer: 0, area: "Aplicación" },
+            { q: "En teoría de autómatas, se desea reconocer un lenguaje que requiere memoria no acotada para contar símbolos balanceados en múltiples dimensiones. ¿Qué modelo computacional es más adecuado?", options: ["Máquina de Turing", "Autómata finito", "Expresión regular"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe determinar el orden topológico de un DAG que representa dependencias entre tareas en un sistema de construcción de software. ¿Qué método es más adecuado?", options: ["Algoritmo de Kahn", "DFS sin control", "Ordenamiento por pesos"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema operativo necesita gestionar memoria compartida entre procesos manteniendo aislamiento y eficiencia en acceso concurrente. ¿Qué mecanismo es más adecuado?", options: ["Segmentación con protección y sincronización", "Memoria global sin control", "Deshabilitar concurrencia"], answer: 0, area: "Base" },
+            { q: "Una red corporativa requiere protegerse contra ataques de spoofing y asegurar autenticidad de paquetes en capa de red. ¿Qué técnica es más adecuada?", options: ["IPsec", "ARP", "ICMP"], answer: 0, area: "Base" },
+            { q: "Un modelo de machine learning necesita optimizar una función de pérdida no convexa en un espacio de alta dimensionalidad. ¿Qué método es más adecuado?", options: ["Descenso de gradiente estocástico", "Búsqueda exhaustiva", "Ordenamiento"], answer: 0, area: "IA" },
+            { q: "Un sistema distribuido requiere particionar datos de manera uniforme para balancear carga entre nodos sin puntos calientes. ¿Qué técnica es más adecuada?", options: ["Hashing consistente", "Asignación manual", "Replica única"], answer: 0, area: "Aplicación" },
+            { q: "Un algoritmo debe calcular la distancia mínima entre todos los pares de nodos en un grafo con pesos positivos y negativos sin ciclos negativos. ¿Qué algoritmo es más adecuado?", options: ["Floyd-Warshall", "Dijkstra", "BFS"], answer: 0, area: "Algoritmia" },
+            { q: "Un compilador necesita traducir código fuente en múltiples etapas optimizando cada una sin perder semántica. ¿Qué arquitectura es más adecuada?", options: ["Pipeline de compilación con fases bien definidas", "Ejecución directa", "Interpretación sin análisis"], answer: 0, area: "Base" },
+            { q: "Un sistema de recomendación requiere balancear precisión y exploración para evitar estancamiento en sugerencias. ¿Qué técnica es más adecuada?", options: ["Exploration-exploitation (bandits)", "Ordenamiento fijo", "Eliminar diversidad"], answer: 0, area: "IA" },
+            { q: "Una red requiere garantizar entrega confiable y ordenada de datos entre hosts. ¿Qué protocolo es más adecuado?", options: ["TCP", "UDP", "ICMP"], answer: 0, area: "Base" },
+            { q: "Un sistema concurrente requiere coordinar múltiples hilos accediendo a una cola compartida sin condiciones de carrera. ¿Qué estructura es más adecuada?", options: ["Cola thread-safe", "Lista sin sincronización", "Array global"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe encontrar el subarreglo con suma máxima en una lista. ¿Qué técnica es más adecuada?", options: ["Algoritmo de Kadane", "Divide y vencerás sin optimización", "Búsqueda exhaustiva"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema web requiere protegerse contra ataques de XSS en entradas de usuario. ¿Qué práctica es más adecuada?", options: ["Escapado y sanitización de output", "Confiar en el cliente", "Deshabilitar validación"], answer: 0, area: "Aplicación" },
+            { q: "Un modelo de clasificación necesita calibrar probabilidades predichas para mejorar interpretabilidad. ¿Qué técnica es más adecuada?", options: ["Platt scaling o isotonic regression", "Aumentar parámetros", "Eliminar validación"], answer: 0, area: "IA" },
+            { q: "Un sistema distribuido requiere detectar y manejar particiones de red sin perder disponibilidad. ¿Qué enfoque es más adecuado?", options: ["Modelo CAP priorizando disponibilidad", "Consistencia estricta siempre", "Deshabilitar replicación"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe determinar si dos grafos son isomorfos en casos generales. ¿Qué enfoque es más adecuado en práctica?", options: ["Backtracking con poda", "BFS simple", "Ordenamiento de nodos"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema de almacenamiento necesita garantizar durabilidad ante fallos eléctricos inesperados. ¿Qué técnica es más adecuada?", options: ["Write-ahead logging", "Cache en memoria", "Eliminación de logs"], answer: 0, area: "Aplicación" },
+            { q: "Un modelo de NLP requiere capturar relaciones semánticas contextuales profundas en secuencias largas. ¿Qué arquitectura es más adecuada?", options: ["Transformers con atención", "Naive Bayes", "KNN"], answer: 0, area: "IA" },
+            { q: "Una red empresarial necesita limitar tráfico entre subredes según políticas específicas. ¿Qué mecanismo es más adecuado?", options: ["ACLs en routers", "ARP", "DNS"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe generar combinaciones de un conjunto sin repetición. ¿Qué técnica es más adecuada?", options: ["Backtracking", "Greedy", "DFS sin control"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema requiere autenticación federada entre múltiples servicios externos. ¿Qué protocolo es más adecuado?", options: ["OAuth 2.0", "HTTP básico", "FTP"], answer: 0, area: "Aplicación" },
+            { q: "Un modelo de machine learning necesita reducir correlación entre variables para mejorar estabilidad. ¿Qué técnica es más adecuada?", options: ["PCA", "KNN", "Regresión logística"], answer: 0, area: "IA" },
+            { q: "Un sistema operativo requiere manejar interrupciones de hardware de forma eficiente. ¿Qué mecanismo es más adecuado?", options: ["Rutinas de servicio de interrupción (ISR)", "Polling constante", "Deshabilitar interrupciones"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe fusionar k listas ordenadas eficientemente. ¿Qué técnica es más adecuada?", options: ["Heap mínimo", "Merge secuencial", "Bubble sort"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema web requiere minimizar latencia en contenido estático globalmente. ¿Qué solución es más adecuada?", options: ["CDN", "Servidor único", "Cache local"], answer: 0, area: "Aplicación" },
+            { q: "Un modelo requiere optimizar hiperparámetros en espacios grandes de búsqueda. ¿Qué técnica es más adecuada?", options: ["Random search", "Grid search exhaustivo", "Eliminación manual"], answer: 0, area: "IA" },
+            { q: "Una red requiere encapsulación segura de tráfico entre sedes remotas. ¿Qué tecnología es más adecuada?", options: ["VPN", "ARP", "ICMP"], answer: 0, area: "Base" },
+            { q: "Un algoritmo debe encontrar el mínimo en un array rotado ordenado. ¿Qué técnica es más adecuada?", options: ["Búsqueda binaria modificada", "Búsqueda lineal", "DFS"], answer: 0, area: "Algoritmia" },
+            { q: "Un sistema requiere monitoreo distribuido y agregación de logs. ¿Qué enfoque es más adecuado?", options: ["Centralización de logs", "Logs locales aislados", "Cache"], answer: 0, area: "Aplicación" }
+        ];
 
-const SESSION_SIZE = 40;
-let sessionQuestions = [];
-let timeLeft = 60 * 15; // 60 minutos
-let timerInterval;
+        let sessionQuestions = [];
+        let timeLeft = 0;
+        let timerInterval;
+        let SESSION_SIZE = 0;
 
-function shuffle(array){
-for (let i = array.length - 1; i > 0; i--) {
-const j = Math.floor(Math.random() * (i + 1));
-[array[i], array[j]] = [array[j], array[i]];
-}
-return array;
-}
+        const STUDY_LEVELS = {
+            "Ligero": { questions: 15, time: 5 },
+            "Moderado": { questions: 25, time: 10 },
+            "Intermedio": { questions: 40, time: 15 },
+            "Avanzado": { questions: 60, time: 25 },
+            "CENEVAL": { questions: 120, time: 180 }
+        };
+
+        function startSelectedLevel() {
+            let level = document.getElementById("level").value;
+            let config = STUDY_LEVELS[level];
+
+            SESSION_SIZE = config.questions;
+            timeLeft = config.time * 60;
+
+            currentIndex = 0;
+            answers = {};
+
+            pickSession();
+            startTimer();
+            renderQuestion();
+        }
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
 
 
-function pickSession(){
-let areas = {"Algoritmia":[],"Base":[],"Aplicación":[],"IA":[], "Otro":[]};
-questions.forEach(q=>areas[q.area]?.push(q) ?? areas["Otro"].push(q));
+        function pickSession() {
+            let areas = { "Algoritmia": [], "Base": [], "Aplicación": [], "IA": [], "Otro": [] };
+            questions.forEach(q => areas[q.area]?.push(q) ?? areas["Otro"].push(q));
 
-let perArea = Math.floor(SESSION_SIZE / 4);
-sessionQuestions = [];
+            let perArea = Math.floor(SESSION_SIZE / 4);
+            sessionQuestions = [];
 
-Object.keys(areas).forEach(a=>{
-sessionQuestions = sessionQuestions.concat(shuffle(areas[a]).slice(0, perArea));
-});
+            Object.keys(areas).forEach(a => {
+                sessionQuestions = sessionQuestions.concat(shuffle(areas[a]).slice(0, perArea));
+            });
 
-sessionQuestions = shuffle(sessionQuestions);
-}
+            sessionQuestions = shuffle(sessionQuestions);
+        }
 
-function startTimer(){
-timerInterval = setInterval(()=>{
-timeLeft--;
-let min = Math.floor(timeLeft/60);
-let sec = timeLeft%60;
-document.getElementById("timer").innerText = `Tiempo: ${min}:${sec.toString().padStart(2,'0')}`;
-if(timeLeft<=0){
-clearInterval(timerInterval);
-submitQuiz();
-}
-},1000);
-}
+        function startTimer() {
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                let min = Math.floor(timeLeft / 60);
+                let sec = timeLeft % 60;
+                document.getElementById("timer").innerText = `Tiempo: ${min}:${sec.toString().padStart(2, '0')}`;
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    submitQuiz();
+                }
+            }, 1000);
+        }
 
-let currentIndex = 0;
-let answers = {};
+        let currentIndex = 0;
+        let answers = {};
 
-function loadQuiz(){
-pickSession();
-startTimer();
-renderQuestion();
-}
+        function renderQuestion() {
+            let quizDiv = document.getElementById("quiz");
+            let navDiv = document.getElementById("nav");
+            quizDiv.innerHTML = "";
+            navDiv.innerHTML = "";
 
-function renderQuestion(){
-let quizDiv = document.getElementById("quiz");
-let navDiv = document.getElementById("nav");
-quizDiv.innerHTML = "";
-navDiv.innerHTML = "";
+            let item = sessionQuestions[currentIndex];
 
-let item = sessionQuestions[currentIndex];
+            let div = document.createElement("div");
+            div.classList.add("card");
+            div.innerHTML = `<p>${currentIndex + 1}. ${item.q}</p>` +
+                item.options.map((opt, j) =>
+                    `<label><input type="radio" name="q" value="${j}" ${answers[currentIndex] == j ? "checked" : ""}> ${opt}</label><br>`
+                ).join("");
+            quizDiv.appendChild(div);
 
-let div = document.createElement("div");
-div.classList.add("card");
-div.innerHTML = `<p>${currentIndex+1}. ${item.q}</p>` +
-item.options.map((opt,j)=>
-`<label><input type="radio" name="q" value="${j}" ${answers[currentIndex]==j?"checked":""}> ${opt}</label><br>`
-).join("");
-quizDiv.appendChild(div);
+            let prev = document.createElement("button");
+            prev.innerText = "Anterior";
+            prev.onclick = () => {
+                saveAnswer();
+                if (currentIndex > 0) { currentIndex--; renderQuestion(); }
+            };
 
-let prev = document.createElement("button");
-prev.innerText = "Anterior";
-prev.onclick = ()=>{
-saveAnswer();
-if(currentIndex>0){currentIndex--; renderQuestion();}
-};
+            let next = document.createElement("button");
 
-let next = document.createElement("button");
+            if (currentIndex < sessionQuestions.length - 1) {
+                next.innerText = "Siguiente";
+                next.onclick = () => {
+                    saveAnswer();
+                    if (currentIndex < sessionQuestions.length - 1) { currentIndex++; renderQuestion(); }
+                };
+            } else {
+                next.innerText = "Evaluar";
+                next.onclick = () => {
+                    saveAnswer();
+                    submitQuiz();
+                };
+            }
 
-if(currentIndex < sessionQuestions.length - 1){
-    next.innerText = "Siguiente";
-    next.onclick = ()=>{
-        saveAnswer();
-        if(currentIndex<sessionQuestions.length-1){currentIndex++; renderQuestion();}
-    };
-} else {
-    next.innerText = "Evaluar";
-    next.onclick = ()=>{
-        saveAnswer();
-        submitQuiz();
-    };
-}
+            navDiv.appendChild(prev);
+            navDiv.appendChild(next);
+        }
 
-navDiv.appendChild(prev);
-navDiv.appendChild(next);
-}
+        function saveAnswer() {
+            let selected = document.querySelector(`input[name="q"]:checked`);
+            if (selected) answers[currentIndex] = parseInt(selected.value);
+        }
 
-function saveAnswer(){
-let selected = document.querySelector(`input[name="q"]:checked`);
-if(selected) answers[currentIndex] = parseInt(selected.value);
-}
+        function submitQuiz() {
+            clearInterval(timerInterval);
+            let score = 0;
+            let areaStats = {};
 
-function submitQuiz(){
-clearInterval(timerInterval);
-let score=0;
-let areaStats = {};
+            sessionQuestions.forEach((item, i) => {
+                if (!areaStats[item.area]) areaStats[item.area] = { correct: 0, total: 0 };
+                areaStats[item.area].total++;
 
-sessionQuestions.forEach((item,i)=>{
-if(!areaStats[item.area]) areaStats[item.area] = {correct:0, total:0};
-areaStats[item.area].total++;
+                let selected = answers[i];
+                if (selected !== undefined && selected === item.answer) {
+                    score++;
+                    areaStats[item.area].correct++;
+                }
+            });
 
-let selected = answers[i];
-if(selected!==undefined && selected===item.answer){
-score++;
-areaStats[item.area].correct++;
-}
-});
+            let result = document.getElementById("result");
+            let breakdown = Object.keys(areaStats).map(a => {
+                let s = areaStats[a];
+                return `${a}: ${s.correct}/${s.total}`;
+            }).join(" | ");
 
-let result = document.getElementById("result");
-let breakdown = Object.keys(areaStats).map(a=>{
-let s = areaStats[a];
-return `${a}: ${s.correct}/${s.total}`;
-}).join(" | ");
+            let html = `<p><strong>Resultado:</strong> ${score}/${sessionQuestions.length}</p>`;
+            html += `<p>${breakdown}</p>`;
+            html += `<table border="1" cellpadding="5" cellspacing="0" style="border-collapse:collapse; width:100%;">`;
+            html += `<tr><th>#</th><th>Pregunta</th><th>Tu respuesta</th><th>Correcta</th></tr>`;
 
-let html = `<p><strong>Resultado:</strong> ${score}/${sessionQuestions.length}</p>`;
-html += `<p>${breakdown}</p>`;
-html += `<table border="1" cellpadding="5" cellspacing="0" style="border-collapse:collapse; width:100%;">`;
-html += `<tr><th>#</th><th>Pregunta</th><th>Tu respuesta</th><th>Correcta</th></tr>`;
+            sessionQuestions.forEach((item, i) => {
+                let userAns = answers[i] !== undefined ? item.options[answers[i]] : "Sin respuesta";
+                let correctAns = item.options[item.answer];
+                let isCorrect = answers[i] === item.answer;
 
-sessionQuestions.forEach((item,i)=>{
-let userAns = answers[i] !== undefined ? item.options[answers[i]] : "Sin respuesta";
-let correctAns = item.options[item.answer];
-let isCorrect = answers[i] === item.answer;
+                html += `<tr style="background:${isCorrect ? '#c8f7c5' : '#f7c5c5'}">`;
+                html += `<td>${i + 1}</td>`;
+                html += `<td>${item.q}</td>`;
+                html += `<td>${userAns}</td>`;
+                html += `<td>${correctAns}</td>`;
+                html += `</tr>`;
+            });
 
-html += `<tr style="background:${isCorrect ? '#c8f7c5' : '#f7c5c5'}">`;
-html += `<td>${i+1}</td>`;
-html += `<td>${item.q}</td>`;
-html += `<td>${userAns}</td>`;
-html += `<td>${correctAns}</td>`;
-html += `</tr>`;
-});
+            html += `</table>`;
 
-html += `</table>`;
-
-result.innerHTML = html;
-}
-
-loadQuiz();
-</script>
+            result.innerHTML = html;
+        }
+    </script>
 </body>
+
 </html>
