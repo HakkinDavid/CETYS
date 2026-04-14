@@ -2512,7 +2512,6 @@ A: es un elemento de datos que se mueve de un módulo a otro
 B: está representado por una línea que une dos módulos.
 C: significa que el módulo superior tiene la capacidad de llamar al módulo inferior
 D: Ninguna de las anteriores
-E: Ninguna de las anteriores
 Respuesta correcta: A
 
 Numero de pregunta: 322
