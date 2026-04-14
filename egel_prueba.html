@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Banco EGEL Interactivo</title>
+    <title>Simulador EGEL PLUS para ICC</title>
     <style>
         body {
             font-family: Arial;
@@ -74,7 +74,7 @@
     <div class="container">
         <div id="topbar">
             <h2>Simulador EGEL PLUS para ICC</h2>
-            <h4>David Emmanuel Santana Romero</h4>
+            <h4>por David Emmanuel Santana Romero</h4>
             <div id="timer">Tiempo: 00:00</div>
         </div>
         <div id="levelSelector" style="margin-bottom:15px;">
@@ -84,15 +84,18 @@
                 <option value="Moderado">Moderado (25 preguntas / 10 min)</option>
                 <option value="Intermedio" selected>Intermedio (40 preguntas / 15 min)</option>
                 <option value="Avanzado">Avanzado (60 preguntas / 25 min)</option>
-                <option value="CENEVAL">CENEVAL (120 preguntas / 180 min)</option>
+                <option value="CENEVAL">CENEVAL (140 preguntas / 180 min)</option>
             </select>
             <div style="margin-top:10px;">
                 <label><strong>Áreas incluidas:</strong></label>
                 <div id="areaSelector" class="area-picker">
                     <label><input type="checkbox" name="area" value="Algoritmia" checked> Algoritmia</label>
-                    <label><input type="checkbox" name="area" value="Desarrollo de software de base" checked> Desarrollo de software de base</label>
-                    <label><input type="checkbox" name="area" value="Desarrollo de software de aplicación" checked> Desarrollo de software de aplicación</label>
-                    <label><input type="checkbox" name="area" value="Soluciones de cómputo inteligente" checked> Soluciones de cómputo inteligente</label>
+                    <label><input type="checkbox" name="area" value="Desarrollo de software de base" checked> Desarrollo
+                        de software de base</label>
+                    <label><input type="checkbox" name="area" value="Desarrollo de software de aplicación" checked>
+                        Desarrollo de software de aplicación</label>
+                    <label><input type="checkbox" name="area" value="Soluciones de cómputo inteligente" checked>
+                        Soluciones de cómputo inteligente</label>
                     <label><input type="checkbox" name="area" value="Lengua"> Lengua</label>
                 </div>
             </div>
@@ -129,7 +132,7 @@
             "Moderado": { questions: 25, time: 10 },
             "Intermedio": { questions: 40, time: 15 },
             "Avanzado": { questions: 60, time: 25 },
-            "CENEVAL": { questions: 120, time: 180 }
+            "CENEVAL": { questions: 140, time: 180 }
         };
 
         function getSelectedAreas() {
