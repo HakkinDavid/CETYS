@@ -81,9 +81,10 @@
 
     <script src="./egel/banco_preguntas.js"></script>
     <script>
-        const questions = Array.isArray(window.questions) ? window.questions : [];
+        const questionBank = Array.isArray(window.questions) ? window.questions : [];
+        const CORE_AREAS = ["Algoritmia", "Base", "Aplicación", "IA"];
 
-        if (questions.length === 0) {
+        if (questionBank.length === 0) {
             document.getElementById("result").innerHTML = "No se pudo cargar el banco de preguntas desde ./egel/banco_preguntas.js";
         }
 
@@ -105,6 +106,7 @@
             let level = document.getElementById("level").value;
             let config = STUDY_LEVELS[level];
 
+            clearInterval(timerInterval);
             SESSION_SIZE = config.questions;
             timeLeft = config.time * 60;
 
@@ -112,6 +114,12 @@
             answers = {};
 
             pickSession();
+            if (sessionQuestions.length === 0) {
+                document.getElementById("result").innerHTML = "No hay preguntas disponibles para iniciar la sesión.";
+                return;
+            }
+
+            document.getElementById("result").innerHTML = "";
             startTimer();
             renderQuestion();
         }
@@ -127,14 +135,28 @@
 
         function pickSession() {
             let areas = { "Algoritmia": [], "Base": [], "Aplicación": [], "IA": [], "Otro": [] };
-            questions.forEach(q => areas[q.area]?.push(q) ?? areas["Otro"].push(q));
+            questionBank.forEach(q => areas[q.area]?.push(q) ?? areas["Otro"].push(q));
 
-            let perArea = Math.floor(SESSION_SIZE / 4);
+            Object.keys(areas).forEach(area => shuffle(areas[area]));
+
+            const targetSize = Math.min(SESSION_SIZE, questionBank.length);
+            const perArea = Math.floor(targetSize / CORE_AREAS.length);
+            const remainder = targetSize % CORE_AREAS.length;
+
             sessionQuestions = [];
 
-            Object.keys(areas).forEach(a => {
-                sessionQuestions = sessionQuestions.concat(shuffle(areas[a]).slice(0, perArea));
+            CORE_AREAS.forEach((area, index) => {
+                const quota = perArea + (index < remainder ? 1 : 0);
+                sessionQuestions.push(...areas[area].splice(0, quota));
             });
+
+            if (sessionQuestions.length < targetSize) {
+                const remaining = shuffle([
+                    ...CORE_AREAS.flatMap(area => areas[area]),
+                    ...areas["Otro"],
+                ]);
+                sessionQuestions.push(...remaining.slice(0, targetSize - sessionQuestions.length));
+            }
 
             sessionQuestions = shuffle(sessionQuestions);
         }
@@ -162,10 +184,14 @@
             navDiv.innerHTML = "";
 
             let item = sessionQuestions[currentIndex];
+            if (!item) {
+                document.getElementById("result").innerHTML = "No se pudo renderizar la pregunta actual.";
+                return;
+            }
 
             let div = document.createElement("div");
             div.classList.add("card");
-            div.innerHTML = `<p>${currentIndex + 1}. ${item.q}</p>` +
+            div.innerHTML = `<p><strong>${currentIndex + 1} / ${sessionQuestions.length}</strong></p><p>${item.q}</p>` +
                 item.options.map((opt, j) =>
                     `<label><input type="radio" name="q" value="${j}" ${answers[currentIndex] == j ? "checked" : ""}> ${opt}</label><br>`
                 ).join("");

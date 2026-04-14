@@ -1,5 +1,5 @@
 // Generado automáticamente por ./egel/generar_banco_egel.js
-const questions = [
+const EGEL_QUESTIONS = [
   {"q":"La depuración de software es un conjunto de actividades que se pueden planificar por adelantado y realizar de manera sistemática.","options":["verdad","falso"],"answer":1,"area":"Aplicación","source":"preguntas_egel_compu_24.txt"},
   {"q":"¿Cuál de los siguientes no es un software que prueba características genéricas?","options":["Diferentes técnicas de prueba son apropiadas en diferentes puntos en el tiempo","La prueba la realiza el desarrollador del software o un grupo de prueba independiente","Las pruebas y la depuración son actividades diferentes, pero la depuración debe incluirse en cualquier estrategia de prueba.","Ninguna de las mencionadas"],"answer":0,"area":"Base","source":"preguntas_egel_compu_24.txt"},
   {"q":"ITG significa","options":["grupo de prueba instantáneo","grupo de pruebas de integración","grupo de prueba individual","grupo de prueba independiente"],"answer":3,"area":"Algoritmia","source":"preguntas_egel_compu_24.txt"},
@@ -1116,9 +1116,9 @@ const questions = [
 ];
 
 if (typeof window !== "undefined") {
-  window.questions = questions;
+  window.questions = EGEL_QUESTIONS;
 }
 
 if (typeof module !== "undefined") {
-  module.exports = { questions };
+  module.exports = { questions: EGEL_QUESTIONS };
 }

@@ -235,14 +235,14 @@ function main() {
 
   const output = [
     "// Generado automáticamente por ./egel/generar_banco_egel.js",
-    `const questions = [\n${allQuestions.map(serializeQuestion).join(",\n")}\n];`,
+    `const EGEL_QUESTIONS = [\n${allQuestions.map(serializeQuestion).join(",\n")}\n];`,
     "",
     'if (typeof window !== "undefined") {',
-    "  window.questions = questions;",
+    "  window.questions = EGEL_QUESTIONS;",
     "}",
     "",
     'if (typeof module !== "undefined") {',
-    "  module.exports = { questions };",
+    "  module.exports = { questions: EGEL_QUESTIONS };",
     "}",
     "",
   ].join("\n");
