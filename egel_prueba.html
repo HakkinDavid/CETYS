@@ -67,6 +67,57 @@
             padding: 6px 10px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
         }
+
+        .question-head {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            justify-content: space-between;
+        }
+
+        .question-meta {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .info-badge {
+            position: relative;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 22px;
+            height: 22px;
+            border-radius: 50%;
+            border: 1px solid #c7c7c7;
+            background: #fff7d6;
+            font-size: 13px;
+            cursor: help;
+        }
+
+        .info-badge .tooltip {
+            position: absolute;
+            top: 28px;
+            right: 0;
+            width: 220px;
+            padding: 8px 10px;
+            border-radius: 8px;
+            background: #222;
+            color: white;
+            font-size: 12px;
+            line-height: 1.35;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(-4px);
+            transition: opacity 0.15s ease, transform 0.15s ease;
+            z-index: 10;
+        }
+
+        .info-badge:hover .tooltip {
+            opacity: 1;
+            transform: translateY(0);
+        }
     </style>
 </head>
 
@@ -99,6 +150,9 @@
                     <label><input type="checkbox" name="area" value="Lengua"> Lengua</label>
                 </div>
             </div>
+            <div style="margin-top:10px;">
+                <label><input type="checkbox" id="includeSynthetic"> Incluir preguntas generadas por IA</label>
+            </div>
             <button onclick="startSelectedLevel()">Iniciar</button>
         </div>
         <div id="nav"></div>
@@ -108,7 +162,9 @@
 
     <script src="./egel/banco_preguntas.js"></script>
     <script>
-        const questionBank = Array.isArray(window.questions) ? window.questions : [];
+        const questionBank = Array.isArray(window.questions)
+            ? window.questions.map(q => ({ synthetic: false, ...q }))
+            : [];
         const AVAILABLE_AREAS = [
             "Algoritmia",
             "Desarrollo de software de base",
@@ -141,10 +197,34 @@
                 .filter(area => AVAILABLE_AREAS.includes(area));
         }
 
+        function includeSyntheticQuestions() {
+            return Boolean(document.getElementById("includeSynthetic")?.checked);
+        }
+
+        function shuffleSyntheticOptions(question) {
+            if (!question.synthetic) {
+                return { ...question, options: [...question.options] };
+            }
+
+            const decorated = question.options.map((text, index) => ({
+                text,
+                isAnswer: index === question.answer,
+            }));
+
+            shuffle(decorated);
+
+            return {
+                ...question,
+                options: decorated.map(option => option.text),
+                answer: decorated.findIndex(option => option.isAnswer),
+            };
+        }
+
         function startSelectedLevel() {
             let level = document.getElementById("level").value;
             let config = STUDY_LEVELS[level];
             let selectedAreas = getSelectedAreas();
+            let allowSynthetic = includeSyntheticQuestions();
 
             clearInterval(timerInterval);
             SESSION_SIZE = config.questions;
@@ -158,7 +238,7 @@
                 return;
             }
 
-            pickSession(selectedAreas);
+            pickSession(selectedAreas, allowSynthetic);
             if (sessionQuestions.length === 0) {
                 document.getElementById("result").innerHTML = "No hay preguntas disponibles para iniciar la sesión.";
                 return;
@@ -178,10 +258,12 @@
         }
 
 
-        function pickSession(selectedAreas) {
+        function pickSession(selectedAreas, allowSynthetic) {
             let areas = Object.fromEntries(AVAILABLE_AREAS.map(area => [area, []]));
             areas["Otro"] = [];
-            questionBank.forEach(q => areas[q.area]?.push(q) ?? areas["Otro"].push(q));
+            questionBank
+                .filter(question => allowSynthetic || !question.synthetic)
+                .forEach(q => areas[q.area]?.push(q) ?? areas["Otro"].push(q));
 
             Object.keys(areas).forEach(area => shuffle(areas[area]));
 
@@ -204,7 +286,7 @@
                 sessionQuestions.push(...remaining.slice(0, targetSize - sessionQuestions.length));
             }
 
-            sessionQuestions = shuffle(sessionQuestions);
+            sessionQuestions = shuffle(sessionQuestions.map(shuffleSyntheticOptions));
         }
 
         function startTimer() {
@@ -237,7 +319,10 @@
 
             let div = document.createElement("div");
             div.classList.add("card");
-            div.innerHTML = `<p><strong>${currentIndex + 1} / ${sessionQuestions.length}</strong></p><p>${item.q}</p>` +
+            const syntheticInfo = item.synthetic
+                ? `<span class="info-badge">ℹ️<span class="tooltip">Pregunta generada por IA. Verifica el contenido antes de usarla como referencia definitiva.</span></span>`
+                : "";
+            div.innerHTML = `<div class="question-head"><p><strong>${currentIndex + 1} / ${sessionQuestions.length}</strong></p><div class="question-meta">${syntheticInfo}</div></div><p>${item.q}</p>` +
                 item.options.map((opt, j) =>
                     `<label><input type="radio" name="q" value="${j}" ${answers[currentIndex] == j ? "checked" : ""}> ${opt}</label><br>`
                 ).join("");
@@ -313,7 +398,7 @@
             html += `<p>${breakdown}</p>`;
             if (subareaBreakdown) html += `<p>${subareaBreakdown}</p>`;
             html += `<table border="1" cellpadding="5" cellspacing="0" style="border-collapse:collapse; width:100%;">`;
-            html += `<tr><th>#</th><th>Área</th><th>Subárea</th><th>Pregunta</th><th>Tu respuesta</th><th>Correcta</th></tr>`;
+            html += `<tr><th>#</th><th>Área</th><th>Subárea</th><th>Origen</th><th>Pregunta</th><th>Tu respuesta</th><th>Correcta</th></tr>`;
 
             sessionQuestions.forEach((item, i) => {
                 let userAns = answers[i] !== undefined ? item.options[answers[i]] : "Sin respuesta";
@@ -324,6 +409,7 @@
                 html += `<td>${i + 1}</td>`;
                 html += `<td>${item.area}</td>`;
                 html += `<td>${item.subarea ?? "-"}</td>`;
+                html += `<td>${item.synthetic ? "IA" : "Banco"}</td>`;
                 html += `<td>${item.q}</td>`;
                 html += `<td>${userAns}</td>`;
                 html += `<td>${correctAns}</td>`;

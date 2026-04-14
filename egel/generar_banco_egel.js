@@ -3,8 +3,9 @@
 const fs = require("fs");
 const path = require("path");
 
-const INPUT_FILES = ["casos.txt", "lengua.txt", "conceptos.txt"];
+const INPUT_FILES = ["casos.txt", "lengua.txt", "conceptos.txt", "sintéticas.txt"];
 const OUTPUT_FILE = "banco_preguntas.js";
+const SYNTHETIC_SOURCES = new Set(["sintéticas.txt"]);
 
 const DEFAULT_CASOS_CLASSIFICATION = {
     area: "Desarrollo de software de aplicación",
@@ -65,6 +66,9 @@ const SUBAREA_RULES = [
             /compilador(?:es)?/i,
             /an[aá]lisis l[eé]xico/i,
             /an[aá]lisis sint[aá]ctico/i,
+            /\btokens?\b/i,
+            /an[aá]lisis sem[aá]ntico/i,
+            /c[oó]digo objeto/i,
             /\bl[re]\s*\(/i,
             /\bparser\b/i,
             /\bparseo\b/i,
@@ -85,6 +89,11 @@ const SUBAREA_RULES = [
             /base de datos/i,
             /\bdbms\b/i,
             /\bsql\b/i,
+            /\bacid\b/i,
+            /\bdurability\b/i,
+            /\bisolation\b/i,
+            /\batomicity\b/i,
+            /\bconsistency\b/i,
             /\brelacional\b/i,
             /normaliz/i,
             /integridad referencial/i,
@@ -108,6 +117,11 @@ const SUBAREA_RULES = [
             /control de acceso/i,
             /cifrad/i,
             /autentic/i,
+            /\bmitm\b/i,
+            /\bphishing\b/i,
+            /\bmalware\b/i,
+            /\bpharming\b/i,
+            /\bconfidencialidad\b/i,
             /\bcsrf\b/i,
             /\bxss\b/i,
             /inyecci[oó]n/i,
@@ -118,11 +132,17 @@ const SUBAREA_RULES = [
         patterns: [
             /\bred(?:es)? de computadoras?\b/i,
             /\bred(?:es)?\b/i,
+            /\bhttp\b/i,
             /\btcp\b/i,
+            /\btcp\/ip\b/i,
             /\budp\b/i,
             /\bdns\b/i,
             /\barp\b/i,
             /\bicmp\b/i,
+            /\bethernet\b/i,
+            /\bosi\b/i,
+            /\bp2p\b/i,
+            /cliente-servidor/i,
             /\bvlan\b/i,
             /\bvpn\b/i,
             /\brouter\b/i,
@@ -137,6 +157,14 @@ const SUBAREA_RULES = [
             /sistema operativo/i,
             /\bmemoria\b/i,
             /\bprocesos?\b/i,
+            /\blisto\b/i,
+            /\bbloqueado\b/i,
+            /\bejecutando\b/i,
+            /\bterminado\b/i,
+            /\bdeadlock\b/i,
+            /round robin/i,
+            /\bharvard\b/i,
+            /von neumann/i,
             /\bhilos?\b/i,
             /\bthread\b/i,
             /planificaci[oó]n/i,
@@ -154,6 +182,7 @@ const SUBAREA_RULES = [
             /c[oó]mputo distribuido/i,
             /sistema(?:s)? distribuido/i,
             /\bnodos?\b/i,
+            /\bcap\b/i,
             /\bconsenso\b/i,
             /\braft\b/i,
             /\bquorum\b/i,
@@ -181,6 +210,10 @@ const SUBAREA_RULES = [
             /inteligencia artificial/i,
             /machine learning/i,
             /aprendizaje autom[aá]tico/i,
+            /\bsupervisado\b/i,
+            /no supervisado/i,
+            /refuerzo/i,
+            /heur[ií]stica/i,
             /\bmodelo(s)?\b/i,
             /red(?:es)? neuronales?/i,
             /\bsvm\b/i,
@@ -197,6 +230,13 @@ const SUBAREA_RULES = [
             /an[aá]lisis de algoritmos/i,
             /dise[nñ]o de algoritmos/i,
             /\balgoritmo\b/i,
+            /divide and conquer/i,
+            /\bbig o\b/i,
+            /\btheta\b/i,
+            /\bomega\b/i,
+            /programaci[oó]n din[aá]mica/i,
+            /algoritmo voraz/i,
+            /\ba\*\b/i,
             /\bcomplejidad\b/i,
             /\brecurs/i,
             /divide y vencer[aá]s/i,
@@ -212,13 +252,15 @@ const SUBAREA_RULES = [
         subarea: "Estructuras de datos",
         patterns: [
             /estructura(?:s)? de datos/i,
+            /lista ligada/i,
             /\bpila\b/i,
             /\bcola\b/i,
             /lista enlazada/i,
             /\bheap\b/i,
+            /tabla hash/i,
+            /\bhash\b/i,
             /\b[aá]rbol(?:es)?\b/i,
             /\bmatriz\b/i,
-            /tabla hash/i,
         ],
     },
     {
@@ -251,6 +293,11 @@ const SUBAREA_RULES = [
             /lenguaje(?:s)? de programaci[oó]n/i,
             /lenguaje de alto nivel/i,
             /c[oó]digo fuente/i,
+            /\bdeclarativo\b/i,
+            /\bimperativo\b/i,
+            /\bfuncional\b/i,
+            /\bpoo\b/i,
+            /encapsulamiento/i,
             /programaci[oó]n orientada a objetos/i,
             /software orientado a objetos/i,
             /\boo\b/i,
@@ -459,7 +506,15 @@ function classifyEntry(inputFile, entry) {
         return classifyByRules(entry) ?? DEFAULT_CASOS_CLASSIFICATION;
     }
 
+    if (isSyntheticSource(inputFile)) {
+        return classifyByRules(entry) ?? DEFAULT_CASOS_CLASSIFICATION;
+    }
+
     return null;
+}
+
+function isSyntheticSource(inputFile) {
+  return SYNTHETIC_SOURCES.has(inputFile) || /synthetic|sint[eé]t/i.test(inputFile);
 }
 
 function serializeQuestion(entry) {
@@ -506,6 +561,7 @@ function main() {
                 answer: parsed.answer,
                 area: classification.area,
                 subarea: classification.subarea,
+                synthetic: isSyntheticSource(inputFile),
                 source: inputFile,
             };
 
