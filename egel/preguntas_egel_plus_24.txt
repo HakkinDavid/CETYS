@@ -1,0 +1,720 @@
+Número de pregunta: 1
+Pregunta: ¿Cuál es el tema del texto?
+A) Un estudio en Dinamarca
+B) Problemas en la infancia
+C) Bebés prematuros y TDAH
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 2
+Pregunta: ¿Cuál es el título más adecuado para el texto?
+A) Hiperactividad
+B) Un estudio interesante
+C) Bebés prematuros, niños hiperactivos
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 3
+Pregunta: ¿Qué clase de progresión temática presenta el texto?
+A) Mixta
+B) Variada
+C) Compleja
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 4
+Pregunta: ¿Qué clase de texto es según la ubicación de la idea principal?
+A) Analizante
+B) Sintetizante
+C) Analizante-sintetizante
+Respuesta correcta: A
+
+================================================================================
+
+Número de pregunta: 5
+Pregunta: Es una idea incompatible con el texto:
+A) Los bebés prematuros podrían tener problemas escolares.
+B) Un 30% de bebés prematuros no tendrán ningún tipo de problemas.
+C) El TDAH es una enfermedad que se debe combatir a tiempo
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 6
+Pregunta: De acuerdo al texto se deduce:
+A) El 70% de bebés prematuros nacen entre las 34 y 36 semanas.
+B) Los bebés que nacen después de un embarazo normal probablemente no padecerán TDAH.
+C) El 30% de bebés prematuros tendrá 3 veces más riesgos que los demás.
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 7
+Pregunta: Según el texto un “paleolítico nacionalista” es:
+A) Un político tradicional.
+B) Un soldado que lucha por su patria.
+C) Un ciudadano que rechaza la presencia de capitales chilenos en el país.
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 8
+Pregunta: ¿Qué podemos deducir del texto?
+A) Hay incompatibilidad entre la guerra y el capital.
+B) Existe incoherencia en quienes no pueden olvidar la Guerra del Pacífico y a la vez se oponen a las relaciones comerciales con Chile.
+C) a y b
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 9
+Pregunta: ¿Cuál es la idea principal del texto anterior?
+A) El Perú estaba listo para la libertad porque se la ganó.
+B) La libertad y la democracia son exóticas.
+C) A Estados Unidos no le interesaba la independencia latinoamericana.
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 10
+Pregunta: ¿Qué pretende el autor del texto?
+A) Demostrar que las personas que planteaban que el Perú estaba preparado para su independencia tenían la razón.
+B) Comparar el proceso de independencia de los países europeos con el Perú.
+C) Mostrar las cualidades de los hombres que hicieron posible la Independencia del Perú.
+Respuesta correcta: A
+
+================================================================================
+
+Número de pregunta: 11
+Pregunta: ¿Cuál es la afirmación correcta?
+A) La historia le da la razón a la gente escéptica, puesto que el Perú supo ganar su libertad.
+B) Diversos acontecimientos extranjeros influyeron en los destinos hispanoamericanos.
+C) España no trató de ponerse a la libertad de sus colonias.
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 12
+Pregunta: ¿Qué sostiene el autor del párrafo?
+A) La inteligencia del alumno es una “tabula rasa” limpia y despejada en donde el profesor tiene el derecho de escribir en ella.
+B) La inteligencia es una “tabula rasa” en la que nadie sino el propio individuo tiene el derecho de escribir.
+C) La inteligencia la adquieren los alumnos por medios externos de su persona.
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 13
+Pregunta: ¿A qué se orienta fundamentalmente el párrafo leído?
+A) A mejorar los métodos de enseñanza - aprendizaje.
+B) A mejorar la capacidad intelectual del alumno.
+C) A orientar los fines de la educación.
+Respuesta correcta: A
+
+================================================================================
+
+Número de pregunta: 14
+Pregunta: ¿Cuál de las siguientes afirmaciones no se deriva lógicamente del párrafo leído?
+A) Es política del Estado mantener la relación del alumno con el maestro para beneficio del desarrollo espiritual de la sociedad.
+B) Es política del Estado desarrollar una metodología de la enseñanza eficaz para lograr la relación maestro - alumno.
+C) Todo maestro sólo debe estar en condiciones de estudio constante para que desarrolle su personalidad auténtica como profesor.
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 15
+Pregunta: ¿Cuál de las siguientes expresiones está implícitamente sostenida en el párrafo anterior?
+A) Los profesores son mejores cuando más influyen en la mente de sus alumnos.
+B) Sólo el educando es el único que está en capacidad de conocer con la correcta orientación del maestro.
+C) La libertad del hombre se debe a la capacidad intelectual para poder aprender los valores de su sociedad.
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 16
+Pregunta: La salud reproductiva implica:
+A) La regulación de la fecundidad
+B) Libertad de elección de métodos
+C) Las relaciones personales
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 17
+Pregunta: ¿Cuál es el tema central del texto anterior?
+A) La salud reproductiva
+B) Los embarazos y los partos
+C) La fecundación
+Respuesta correcta: A
+
+================================================================================
+
+Número de pregunta: 18
+Pregunta: ¿Cuál de las siguientes afirmaciones es verdadera?
+A) La salud reproductiva está incluida en la salud sexual.
+B) EI desarrollo de la vida es un objetivo de la salud sexual.
+C) Los servicios de salud deben propiciar los embarazos, partos y abortos.
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 19
+Pregunta: ¿Cuál de las siguientes es una idea que no está expresada en el texto?
+A) Las relaciones personales son un objetivo de la salud sexual.
+B) El hombre y la mujer tienen derecho a acceder a los servicios de salud que propicien los partos.
+C) La salud reproductiva está relacionada con el sistema reproductivo y con sus funciones y procesos.
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 20
+Pregunta: ¿Cuál es el título más adecuado para el texto?
+A) El discóbolo
+B) El arte griego
+C) La obra de Mirón
+Respuesta correcta: A
+
+================================================================================
+
+Número de pregunta: 21
+Pregunta: Según el texto ¿Cuál fue la innovación del Discóbolo?
+A) Representó perfectamente la idea de victoria.
+B) Fue el primer avance para integrar la figura en el espacio.
+C) La captación del cuerpo humano en pleno esfuerzo.
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 22
+Pregunta: ¿Qué buscó Mirón al esculpir el Discóbolo?
+A) La idea de victoria a través de una representación perfecta de la figura humana.
+B) La glorificación de los dioses
+C) Mostrar la grandeza de su obra
+Respuesta correcta: A
+
+================================================================================
+
+Número de pregunta: 23
+Pregunta: ¿Qué supuso el Discóbolo para la escultura griega?
+A) La representación de todos los personajes griegos
+B) La máxima representación de los atletas
+C) La integración de la figura en el espacio
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 24
+Pregunta: El autor de texto sostiene que:
+A) La interdisciplinariedad es solo posible en algunos niveles educativos.
+B) La educación peruana está en proceso de desarrollo.
+C) Es iluso pensar que un docente domina todas las materias para poder aplicar la interdisciplinariedad.
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 25
+Pregunta: Dado el siguiente párrafo: Hay personas que prefieren tenerlo todo para............... solos, sin compartirlo con los demás, hacen todo con int erés personal. Estas personas son las llamadas egoístas. ............... en el fondo sufren............... no tienen con quien disfrutar lo que poseen y por lo general son rechazadas por el grupo. Las palabras que complementan correctamente el texto son:
+A) ellos - Ellas - porque
+B) sí - Estas - por ello
+C) ellos - Aquellas - luego
+Respuesta correcta: A
+
+================================================================================
+
+Número de pregunta: 26
+Pregunta: El párrafo siguiente: Si no existieran las drogas disminuirían las muertes, y también las vidas echadas a perder definitivamente. Además, la sociedad se libraría de innumerables crímenes que cometen los adictos para comprar mercancía. También terminaría el drama de los familiares de los adictos, que son las primeras víctimas del flagelo. Así, pues, es una necesidad imperiosa desterrar el consumo de drogas de la sociedad. Según su estructura es:
+A) deductivo
+B) inductivo
+C) inductivo-deductivo
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 27
+Pregunta: El concepto: Conjunto de activos y bienes económicos destinados a producir mayor riqueza. Corresponde a:
+A) desembolso
+B) potentado
+C) capital
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 28
+Pregunta: Significado polisémico de la palabra PÁLIDO: 1. sin color 2. ruborizado 3. cuando los colores están débiles 4. de poco colorido 5. falto de expresión 6. desmayado Son ciertas:
+A) 1, 2 y 3
+B) 1, 3 y 4
+C) 3, 4 y 5
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 29
+Pregunta: La tirria con la que observó la escena provocó el juzgamiento. Son sinónimos contextuales de las palabras subrayadas:
+A) animadversión - opacó
+B) cólera - originó
+C) diatriba - opacó
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 30
+Pregunta: La narración 1. El texto se organiza en distintas secuencias integradas en proceso de cambio. 2. Toda narración se forma con 3 elementos: autor, narrador y texto y sigue un orden cronológico. 3. Narrar es contar historia reales o imaginarias. 4. Dentro de especies narrativas está el cuento, la novela, la fábula, etc. 5. Procedimientos lingüísticos que resaltan: nombres, sintagmas nominales y verbos predicativos. El orden del plan de redacción, es:
+A) 1, 2, 3, 4, 5
+B) 1, 2, 3, 5, 4
+C) 3, 2, 1, 5, 4
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 31
+Pregunta: Dados los siguientes enunciados: 1) El cual está formado por el ovario, pistilo y estigma. 2) En ellos se produce los granos de polen que contienen los gametos masculinos. 3) En las plantas con flores (angiospermas y gimnospermas) el órgano de reproducción es la flor. 4) En ella se distinguen los órganos masculinos y femeninos. 5) La estructura femenina es el pistilo y el gineceo. 6) La estructura masculina son los estambres o androceo. El orden correcto de los enunciados es:
+A) 3, 4, 6, 2, 5, 1
+B) 3, 6, 2, 1, 5, 4
+C) 5, 1, 3, 6, 4, 2
+Respuesta correcta: A
+
+================================================================================
+
+Número de pregunta: 32
+Pregunta: El propósito central del autor del texto es
+A) dar a conocer un ejemplo de la manipulación política de las fotografías.
+B) problematizar los límites relacionados con la edición en fotoperiodismo.
+C) comentar la deshonestidad que tienen fotógrafos como Lange y McCurry.
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 33
+Pregunta: En el párrafo final, el vocablo DESCUBRIR puede sustituirse por
+A) denunciar.
+B) inventar.
+C) detectar.
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 34
+Pregunta: En el primer párrafo, la expresión “lo representado está lejos de ser un relato sin contaminar” alude al hecho según el cual
+A) existen modificaciones que desvirtúan la historia de la foto primigenia.
+B) la toma original de una fotografía es manipulada para su publicación
+C) las representaciones visuales mostradas por el fotoperiodismo son nocivas.
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 35
+Pregunta: L a expresión de............... del rostro de la mujer en la fotografía sirve a los propósitos de la fotoperiodista Dorothea Lange, porque con esa imagen buscaba representar ...
+A) calma y resignación - el estoicismo de la población migrante en Estados Unidos
+B) hartazgo y melancolía - el desamparo de la población femenina en aquella época
+C) indiferencia y desasosiego - la necesidad de una revolución feminista estadounidense
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 36
+Pregunta: Es incompatible con el texto afirmar que la fotografía del fotoperiodismo es un medio de registro
+A) capaz de recibir intervenciones.
+B) que se adapta a propósitos estatales.
+C) que debe regirse por principios éticos.
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 37
+Pregunta: Elegir la palabra acentuada debido al hiato:
+A) Eufórico.
+B) Caimán.
+C) Leído
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 38
+Pregunta: Identificar los superíndices de los monosílabos que requieren acento diacrítico: Te1 pido que2 me3 expliques, pero tu4 no dices mas5
+A) 1, 2.
+B) 2, 3.
+C) 4, 5.
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 39
+Pregunta: Relacionar las palabras con su tipo: Palabra Tipo 1. Correcaminos. A. Grave. 2. Matemáticas. B. Aguda. 3. Llévatelos. C. Esdrújula. 4. Coral. D. Sobresdrújula.
+A) 1A, 2D, 3C, 4B.
+B) 1B, 2C, 3A, 4D.
+C) 1A, 2C, 3D, 4B.
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 40
+Pregunta: Hasta ________ sabe que no es bueno que le _______ frío.
+A) él - de.
+B) el - dé.
+C) él - dé.
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 41
+Pregunta: Ordenar las palabras de la siguiente manera: sobresdrújula, esdrújula, grave y aguda. 1. Fútil. 2. Belén. 3. Química. 4. Lavándoselo.
+A) 4, 3, 2, 1.
+B) 1, 2, 3, 4.
+C) 4, 3, 1, 2.
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 42
+Pregunta: Para pensar en ti ____ se necesita mirarte ___ para olvidarte ___ no haberte mirado nunca.
+A) Coma - punto y coma - coma.
+B) Coma - dos puntos - punto y coma.
+C) Punto y coma - punto - punto y coma.
+Respuesta correcta: A
+
+================================================================================
+
+Número de pregunta: 43
+Pregunta: Relacionar cada frase con el signo de puntuación que le falta: Frase 1. Como dijo Benito Juárez: el respeto al derecho ajeno es la paz. 2. Al buen entendedor 3. Nadie lo llamó, nadie lo invitó sin embargo, él está aquí. 4. Cuando tomé el libro un libro viejo y descolorido casi se rompe en mis manos. Signos de puntuación A. Punto y coma. B. Comillas. C. Puntos suspensivos. D. Punto
+A) 1B, 2D, 3A, 4C.
+B) 1D, 2B, 3C, 4A.
+C) 1B, 2C, 3A, 4D.
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 44
+Pregunta: Relacionar las frases con el signo de puntuación que les falta: Frase 1. Cómo duele recordarte 2. Si tan sólo me miraras 3. Estudié música, pintura, danza, etc pero nunca fui bueno. 4. Raquel cuidaba ovejas Joel a sus padres. Signos de puntuación A. Signos de admiración. B. Coma. C. Puntos suspensivos. D. Punto.
+A) 1C, 2B, 3A, 4D.
+B) 1A, 2D, 3C, 4B.
+C) 1A, 2C, 3D, 4B.
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 45
+Pregunta: Completar los espacios con los signos correspondientes: Le hago llegar los tres documentos faltantes para mi inscripción ___ mi acta de nacimiento ___ una fotocopia de mi identificación oficial y una fotocopia del talón de pago sellado.
+A) Coma - coma.
+B) Dos puntos - coma.
+C) Punto y coma - coma.
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 46
+Pregunta: ¿En qué enunciado la puntuación es correcta?
+A) La camisa es blanca; los pantalones, grises; la chamarra, negra.
+B) Como sabes lo tenemos que auxiliar “todos empezamos así”.
+C) La azurita o malaquita el azul egipcio, son colores preciosos.
+Respuesta correcta: A
+
+================================================================================
+
+Número de pregunta: 47
+Pregunta: Un hombrecito sabio I. El hombrecito compasivo y su deseo de curar al elefante y salvarlo de la muerte. II. Apaciguamiento del elefante loco por unas palabras que el hombrecito dice a su oído. III. Decisión del empresario: matar al elefante, cobrando por ver el lastimero espectáculo. IV. El elefante del circo, inesperadamente furioso, después de meses de cautiverio.
+A) III - IV - I - II
+B) I - II - III - IV
+C) IV - III - I - II
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 48
+Pregunta: La manzana, rica en vitamina C I) La vitamina C es un poderoso antioxidante que necesita el cuerpo para estar sano. II) Por ello debemos consumir una cantidad tal de manzanas para mantenernos sanos. III) Siempre se había creído que la manzana contenía poca vitamina C. IV) Como todo antioxidante, la vitamina C neutraliza los radicales libres que ocasionan cáncer y males del corazón. V) Ahora se sabe que la manzana puede tener hasta 1500 miligramos de vitamina C.
+A) III - V - I - VI - II
+B) II - IV - III - I - V
+C) III - V - I - II - IV
+Respuesta correcta: A
+
+================================================================================
+
+Número de pregunta: 49
+Pregunta: Contra el envejecimiento I) El ideal de descifrar la naturaleza de envejecimiento es muy antiguo. II) Los experimentos, así planteados, llevaron a cuestionamiento éticos. III) Algunos de los intentos para lograr la longevidad ocasionaron la muerte. IV) El hombre ha buscado la razón de la vejez para evitarla. V) Durante el proceso histórico todas las culturas han propuesto antídotos.
+A) III - IV - I - II - V
+B) I - IV - V - III - II
+C) V - I - IV - II - III
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 50
+Pregunta: El misterio del pez caminante I) El pez caminante es una pequeña especie que vive en las áreas pantanosas de estuarios y ríos en África, Asia y Australia. II) Se ha observado que el pez se hincha en la superficie, luego se traslada a su madriguera y cuando sale nuevamente, está desinflado. III) El barro de las madrigueras tienen un alto contenido de hojas en putrefacción que absorben todo el oxígeno. IV) Este animal respira aire y "anda" apoyándose en sus aletas pectorales sobre el barro de los pantanos. V) El pez airea su guarida para proveer de oxígeno a sus huevos y a sí mismo.
+A) IV - III - II - V - I
+B) I - IV - III - II - V
+C) I - IV - V - III - II
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 51
+Pregunta: "EL DORADO" y los descubrimientos geográficos I) El Dorado fue tal vez un espejismo con que los indios quisieron alejar a los europeos, sin embargo, tuvo gran trascendencia para los estudios geográficos. II) Gracias a esta leyenda fueron explorados los sistemas fluviales del Orinoco y del Amazonas. III) La leyenda de El Dorado hablaba de la e xistencia de un reino en el que abundaba el oro a tal punto que sus habitantes no le daban importancia alguna. IV) Llegar a ese fabuloso reino se convirtió en una obsesión para los conquistadores europeos.
+A) I - II - IV - III
+B) I - III - IV - II
+C) III - IV - I - II
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 52
+Pregunta: Guerras entre Incas y Chancas I) Pachacútec con la victoria sobre los Chancas, se apoderó de la meseta del Collao o Colla, el gran emporio ganadero de los Collas. II) No se sabe a ciencia cierta por qué se enfrentaron los Incas y los Chancas. III) La desconfianza fue tal vez la probable causa, pues se sabe que vencidos los Chancas comenzó la expansión inca. IV) Los Incas estaban como rodeados al Sur por los Collas y al Norte por los Chancas.
+A) II - IV - III - I
+B) IV - I - III - II
+C) IV - II - III - I
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 53
+Pregunta: El hígado I) Unido al aparato digestivo, es una víscera muy importante en los procesos metabólicos. II) Es el órgano más grande del cuerpo. III) Las células hepáticas reciben sangre oxigenada del corazón. IV) También actúa como centro de desintoxicación. V) La sangre se recoge posteriormente en una red capilar y regresa al corazón.
+A) II - I - III - V - IV
+B) II - I - IV - V - III
+C) II - IV - I - III - V
+Respuesta correcta: A
+
+================================================================================
+
+Número de pregunta: 54
+Pregunta: Zánganos y Obreras I) Están obligadas a pasar la noche en el umbral de la colmena. II) Salida de los zánganos gordos y pesados de sus amplias celdas. III) Al anochecer, cuando regresa de su visita floral, las obreras no encuentran sitio donde alojarse. IV) Los zánganos recorren la colmena y la colman.
+A) I - III - II - IV
+B) II - III - I - IV
+C) II - IV - III - I
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 55
+Pregunta: Mi crítica renuncia a ser imparcial o agnóstica, si la verdadera crítica puede serlo, cosa que no creo absolutamente. Toda crítica obedece a preocupaciones de filósofo, de político, o de moralista. Declaro, sin escrúpulo, que traigo a la exégesis literaria todas mis pasiones o ideas políticas. Pero esto no quiere decir que considere el fenómeno literario o artístico desde puntos de vista extra estéticos, sino que mi concepción estética se unimisma, en l a intimidad de mi conciencia, con mis concepciones morales, políticas y religiosas. El mejor resumen del texto es
+A) El oficio literario no puede ser entendido como un proceso imparcial o agnóstico.
+B) La crítica en general expresa la concepción filosófica, política y moralista.
+C) La valoración de las obras literarias no está al margen de la ideología del crítico.
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 56
+Pregunta: Los mejores sistemas morales deben basarse en causas y consecuencias conocidas y verificables, y no en especulaciones sobre los pensamiento s de un ser que no se puede conocer con ningún método. Por ejemplo, nuestra sociedad debe prohibir el asesinato de personas, no porque haya un dios que supuestamente haya dictado tal cosa, sino porque la consecuencia de tal regla es que nos protegería a to dos nosotros. Es seguro que la mayoría de nosotros no desearíamos vivir en una sociedad donde nuestra propia vida puede ser vulnerada en cualquier momento. La expresión que sintetiza el contenido del texto es
+A) La valoración de la vida debe basarse en criterios demostrados, mas no en especulaciones.
+B) La especulación no permite concebir una visión realista de los sistemas morales.
+C) La fundamentación de los sistemas morales debe estar constituida por una base objetiva.
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 57
+Pregunta: Durante esos tres días se e stuvo revolviendo en aquel saco negro en que lo metía una fuerza invisible e insuperable. Se debatía como se debate en manos del verdugo el condenado a muerte sabiendo que no había salvación; y a cada minuto se daba cuenta de que, a pesar de todos sus esfuerzos para oponerse, se acercaba más a aquello que le horrorizaba. Le atormentaba acercarse a aquel agujero negro y no poder entrar en él. Se oponía a ello la aceptación de que su vida había sido buena. Esta justificación de su vida que se aferraba sin dej arle ir adelante, era lo que más le atormentaba. Si el personaje hubiera tenido una vida sin mérito alguno, entonces:
+A) La etapa final de su vida no estaría marcada por el tormento.
+B) No se sentiría como el verdugo que debe aplicar la pena de muerte.
+C) No padecería los dolores físicos originados por su enfermedad.
+Respuesta correcta: A
+
+================================================================================
+
+Número de pregunta: 58
+Pregunta: No creo que nunca un jefe de instituto haya ejercitado su cargo con un sadismo igual al del señor Creakle. Pegar a los muchachos era para él una necesidad, un deseo que no podía dejar insatisfecho. No podía resistir el placer de cachetear a un niño mofletudo; dos mejillas 'rosadas ejercían sobre él una verdadera fascinación, las miraba desde la mañana con una especie de deseo inquieto, y el día no terminaba sin que hubiese encontrado el pr etexto para hacerlas colorear más aún con el revés de su mano. Y como yo mismo era bastante mofletudo. Puedo hablar de esto con conocimiento de causa. Identifique la información incompatible con el texto.
+A) El texto se estructura a partir de vivencias personales.
+B) Los alumnos del señor Creakle no eran disciplinados
+C) El sadismo se caracteriza por una obsesión enfermiza.
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 59
+Pregunta: Por encima y más allá del interés y apoyo cultural por y para un campo, un prodigio siempre representa una coincidencia de factores. Es decir, uno necesita no meramente un niño "preparado" y una "cultura receptiva", sino también una gran cantidad de apoyo social: buenos profesores, padres atentos, amplias oportunidades para la realización y la exhibición, descargo de responsabilidades concurrentes, y una serie de obstáculos que son admitidos en el campo y sobre los que el niño tiene una oportunidad de saltar. El mejor resumen del texto es
+A) La preparación, la cultura, el apoyo y hasta los obstáculos son determinantes para el forjamiento de un niño prodigio.
+B) Los niños prodigio no pueden prescindir de buenos profesores, padres atentos y amplias oportunidades de realización.
+C) La preparación, la responsabilidad concurrente, los obstáculos, el interés y el apoyo son esenciales para el niño prodigio.
+Respuesta correcta: A
+
+================================================================================
+
+Número de pregunta: 60
+Pregunta: El descubrimiento de la antimateria nos da lugar a reflexiones interesantes. Por una parte nos podemos preguntar por qué en nuestro planeta sólo hay uno de los tipos de materia. La respuesta que dieron algunos científicos fue que de la misma forma que aquí nuestra materia está compuesta de electrones y protones, en otra parte del universo deberá haber sistemas estelares compuestos de antimateria. Se han propuesto otras respuestas, pero la imaginación ha sido encendida por la perspectiva de una colisión de nuestro planeta con otro semejante compuesto de antimateria. ¿Cuál de las afirmaciones no concuerda con el texto?
+A) No es imposible la existencia de sistemas estelares compuestos por antimateria.
+B) Sí existen sistemas estelares que están constituidos por protones y electrones.
+C) La tesis de la colisión explica por qué la Tierra no posee antimateria.
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 61
+Pregunta: Cada año se genera una cantidad considerable de residuos informáticos. Sólo en productos IBM la cifra se mueve entre 60 000 y 70 000 toneladas. A pesar de ello, Europa todavía la basura informática no supone más de un 5% de los residuos totales generados. No es un problema medioambiental de primer orden. Además, un ordenador es un equipo tan complejo que su reciclado requiere de mucha inversión, y los beneficios que puede generar parece que todavía no son considerables. Revista científica Newton La afirmación central del texto es
+A) El escaso impacto ecológico y la poca rentabilidad del reciclaje no fomentan una política agresiva contra los residuos informáticos.
+B) La contaminación con residuos informáticos aún no llega a niveles alarmantes.
+C) La escasa gravedad del problema no amerita mayor preocupación por los daños actuales a la ecología.
+Respuesta correcta: A
+
+================================================================================
+
+Número de pregunta: 62
+Pregunta: La asimilación en la le ctura implica discernir las ideas expresadas en el escrito leído, seleccionarlas e integrarlas en nuestros propios esquemas mentales. Tanto el discernimiento como la selección de ideas, se verán facilitados en gran medida si practicamos la lectura activa; es decir, la lectura con un propósito definido, aunque sólo sea el de comprender adecuadamente lo esencial del pensamiento del autor. El lector activo piensa previamente en lo que podrá decir el autor, llega al punto de imaginar que tendrá qué escribir él mismo sobre esa misma materia. SIERRA BRAVO El texto busca persuadimos fundamentalmente sobre
+A) La relevancia metodológica de la llamada lectura activa.
+B) Los beneficios obtenidos a partir de la asimilación de un texto.
+C) El rol de la lectura activa para la mejor asimilación de los contenidos.
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 63
+Pregunta: Con cada día que pasaba, y desde ambos lados de mi inteligencia, el moral y el intelectual, me iba acercando cada vez más a esa verdad, cuyo descubrimiento parcial me ha condenado a una bajeza tan terrible: que el hombre en verdad no es uno, sino dos. Digo dos, porque el estado de mi propio conocimiento no va más allá de ese punto. Seguirán otros que me superarán siguiendo -el mismo camino y aventuro la suposición de que el hombre será finalmente conocido corno una mera conjunción de personalidades, incongruentes e independientes. STEVENSON, R.L. Dr. Jekyll y Mr. Hyde La afirmación principal del texto es
+A) Aparentemente, el hombre es una unidad indivisible; sin embargo, está integrado por dos personalidades autónomas e incongruentes.
+B) La mayor bajeza del ser humano es reconocer que en él conviven dos personalidades incongruentes e independientes.
+C) El auto-examen impide reconocer que en nuestro ser coexisten dos personalidades diferentes e independientes.
+Respuesta correcta: A
+
+================================================================================
+
+Número de pregunta: 64
+Pregunta: Preguntaron a un proletario en el tribunal qué fórmula elegía para su juzgamiento: la religiosa o la laica. "No tengo trabajo", contestó. No fue aquello simple distracción comentó el señor K. Con su respuesta, aquel hombre quiso dar a entende r que se hallaba en una situación en que ese tipo de preguntas, y tal vez incluso el mismo proceso, carecía de sentido. BRECHT, Bertolt Historias de Almanaque ¿Cuál es el mensaje que el texto trasmite?
+A) La impertinencia de la actitud religiosa o laica.
+B) La necesidad de definir prioridades en la vida.
+C) La vida no tiene por qué carecer de sentido.
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 65
+Pregunta: El verso (1) El verso es la forma expresiva de la literatura que consiste en ordenar las palabras en base a un determinado efecto rítmico dentro de una oración. (2) El conjunto de uno o más versos se denomina estrofa y el total de estrofas conforman el texto poético. (3) Existen dos clases de versos: El verso tradicional y el verso libre. (4) El verso tradicional tiene tres elementos: el metro, la rima y el ritmo. (5) El verso libre, en su construcción solo tiene en cuenta el ritmo, no la métrica ni la rima. El enunciado esencial es:
+A) 1
+B) 2
+C) 4
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 66
+Pregunta: El sonar (1) Durante la Segunda Guerra Mundial se utilizó el fenómeno de la reflexión de ondas sonoras para detectar la presencia de buques de guerra u obstáculos orográficos. (2) El dispositivo utilizado se llamó sonar y consistía simplemente en un emisor y un receptor de sonidos. (3) Cuando la onda se reflejaba en un obstáculo, volvía al receptor. (4) Entonces se podía calcular la distancia a la que se encontraba dicho obstáculo midiendo el tiempo de ida y vuelta de la onda, multiplicándolo por la velocidad del sonido en el agua (1500 m/s) y dividiendo el resultado entre dos. (5) Actualmente el sonar se emplea para ubicar bancos de peces. El enunciado esencial es:
+A) 1
+B) 2
+C) 3
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 67
+Pregunta: La risa cualidad humana 1) He aquí el primer punto sobre el cual he de llamar la atención. 2) Fuera de lo que es propiamente humano, no hay nada cómico. 3) Un paisaje podrá ser bello, sublime, insignificante o feo, pero nunca ridículo. 4) Si reímos a la vista de un animal, será p or haber sorprendido en él una actitud o una expresión humana. 5) Nos reímos de un sombrero, no porque el fieltro o la paja de que se componen motiven por sí mismos nuestra risa, sino por la forma que los hombres le dieron, por el capricho humano en que se moldeó. Bergson, Henri; La risa El enunciado esencial es:
+A) 1
+B) 2
+C) 3
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 68
+Pregunta: Él cuenta gotas (1) Vive temeroso de ser explotado, de ahí su posición defensiva. (2) Persona que aporta en la medida en que recibe. (3) Lleva detalle de cuánto gana su cónyuge y cuánto gasta en comparación con sus gastos; (4) Echa en cara los esfuerzos que hace para procurar lo necesario. (5) El mundo le parece un gigante desagradecido. El enunciado esencial es:
+A) 1
+B) 2
+C) 3
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 69
+Pregunta: Características de los virus. (1) Los virus (en latín, ‘veneno’), son entidades orgánicas compuestas tan sólo de material genético, rodeado por una envuelta o envoltura protectora. (2) El término virus se utilizó en la última década del siglo XIX para describir a los agentes causantes de enfermedades más pequeños que las bacterias. (3) Carecen de vida independiente, pero se pueden replicar en el interior de las células vivas, perjudicando en muchos casos a su huésped en este proceso. (4) Los cientos de virus conocidos son causa de muchas enfermedades distintas en los seres humanos animales, bacterias y plantas. (5) La existencia de los virus se estableció en 1892, cuando el científico ruso Dmitri I. Ivanovsky descubrió unas partículas microscópicas, conocidas más tarde como el virus del mosaico del tabaco. El enunciado esencial es:
+A) 1
+B) 2
+C) 3
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 70
+Pregunta: Estructura de la Biblia (1) La Biblia es un conjunto de libros considerados como inspirados por Dios, que constituyen el fundamento de las religiones judía y cristiana. (2) Por su multiplicidad se llaman “Escrituras” y por su origen “Sagradas”. (3) Su contenido que abarca temas históricos y de carácter jurídico, filosófico y moral transmiten a los hombres el mensaje divino y la promesa de salvación. (4) Se divide en dos partes: Antiguo Testamento, conjunto de libros escritos antes del nacimiento de Jesús, y el Nuevo Testamento, conjunto de libros escritos después del nacimiento de Jesucristo. El enunciado esencial es:
+A) 1
+B) 2
+C) 4
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 71
+Pregunta: Medicina y fecundidad (1) Los avances de la medicina actual permiten acabar con muchas enfermedades, pero también plantean problemas. (2) Por ejemplo la posibilidad de mantener la vida a los enfermos durante años, pero sin curar su enfermedad, está motivando un gran debate entre la eutanasia y el derecho a una muerte digna. (3) Por otro lado el nacimiento del primer bebé probeta en 1978 y los posteriores avances en la técnica de fecundación están causando algunos problemas; (4) polémica entre los padres biológicos y los padres legales, madres de alquiler, congelaciones de espermatozoides y óvulos y su utilización posterior. El enunciado esencial es:
+A) 1
+B) 2
+C) 3
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 72
+Pregunta: Hidroponía (1) El término hidroponía proviene de las voces griegas: hydro, “agua”; ponos, “trabajo”. (2) Es decir, es el “trabajo del agua”. (3) En términos científicos, la hidroponía es el cultivo de las plantas en soluciones acuosas nutritivas, lo que hace innecesaria la presencia de tierra y de toda materia orgánica. (4) Esto permite ahorrar tiempo, trabajo y manipulación de materiales. (5) Durante la segunda guerra mundial, el ejército norteamericano y la fuerza aérea británica, instalaron cultivos hidropónicos en sus bases militares, y las tropas aliadas consumieron millones de toneladas de verduras gracias a este sistema. El enunciado esencial es:
+A) 1
+B) 2
+C) 5
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 73
+Pregunta: La acuicultura (1) Por medio de la acuicultura se produce una gran variedad de organismos acuáticos, que incluyen algas y plantas acuáticas como las algas marinas. (2) Se dice que es la cría de organismos acuáticos en entornos de agua dulce o salada, denominada también piscicultura. (3) Las algas se cultivan para la extracción de productos químicos. (4) La acuicultura se considera una actividad agrícola, a pesar de las muchas diferencias que la separan de la agricultura. (5) La acuicultura produce sobre todo cosechas proteínicas, mientras qu e en la agricultura predominan las grandes cosechas de productos que contienen hidratos de carbono. El enunciado esencial es:
+A) 1
+B) 5
+C) 3
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 74
+Pregunta: La afasia (1) El término fue introducido en 1864 por el médico francés Armand Troussea u, pero el estudio detallado de esta patología lo llevó a cabo el cirujano francés Paul Broca en la década de 1960. (2) Se refiere al trastorno del lenguaje que afecta a la expresión y a la comprensión debido a lesiones cerebrales en las llamadas áreas del lenguaje. (3) Las causas más frecuentes de esta afección son los accidentes cerebro vasculares (ACV), los traumatismos, los tumores, las infecciones, las demencias y los episodios epilépticos. (4) Los ACV son responsables de la mayor parte de las afasias. El enunciado esencial es:
+A) 5
+B) 2
+C) 3
+Respuesta correcta: A
+
+================================================================================
+
+Número de pregunta: 75
+Pregunta: Causa de la amnesia (1) La amnesia supone una pérdida de la memoria a raíz de un trauma. (2) La persona es incapaz de recordar hechos, datos, los rostros de otras personas e incluso su propio nombre. (3) Su memoria es como un agujero negro en el que desaparecen sus recuerdos. (4) La amnesia se debe a una afección del cerebro originada por un golpe traumático, por una enfermedad degenerativa, por encefalopatías mayores por una afección p siquiátrica o por algún tipo de demencia. (5) Existen varios tipos de amnesia: senil, lacunar, anterógrada. El enunciado esencial es:
+A) 1
+B) 2
+C) 3
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 76
+Pregunta: Evaluación (1) La evaluación en nuestro quehacer educativo es un proceso dinámico, integral, flexible y sistemático. (2) La evaluación es parte integral del proceso de aprendizaje y del proceso curricular y no debe ser vista como algo separado. (3) La evaluación auténtica es un proceso vivo, real y confiable, ya que ést a se realiza en la acción, mientras el niño está ejecutando en situaciones concretas y reales que ocurren día a día en la escuela. (4) Es un proceso continuo que se da a lo largo del proceso de aprendizaje. (5) Además promueve el esfuerzo cooperativo entre docentes, padres, madres y alumnos. El enunciado esencial es:
+A) 1
+B) 2
+C) 3
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 77
+Pregunta: No sólo palabras (1) La comunicación es un proceso mediante el cual los individuos expresan sus pensamientos y conocen los de los demás. (2) Más claro, es el proceso de codificación, circulación, recepción e intercambio de información entre los integrantes de un grupo. (3) No se piense que la comunicación se da solamente a través de palabras. (4) Se manifiesta, también, por medio de gestos, mímicas, sonidos articulados, luces, colores, entre otros. (5) Por ejemplo, la tarjeta roja que presenta el árbitro a un jugador que ha cometido una infracción durante un partido de fútbol. El enunciado esencial es:
+A) 1
+B) 2
+C) 3
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 78
+Pregunta: La letargia (1) Fisiológicamente, la letargia se caracteriza por la reducción al mínimo del metabolismo, la temperatura corporal y el ritmo cardíaco. (2) Es el estado de inactividad en el que permanecen determinados animales cuando las condiciones del medio y la temperatura son desfavorables. (3) Durante la letargia, el animal vive de las reservas acumuladas durante la época favorable. (4) La letargia recibe el nombre hibernación (en los meses fríos), y de estivación si coincide en los meses cálidos. (5) También se ha estudiado el letargo invernal en un ave, el chotacabras de Nuttal. El enunciado esencial es:
+A) 1
+B) 2
+C) 5
+Respuesta correcta: C
+
+================================================================================
+
+Número de pregunta: 79
+Pregunta: Estructura profunda y estructura superficial (1) Lo que el hablante piensa y quiere m anifestar al oyente constituye la estructura profunda de la oración. (2) Lo que realmente dice es la estructura superficial de la oración. (3) Una estructura profunda puede realizarse mediante dos o más estructuras superficiales. (4) Una estructura superf icial puede representar dos (pocas veces más) estructuras profundas: entonces el hablante dice algo y el oyente puede entender otra cosa. (5) Este fenómeno se conoce en gramática con el nombre de ambigüedad. El enunciado esencial es:
+A) 1
+B) 2
+C) 3
+Respuesta correcta: B
+
+================================================================================
+
+Número de pregunta: 80
+Pregunta: Importancia de los híbridos (1) Como definición estricta se considera híbrido al descendiente del cruce entre especies, géneros o, en casos raros, familias, distintas. (2) Como definición más imprecisa puede considerarse también un híbrido aquel que procede del cruce entre progenitores de sub-especies distintas o variedades de una especie. (3) Los híbridos presentan con frecuencia lo que se denomina vigor híbrido; tienden a ser más grandes, crecen con más rapidez, y están más sanos que sus progenitores. (4) Por ejemplo, las mulas se crían por su fuerza, que es superior a la de sus padres. (5) Las plantas ornamentales se cultivan por sus flores grandes; casi todo el maíz y los tomates que se producen hoy en día son híbridos que originan frutos mucho más grandes que los de sus padres. (6) Otras plantas híbridas de gran importancia en la producción de alimentos son el trigo, el arroz, la alfalfa, los plátanos y la remolacha azucarera. El enunciado esencial es:
+A) 4
+B) 2
+C) 3
+Respuesta correcta: A
+
+================================================================================
+

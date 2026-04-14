@@ -1,0 +1,280 @@
+Numero de pregunta: 1.1
+Pregunta: ¿Cuál de las siguientes opciones mejor define un algoritmo?
+Inciso a: Un programa de computadora.
+Inciso b: Una serie de instrucciones paso a paso para resolver un problema.
+Inciso c: Un dispositivo de almacenamiento.
+Inciso d: Una unidad central de procesamiento.
+Respuesta correcta: b) Una serie de instrucciones paso a paso para resolver un problema.
+
+Numero de pregunta: 1.2
+Pregunta: ¿Cuál es el propósito principal del análisis de algoritmos?
+Inciso a: Escribir código de manera eficiente.
+Inciso b: Comprender el funcionamiento de las computadoras.
+Inciso c: Evaluar el rendimiento y eficiencia de los algoritmos.
+Inciso d: Diseñar interfaces de usuario intuitivas.
+Respuesta correcta: c) Evaluar el rendimiento y eficiencia de los algoritmos.
+
+Numero de pregunta: 2.1
+Pregunta: ¿Qué implica el diseño de un algoritmo?
+Inciso a: Implementar código sin considerar la eficiencia.
+Inciso b: Desarrollar una solución paso a paso para un problema.
+Inciso c: Analizar el rendimiento de algoritmos existentes.
+Inciso d: Ignorar la optimización en favor de la simplicidad.
+Respuesta correcta: b) Desarrollar una solución paso a paso para un problema.
+
+Numero de pregunta: 2.2
+Pregunta: ¿Cuál es el objetivo del análisis de algoritmos?
+Inciso a: Mejorar la legibilidad del código.
+Inciso b: Evaluar la eficiencia y rendimiento de los algoritmos.
+Inciso c: Diseñar interfaces de usuario atractivas.
+Inciso d: Ignorar la complejidad de los problemas.
+Respuesta correcta: b) Evaluar la eficiencia y rendimiento de los algoritmos.
+
+Numero de pregunta: 3.1
+Pregunta: ¿Cuál de las siguientes no es una estructura de datos lineal?
+Inciso a: Pila.
+Inciso b: Cola.
+Inciso c: Árbol.
+Inciso d: Grafo.
+Respuesta correcta: d) Grafo.
+
+Numero de pregunta: 3.2
+Pregunta: ¿Para qué se utiliza comúnmente una lista enlazada?
+Inciso a: Almacenar elementos ordenados.
+Inciso b: Implementar estructuras de árbol.
+Inciso c: Facilitar la búsqueda binaria.
+Inciso d: Representar secuencias de datos dinámicas.
+Respuesta correcta: d) Representar secuencias de datos dinámicas.
+
+Numero de pregunta: 4.1
+Pregunta: ¿Qué rama de las matemáticas se centra en objetos distintos y separados?
+Inciso a: Álgebra.
+Inciso b: Análisis.
+Inciso c: Cálculo.
+Inciso d: Matemáticas Discretas.
+Respuesta correcta: d) Matemáticas Discretas.
+
+Numero de pregunta: 4.2
+Pregunta: ¿Cuál es el propósito principal de la teoría de grafos en matemáticas discretas?
+Inciso a: Estudiar funciones continuas.
+Inciso b: Analizar la continuidad de ecuaciones.
+Inciso c: Modelar relaciones entre objetos.
+Inciso d: Resolver ecuaciones diferenciales.
+Respuesta correcta: c) Modelar relaciones entre objetos.
+
+Numero de pregunta: 5.1
+Pregunta: ¿Cuál es el propósito de la lógica proposicional en informática?
+Inciso a: Analizar algoritmos.
+Inciso b: Modelar la relación entre objetos.
+Inciso c: Representar la estructura de datos.
+Inciso d: Expresar proposiciones lógicas.
+Respuesta correcta: d) Expresar proposiciones lógicas.
+
+Numero de pregunta: 5.2
+Pregunta: ¿Qué área de la lógica se ocupa de la inferencia basada en reglas?
+Inciso a: Lógica de Primer Orden.
+Inciso b: Lógica Modal.
+Inciso c: Lógica Inductiva.
+Inciso d: Lógica de Programación.
+Respuesta correcta: a) Lógica de Primer Orden.
+
+Numero de pregunta: 6.1
+Pregunta: ¿Qué aborda principalmente la arquitectura de computadoras?
+Inciso a: Diseño de interfaces de usuario.
+Inciso b: Optimización de algoritmos.
+Inciso c: Organización y estructura del hardware.
+Inciso d: Implementación de bases de datos.
+Respuesta correcta: c) Organización y estructura del hardware.
+
+Numero de pregunta: 6.2
+Pregunta: ¿Cuál es el papel de un sistema operativo en el desarrollo de software?
+Inciso a: Crear algoritmos eficientes.
+Inciso b: Gestionar recursos del sistema.
+Inciso c: Diseñar interfaces gráficas.
+Inciso d: Desarrollar aplicaciones web.
+Respuesta correcta: b) Gestionar recursos del sistema.
+
+Numero de pregunta: 7.1
+Pregunta: ¿Cuál es la función principal de un compilador en el desarrollo de software?
+Inciso a: Ejecutar programas.
+Inciso b: Traducir código fuente a código máquina.
+Inciso c: Depurar errores de código.
+Inciso d: Diseñar interfaces de usuario.
+Respuesta correcta: b) Traducir código fuente a código máquina.
+
+Numero de pregunta: 7.2
+Pregunta: ¿Por qué es importante la fase de optimización en un compilador?
+Inciso a: Aumentar la complejidad del código.
+Inciso b: Reducir el tiempo de compilación.
+Inciso c: Mejorar el rendimiento del código generado.
+Inciso d: Eliminar la necesidad de depuración.
+Respuesta correcta: c) Mejorar el rendimiento del código generado.
+
+Numero de pregunta: 8.1
+Pregunta: ¿Cuál es el propósito principal de las redes de computadoras en el desarrollo de software?
+Inciso a: Mejorar la velocidad de procesamiento.
+Inciso b: Facilitar la interacción entre hardware y software.
+Inciso c: Compartir recursos y facilitar la comunicación.
+Inciso d: Aumentar la capacidad de almacenamiento.
+Respuesta correcta: c) Compartir recursos y facilitar la comunicación.
+
+Numero de pregunta: 8.2
+Pregunta: ¿Qué tecnología es esencial para la comunicación en redes de computadoras?
+Inciso a: Algoritmos de clasificación.
+Inciso b: Protocolos de comunicación.
+Inciso c: Sistemas operativos.
+Inciso d: Compiladores avanzados.
+Respuesta correcta: b) Protocolos de comunicación. Software:
+
+Numero de pregunta: 9.1
+Pregunta: ¿Cuál es el objetivo principal de la ingeniería de software?
+Inciso a: Desarrollar hardware eficiente.
+Inciso b: Crear interfaces de usuario atractivas.
+Inciso c: Aplicar principios de diseño a nivel de sistema.
+Inciso d: Desarrollar software de manera sistemática y eficiente.
+Respuesta correcta: d) Desarrollar software de manera sistemática y eficiente.
+
+Numero de pregunta: 9.2
+Pregunta: ¿En qué fase del ciclo de vida del desarrollo de software se realiza la planificación de proyectos?
+Inciso a: Implementación.
+Inciso b: Pruebas.
+Inciso c: Mantenimiento.
+Inciso d: Fase de planificación.
+Respuesta correcta: d) Fase de planificación. Programación:
+
+Numero de pregunta: 10.1
+Pregunta: ¿Qué determina la elección de un lenguaje de programación en el desarrollo de software?
+Inciso a: La popularidad del lenguaje.
+Inciso b: La preferencia personal del desarrollador.
+Inciso c: Los requisitos y objetivos del proyecto.
+Inciso d: El rendimiento del compilador.
+Respuesta correcta: c) Los requisitos y objetivos del proyecto.
+
+Numero de pregunta: 10.2
+Pregunta: ¿Cuál es una característica clave de los lenguajes de programación de alto nivel?
+Inciso a: Código ejecutable de bajo nivel.
+Inciso b: Mayor abstracción del hardware.
+Inciso c: Menor legibilidad del código.
+Inciso d: Dependencia directa del sistema operativo.
+Respuesta correcta: b) Mayor abstracción del hardware.
+
+Numero de pregunta: 11.1
+Pregunta: ¿Cuál es el propósito principal de una base de datos en el desarrollo de software?
+Inciso a: Mejorar el rendimiento del hardware.
+Inciso b: Almacenar y gestionar datos de manera eficiente.
+Inciso c: Optimizar algoritmos de búsqueda.
+Inciso d: Desarrollar interfaces de usuario interactivas.
+Respuesta correcta: b) Almacenar y gestionar datos de manera eficiente.
+
+Numero de pregunta: 11.2
+Pregunta: ¿Qué tipo de base de datos se utiliza comúnmente para aplicaciones web dinámicas?
+Inciso a: Base de datos jerárquica.
+Inciso b: Base de datos relacional.
+Inciso c: Base de datos de red.
+Inciso d: Base de datos orientada a objetos.
+Respuesta correcta: b) Base de datos relacional. Informática:
+
+Numero de pregunta: 12.1
+Pregunta: ¿Por qué es importante la seguridad informática en el desarrollo de software?
+Inciso a: Aumentar la velocidad de procesamiento.
+Inciso b: Garantizar la privacidad y protección de datos.
+Inciso c: Mejorar la usabilidad del software.
+Inciso d: Reducir la complejidad del código.
+Respuesta correcta: b) Garantizar la privacidad y protección de datos.
+
+Numero de pregunta: 12.2
+Pregunta: ¿Qué es un elemento clave para la seguridad en el desarrollo de software?
+Inciso a: Ofrecer interfaces de usuario atractivas.
+Inciso b: Implementar algoritmos de búsqueda avanzados.
+Inciso c: Aplicar prácticas de codificación segura.
+Inciso d: Desarrollar hardware eficiente.
+Respuesta correcta: c) Aplicar prácticas de codificación segura.
+
+Numero de pregunta: 13.1
+Pregunta: ¿Cuál es una característica esencial de las soluciones de cómputo inteligente?
+Inciso a: Bajo rendimiento.
+Inciso b: Dependencia del hardware.
+Inciso c: Capacidad para aprender y adaptarse.
+Inciso d: Enfoque exclusivo en software.
+Respuesta correcta: c) Capacidad para aprender y adaptarse.
+
+Numero de pregunta: 13.2
+Pregunta: ¿Por qué la ética es importante en el desarrollo de soluciones de cómputo inteligente?
+Inciso a: Para mejorar la velocidad de procesamiento.
+Inciso b: Garantizar la privacidad y protección de datos.
+Inciso c: Aumentar la complejidad del código.
+Inciso d: Reducir la usabilidad del software.
+Respuesta correcta: b) Garantizar la privacidad y protección de datos.
+
+Numero de pregunta: 14.1
+Pregunta: ¿Qué define mejor la inteligencia artificial?
+Inciso a: Desarrollo de hardware eficiente.
+Inciso b: Capacidad de aprender y tomar decisiones autónomas.
+Inciso c: Enfoque exclusivo en el análisis de datos.
+Inciso d: Implementación de algoritmos de búsqueda avanzados.
+Respuesta correcta: b) Capacidad de aprender y tomar decisiones autónomas.
+
+Numero de pregunta: 14.2
+Pregunta: ¿Qué técnica es fundamental en la inteligencia artificial para mejorar el rendimiento de los modelos?
+Inciso a: Desarrollo de interfaces de usuario.
+Inciso b: Redes neuronales.
+Inciso c: Algoritmos de clasificación.
+Inciso d: Compiladores avanzados.
+Respuesta correcta: b) Redes neuronales.
+
+Numero de pregunta: 15.1
+Pregunta: ¿Cuál es el propósito principal de la minería de datos?
+Inciso a: Desarrollar interfaces de usuario atractivas.
+Inciso b: Traducir código fuente a código máquina.
+Inciso c: Descubrir patrones y conocimientos en grandes conjuntos de datos.
+Inciso d: Modelar la relación entre objetos.
+Respuesta correcta: c) Descubrir patrones y conocimientos en grandes conjuntos de datos.
+
+Numero de pregunta: 16.1
+Pregunta: ¿Cuál es uno de los beneficios clave del cómputo distribuido?
+Inciso a: Mayor dependencia de hardware centralizado.
+Inciso b: Menor escalabilidad.
+Inciso c: Redundancia limitada.
+Inciso d: Escalabilidad mejorada.
+Respuesta correcta: d) Escalabilidad mejorada.
+
+Numero de pregunta: 16.2
+Pregunta: ¿En qué contexto es esencial el cómputo distribuido?
+Inciso a: Desarrollo de algoritmos.
+Inciso b: Procesamiento de grandes volúmenes de datos.
+Inciso c: Optimización de interfaces de usuario.
+Inciso d: Implementación de sistemas operativos.
+Respuesta correcta: b) Procesamiento de grandes volúmenes de datos.
+
+Numero de pregunta: 17.1
+Pregunta: ¿Qué tecnología es esencial para la comunicación eficiente en sistemas distribuidos?
+Inciso a: Protocolos de comunicación.
+Inciso b: Compiladores avanzados.
+Inciso c: Herramientas de análisis de algoritmos.
+Inciso d: Sistemas de gestión de clúster.
+Respuesta correcta: a) Protocolos de comunicación.
+
+Numero de pregunta: 17.2
+Pregunta: ¿Cuál es uno de los desafíos en el cómputo distribuido?
+Inciso a: Escasa redundancia.
+Inciso b: Falta de escalabilidad.
+Inciso c: Consistencia de datos.
+Inciso d: Uso eficiente de la energía.
+Respuesta correcta: c) Consistencia de datos.
+
+Numero de pregunta: 18.1
+Pregunta: ¿Cuál es una tendencia futura en inteligencia artificial?
+Inciso a: Menos integración con otras disciplinas.
+Inciso b: Mayor dependencia de hardware tradicional.
+Inciso c: Integración con minería de datos.
+Inciso d: Reducción en la complejidad de los modelos.
+Respuesta correcta: c) Integración con minería de datos.
+
+Numero de pregunta: 18.2
+Pregunta: ¿Qué impulsa principalmente la capacidad de adaptación en la inteligencia artificial?
+Inciso a: Implementación de algoritmos de búsqueda avanzados.
+Inciso b: Redes neuronales.
+Inciso c: Mayor dependencia de hardware centralizado.
+Inciso d: Desarrollo de hardware eficiente.
+Respuesta correcta: b) Redes neuronales.
+
