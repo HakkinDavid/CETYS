@@ -90,9 +90,9 @@
                 <label><strong>Áreas incluidas:</strong></label>
                 <div id="areaSelector" class="area-picker">
                     <label><input type="checkbox" name="area" value="Algoritmia" checked> Algoritmia</label>
-                    <label><input type="checkbox" name="area" value="Base" checked> Base</label>
-                    <label><input type="checkbox" name="area" value="Aplicación" checked> Aplicación</label>
-                    <label><input type="checkbox" name="area" value="IA" checked> IA</label>
+                    <label><input type="checkbox" name="area" value="Desarrollo de software de base" checked> Desarrollo de software de base</label>
+                    <label><input type="checkbox" name="area" value="Desarrollo de software de aplicación" checked> Desarrollo de software de aplicación</label>
+                    <label><input type="checkbox" name="area" value="Soluciones de cómputo inteligente" checked> Soluciones de cómputo inteligente</label>
                     <label><input type="checkbox" name="area" value="Lengua"> Lengua</label>
                 </div>
             </div>
@@ -106,7 +106,13 @@
     <script src="./egel/banco_preguntas.js"></script>
     <script>
         const questionBank = Array.isArray(window.questions) ? window.questions : [];
-        const AVAILABLE_AREAS = ["Algoritmia", "Base", "Aplicación", "IA", "Lengua"];
+        const AVAILABLE_AREAS = [
+            "Algoritmia",
+            "Desarrollo de software de base",
+            "Desarrollo de software de aplicación",
+            "Soluciones de cómputo inteligente",
+            "Lengua",
+        ];
 
         if (questionBank.length === 0) {
             document.getElementById("result").innerHTML = "No se pudo cargar el banco de preguntas desde ./egel/banco_preguntas.js";
@@ -270,15 +276,22 @@
             clearInterval(timerInterval);
             let score = 0;
             let areaStats = {};
+            let subareaStats = {};
 
             sessionQuestions.forEach((item, i) => {
                 if (!areaStats[item.area]) areaStats[item.area] = { correct: 0, total: 0 };
                 areaStats[item.area].total++;
 
+                if (item.subarea) {
+                    if (!subareaStats[item.subarea]) subareaStats[item.subarea] = { correct: 0, total: 0 };
+                    subareaStats[item.subarea].total++;
+                }
+
                 let selected = answers[i];
                 if (selected !== undefined && selected === item.answer) {
                     score++;
                     areaStats[item.area].correct++;
+                    if (item.subarea) subareaStats[item.subarea].correct++;
                 }
             });
 
@@ -288,10 +301,16 @@
                 return `${a}: ${s.correct}/${s.total}`;
             }).join(" | ");
 
+            let subareaBreakdown = Object.keys(subareaStats).map(a => {
+                let s = subareaStats[a];
+                return `${a}: ${s.correct}/${s.total}`;
+            }).join(" | ");
+
             let html = `<p><strong>Resultado:</strong> ${score}/${sessionQuestions.length}</p>`;
             html += `<p>${breakdown}</p>`;
+            if (subareaBreakdown) html += `<p>${subareaBreakdown}</p>`;
             html += `<table border="1" cellpadding="5" cellspacing="0" style="border-collapse:collapse; width:100%;">`;
-            html += `<tr><th>#</th><th>Pregunta</th><th>Tu respuesta</th><th>Correcta</th></tr>`;
+            html += `<tr><th>#</th><th>Área</th><th>Subárea</th><th>Pregunta</th><th>Tu respuesta</th><th>Correcta</th></tr>`;
 
             sessionQuestions.forEach((item, i) => {
                 let userAns = answers[i] !== undefined ? item.options[answers[i]] : "Sin respuesta";
@@ -300,6 +319,8 @@
 
                 html += `<tr style="background:${isCorrect ? '#c8f7c5' : '#f7c5c5'}">`;
                 html += `<td>${i + 1}</td>`;
+                html += `<td>${item.area}</td>`;
+                html += `<td>${item.subarea ?? "-"}</td>`;
                 html += `<td>${item.q}</td>`;
                 html += `<td>${userAns}</td>`;
                 html += `<td>${correctAns}</td>`;
