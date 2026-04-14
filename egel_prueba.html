@@ -53,6 +53,20 @@
         #nav {
             margin-bottom: 10px;
         }
+
+        .area-picker {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px 14px;
+            margin-top: 10px;
+        }
+
+        .area-picker label {
+            background: white;
+            border-radius: 999px;
+            padding: 6px 10px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+        }
     </style>
 </head>
 
@@ -72,6 +86,16 @@
                 <option value="Avanzado">Avanzado (60 preguntas / 25 min)</option>
                 <option value="CENEVAL">CENEVAL (120 preguntas / 180 min)</option>
             </select>
+            <div style="margin-top:10px;">
+                <label><strong>Áreas incluidas:</strong></label>
+                <div id="areaSelector" class="area-picker">
+                    <label><input type="checkbox" name="area" value="Algoritmia" checked> Algoritmia</label>
+                    <label><input type="checkbox" name="area" value="Base" checked> Base</label>
+                    <label><input type="checkbox" name="area" value="Aplicación" checked> Aplicación</label>
+                    <label><input type="checkbox" name="area" value="IA" checked> IA</label>
+                    <label><input type="checkbox" name="area" value="Lengua"> Lengua</label>
+                </div>
+            </div>
             <button onclick="startSelectedLevel()">Iniciar</button>
         </div>
         <div id="nav"></div>
@@ -82,7 +106,7 @@
     <script src="./egel/banco_preguntas.js"></script>
     <script>
         const questionBank = Array.isArray(window.questions) ? window.questions : [];
-        const CORE_AREAS = ["Algoritmia", "Base", "Aplicación", "IA"];
+        const AVAILABLE_AREAS = ["Algoritmia", "Base", "Aplicación", "IA", "Lengua"];
 
         if (questionBank.length === 0) {
             document.getElementById("result").innerHTML = "No se pudo cargar el banco de preguntas desde ./egel/banco_preguntas.js";
@@ -102,9 +126,16 @@
             "CENEVAL": { questions: 120, time: 180 }
         };
 
+        function getSelectedAreas() {
+            return Array.from(document.querySelectorAll('input[name="area"]:checked'))
+                .map(input => input.value)
+                .filter(area => AVAILABLE_AREAS.includes(area));
+        }
+
         function startSelectedLevel() {
             let level = document.getElementById("level").value;
             let config = STUDY_LEVELS[level];
+            let selectedAreas = getSelectedAreas();
 
             clearInterval(timerInterval);
             SESSION_SIZE = config.questions;
@@ -113,7 +144,12 @@
             currentIndex = 0;
             answers = {};
 
-            pickSession();
+            if (selectedAreas.length === 0) {
+                document.getElementById("result").innerHTML = "Selecciona al menos un área para iniciar la simulación.";
+                return;
+            }
+
+            pickSession(selectedAreas);
             if (sessionQuestions.length === 0) {
                 document.getElementById("result").innerHTML = "No hay preguntas disponibles para iniciar la sesión.";
                 return;
@@ -133,27 +169,28 @@
         }
 
 
-        function pickSession() {
-            let areas = { "Algoritmia": [], "Base": [], "Aplicación": [], "IA": [], "Otro": [] };
+        function pickSession(selectedAreas) {
+            let areas = Object.fromEntries(AVAILABLE_AREAS.map(area => [area, []]));
+            areas["Otro"] = [];
             questionBank.forEach(q => areas[q.area]?.push(q) ?? areas["Otro"].push(q));
 
             Object.keys(areas).forEach(area => shuffle(areas[area]));
 
-            const targetSize = Math.min(SESSION_SIZE, questionBank.length);
-            const perArea = Math.floor(targetSize / CORE_AREAS.length);
-            const remainder = targetSize % CORE_AREAS.length;
+            const selectedPoolSize = selectedAreas.reduce((total, area) => total + areas[area].length, 0);
+            const targetSize = Math.min(SESSION_SIZE, selectedPoolSize);
+            const perArea = Math.floor(targetSize / selectedAreas.length);
+            const remainder = targetSize % selectedAreas.length;
 
             sessionQuestions = [];
 
-            CORE_AREAS.forEach((area, index) => {
+            selectedAreas.forEach((area, index) => {
                 const quota = perArea + (index < remainder ? 1 : 0);
                 sessionQuestions.push(...areas[area].splice(0, quota));
             });
 
             if (sessionQuestions.length < targetSize) {
                 const remaining = shuffle([
-                    ...CORE_AREAS.flatMap(area => areas[area]),
-                    ...areas["Otro"],
+                    ...selectedAreas.flatMap(area => areas[area]),
                 ]);
                 sessionQuestions.push(...remaining.slice(0, targetSize - sessionQuestions.length));
             }

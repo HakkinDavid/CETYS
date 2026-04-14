@@ -11,6 +11,9 @@ const INPUT_FILES = [
 
 const OUTPUT_FILE = "banco_preguntas.js";
 const AREA_FALLBACK = ["Aplicación", "Base", "Algoritmia", "IA"];
+const SOURCE_AREA_MAP = {
+    "lengua.txt": "Lengua",
+};
 
 const AREA_RULES = [
     {
@@ -217,7 +220,7 @@ function main() {
                 continue;
             }
 
-            const area = (inputFile == "lengua.txt") ? "Lengua" : inferArea(
+            const area = SOURCE_AREA_MAP[inputFile] ?? inferArea(
                 `${parsed.question}\n${parsed.options.join("\n")}`,
                 allQuestions.length
             );
