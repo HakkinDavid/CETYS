@@ -20,6 +20,7 @@ function splitBlocks(content) {
 function parseBlock(block) {
   const lines = block.split("\n");
   const questionMatch = block.match(/^Pregunta:\s*(.*)$/m);
+  const subareaMatch = block.match(/^Sub[áa]rea:\s*(.*)$/m);
   const answerMatch = block.match(/^Respuesta correcta:\s*([A-Z])/m);
   const options = [];
 
@@ -35,6 +36,7 @@ function parseBlock(block) {
 
   return {
     question: questionMatch ? questionMatch[1].trim() : "",
+    subarea: subareaMatch ? subareaMatch[1].trim() : "",
     answer: answerMatch ? answerMatch[1] : "",
     options,
     raw: block,
@@ -48,6 +50,7 @@ function buildSignature(parsed) {
 
   return [
     parsed.question.replace(/\s+/g, " ").trim(),
+    parsed.subarea.replace(/\s+/g, " ").trim(),
     optionsSignature.replace(/\s+/g, " ").trim(),
     parsed.answer,
   ].join("||");

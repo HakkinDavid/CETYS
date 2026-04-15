@@ -1,5 +1,6 @@
 Numero de pregunta: 1
 Pregunta: ¿Qué técnica divide un problema en subproblemas y luego combina resultados?
+Subárea: Estructuras de datos
 A: Divide and Conquer
 B: Programación dinámica
 C: Algoritmo voraz
@@ -8,6 +9,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 2
 Pregunta: ¿Qué notación representa el peor caso de un algoritmo?
+Subárea: Estructuras de datos
 A: Big O
 B: Theta
 C: Omega
@@ -16,6 +18,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 3
 Pregunta: ¿Cuál estructura permite inserción O(1) si se tiene el nodo?
+Subárea: Estructuras de datos
 A: Lista ligada
 B: Arreglo
 C: Pila
@@ -24,6 +27,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 4
 Pregunta: ¿Qué arquitectura usa memoria separada para datos e instrucciones?
+Subárea: Arquitectura de computadoras y sistemas operativos
 A: Harvard
 B: Von Neumann
 C: RISC
@@ -32,6 +36,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 5
 Pregunta: ¿Qué estado describe un proceso esperando CPU?
+Subárea: Arquitectura de computadoras y sistemas operativos
 A: Listo
 B: Bloqueado
 C: Ejecutando
@@ -40,6 +45,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 6
 Pregunta: ¿Qué algoritmo asigna tiempo por turnos?
+Subárea: Arquitectura de computadoras y sistemas operativos
 A: Round Robin
 B: FIFO
 C: Prioridad
@@ -48,6 +54,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 7
 Pregunta: ¿Qué fase del compilador agrupa tokens?
+Subárea: Compiladores
 A: Análisis léxico
 B: Análisis semántico
 C: Optimización
@@ -56,6 +63,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 8
 Pregunta: ¿Qué protocolo pertenece a capa aplicación?
+Subárea: Redes de computadoras
 A: HTTP
 B: IP
 C: TCP
@@ -64,6 +72,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 9
 Pregunta: ¿Qué modelo tiene 7 capas?
+Subárea: Redes de computadoras
 A: OSI
 B: TCP/IP
 C: UDP
@@ -72,6 +81,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 10
 Pregunta: ¿Qué tipo de prueba valida el sistema completo?
+Subárea: Ingeniería de software
 A: Sistema
 B: Unitaria
 C: Integración
@@ -80,6 +90,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 11
 Pregunta: ¿Qué paradigma indica qué obtener sin especificar cómo?
+Subárea: Lenguajes de programación
 A: Declarativo
 B: Imperativo
 C: POO
@@ -88,6 +99,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 12
 Pregunta: ¿Qué propiedad ACID asegura persistencia?
+Subárea: Bases de datos
 A: Durability
 B: Atomicity
 C: Isolation
@@ -96,6 +108,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 13
 Pregunta: ¿Qué ataque intercepta comunicación?
+Subárea: Seguridad informática
 A: MITM
 B: Phishing
 C: Malware
@@ -104,6 +117,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 14
 Pregunta: ¿Qué propiedad garantiza acceso autorizado?
+Subárea: Seguridad informática
 A: Confidencialidad
 B: Integridad
 C: Disponibilidad
@@ -112,6 +126,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 15
 Pregunta: ¿Qué algoritmo usa heurística?
+Subárea: Inteligencia artificial
 A: A*
 B: DFS
 C: BFS
@@ -120,6 +135,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 16
 Pregunta: ¿Qué aprendizaje usa datos etiquetados?
+Subárea: Minería de datos
 A: Supervisado
 B: No supervisado
 C: Refuerzo
@@ -128,6 +144,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 17
 Pregunta: ¿Qué arquitectura no tiene nodo central?
+Subárea: Cómputo distribuido
 A: P2P
 B: Cliente-servidor
 C: Multicapa
@@ -136,6 +153,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 18
 Pregunta: ¿Qué propiedad CAP asegura respuesta siempre?
+Subárea: Cómputo distribuido
 A: Disponibilidad
 B: Consistencia
 C: Partición
@@ -144,6 +162,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 19
 Pregunta: En análisis de complejidad, ¿qué implica que un algoritmo sea O(n log n)?
+Subárea: Análisis y diseño de algoritmos
 A: Su crecimiento es casi lineal con un factor logarítmico
 B: Su crecimiento es estrictamente cuadrático
 C: Siempre es más rápido que O(n)
@@ -152,6 +171,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 20
 Pregunta: En una tabla hash, ¿qué condición provoca degradación a O(n)?
+Subárea: Análisis y diseño de algoritmos
 A: Alta colisión en funciones hash deficientes
 B: Uso de listas enlazadas
 C: Uso de claves únicas
@@ -160,6 +180,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 21
 Pregunta: ¿Cuál afirmación sobre programación dinámica es correcta?
+Subárea: Análisis y diseño de algoritmos
 A: Reutiliza resultados de subproblemas para evitar recomputación
 B: Explora todas las soluciones posibles sin poda
 C: Siempre produce soluciones óptimas sin condiciones
@@ -168,6 +189,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 22
 Pregunta: En sistemas operativos, ¿qué escenario describe deadlock?
+Subárea: Arquitectura de computadoras y sistemas operativos
 A: Procesos esperando recursos en ciclo sin liberación
 B: Un proceso termina abruptamente
 C: CPU sin procesos disponibles
@@ -176,6 +198,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 23
 Pregunta: ¿Cuál característica distingue un sistema distribuido?
+Subárea: Arquitectura de computadoras y sistemas operativos
 A: Ausencia de memoria compartida global
 B: Uso exclusivo de memoria local
 C: Sincronización perfecta global
@@ -184,6 +207,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 24
 Pregunta: ¿Qué sucede en aislamiento débil en bases de datos?
+Subárea: Bases de datos
 A: Pueden ocurrir lecturas sucias o inconsistentes
 B: Se garantiza consistencia total
 C: No hay concurrencia
@@ -192,6 +216,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 25
 Pregunta: ¿Cuál es una limitación de algoritmos voraces?
+Subárea: Análisis y diseño de algoritmos
 A: No siempre garantizan solución óptima global
 B: Son más lentos que backtracking
 C: No funcionan con estructuras de datos
@@ -200,6 +225,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 26
 Pregunta: ¿Qué implica encapsulamiento en POO?
+Subárea: Lenguajes de programación
 A: Ocultar implementación y exponer interfaz controlada
 B: Permitir acceso libre a atributos
 C: Eliminar herencia
@@ -208,6 +234,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 27
 Pregunta: ¿Cuál vulnerabilidad permite manipular consultas SQL?
+Subárea: Seguridad informática
 A: Inyección SQL
 B: Cross-Site Scripting
 C: Buffer overflow
@@ -216,6 +243,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 28
 Pregunta: ¿Qué define consistencia en CAP?
+Subárea: Cómputo distribuido
 A: Todos los nodos ven el mismo dato simultáneamente
 B: Siempre hay respuesta
 C: No hay fallas de red
@@ -224,6 +252,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 29
 Pregunta: En redes, ¿qué función cumple TCP?
+Subárea: Redes de computadoras
 A: Proveer comunicación confiable orientada a conexión
 B: Direccionamiento IP
 C: Resolución DNS
@@ -232,6 +261,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 30
 Pregunta: ¿Qué representa Theta en complejidad?
+Subárea: Análisis y diseño de algoritmos
 A: Cota ajustada entre límite superior e inferior
 B: Peor caso
 C: Mejor caso
@@ -240,6 +270,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 31
 Pregunta: ¿Qué distingue aprendizaje no supervisado?
+Subárea: Minería de datos
 A: Identifica patrones sin etiquetas previas
 B: Requiere datos etiquetados
 C: Optimiza recompensas
@@ -248,6 +279,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 32
 Pregunta: ¿Qué propiedad asegura que una transacción se complete totalmente o no?
+Subárea: Bases de datos
 A: Atomicidad
 B: Consistencia
 C: Durabilidad
@@ -256,6 +288,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 33
 Pregunta: ¿Qué describe middleware en sistemas distribuidos?
+Subárea: Cómputo distribuido
 A: Capa que abstrae comunicación entre componentes
 B: Hardware de red
 C: Lenguaje de programación
@@ -264,6 +297,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 34
 Pregunta: ¿Qué implica sobreajuste en ML?
+Subárea: Minería de datos
 A: Modelo se ajusta demasiado a datos de entrenamiento
 B: Modelo generaliza perfectamente
 C: Datos insuficientes
@@ -272,6 +306,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 35
 Pregunta: En complejidad algorítmica, ¿cuándo O(n log n) puede comportarse peor que O(n^2) en práctica?
+Subárea: Análisis y diseño de algoritmos
 A: Cuando constantes ocultas y tamaños pequeños afectan el rendimiento
 B: Nunca, O(n log n) siempre es mejor
 C: Solo en arquitecturas paralelas
@@ -280,6 +315,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 36
 Pregunta: ¿Qué condición hace que un algoritmo voraz sea óptimo?
+Subárea: Análisis y diseño de algoritmos
 A: Que cumpla propiedad de subestructura óptima y elección voraz
 B: Que tenga complejidad lineal
 C: Que use recursión
@@ -288,6 +324,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 37
 Pregunta: En control de concurrencia, ¿qué implica Two-Phase Locking estricto?
+Subárea: Bases de datos
 A: Los locks se liberan solo al final de la transacción
 B: Los locks se liberan inmediatamente
 C: No existen locks
@@ -296,6 +333,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 38
 Pregunta: ¿Cuál es un caso donde consistencia en CAP se sacrifica?
+Subárea: Cómputo distribuido
 A: Sistemas distribuidos con alta tolerancia a particiones
 B: Bases de datos monolíticas
 C: Sistemas sin red
@@ -304,6 +342,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 39
 Pregunta: ¿Qué diferencia clave existe entre compilador e intérprete en tiempo de ejecución?
+Subárea: Compiladores
 A: El intérprete ejecuta instrucción por instrucción sin generar binario
 B: El compilador ejecuta directamente línea por línea
 C: Ambos generan código máquina inmediato
@@ -312,6 +351,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 40
 Pregunta: ¿Cuándo una tabla está en 3NF pero no en BCNF?
+Subárea: Bases de datos
 A: Cuando existen dependencias funcionales no triviales con claves candidatas parciales
 B: Cuando todos los atributos son clave
 C: Cuando hay redundancia total
@@ -320,6 +360,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 41
 Pregunta: ¿Qué implica aislamiento serializable?
+Subárea: Bases de datos
 A: Equivalencia con ejecución secuencial de transacciones
 B: Bloqueo total del sistema
 C: Ausencia de concurrencia
@@ -328,6 +369,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 42
 Pregunta: ¿Qué propiedad distingue un sistema tolerante a fallos?
+Subárea: Cómputo distribuido
 A: Capacidad de continuar operación pese a fallas parciales
 B: Evitar cualquier error
 C: Eliminar redundancia
@@ -336,6 +378,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 43
 Pregunta: ¿Cuál es un efecto del overfitting en ML?
+Subárea: Minería de datos
 A: Alta precisión en entrenamiento y baja en generalización
 B: Baja precisión siempre
 C: Alta generalización
@@ -344,6 +387,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 44
 Pregunta: ¿Qué hace que A* sea óptimo?
+Subárea: Inteligencia artificial
 A: Heurística admisible y consistente
 B: Uso de DFS
 C: Uso de pila
@@ -352,6 +396,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 45
 Pregunta: ¿Qué ocurre si una función hash no es uniforme?
+Subárea: Estructuras de datos
 A: Aumentan colisiones y degradación de rendimiento
 B: Se elimina hashing
 C: Mejora rendimiento
@@ -360,6 +405,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 46
 Pregunta: ¿Qué caracteriza a un sistema eventual consistency?
+Subárea: Cómputo distribuido
 A: Los nodos convergen con el tiempo sin garantía inmediata
 B: Siempre son consistentes instantáneamente
 C: No replican datos
@@ -368,6 +414,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 47
 Pregunta: ¿Qué define polimorfismo en ejecución?
+Subárea: Lenguajes de programación
 A: Resolución dinámica de métodos según tipo real
 B: Uso de herencia únicamente
 C: Encapsulación de datos
@@ -376,6 +423,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 48
 Pregunta: ¿Qué implica middleware transparente?
+Subárea: Cómputo distribuido
 A: Oculta complejidad distribuida al usuario
 B: Elimina red
 C: Reduce seguridad
@@ -384,6 +432,7 @@ Respuesta correcta: A
 
 Numero de pregunta: 49
 Pregunta: ¿Qué diferencia clave hay entre BFS y DFS?
+Subárea: Inteligencia artificial
 A: BFS explora por niveles, DFS en profundidad
 B: DFS es siempre óptimo
 C: BFS usa pila

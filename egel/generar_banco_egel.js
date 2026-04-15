@@ -375,13 +375,14 @@ function splitBlocks(content) {
 }
 
 function parseBlock(lines) {
-    const questionNumberMatch = lines[0].match(/^(?:Numero|Número) de pregunta:\s*([\d.]+)/i);
-    const parsed = {
-        id: questionNumberMatch ? questionNumberMatch[1] : null,
-        questionLines: [],
-        options: [],
-        answerLetter: null,
-    };
+  const questionNumberMatch = lines[0].match(/^(?:Numero|Número) de pregunta:\s*([\d.]+)/i);
+  const parsed = {
+    id: questionNumberMatch ? questionNumberMatch[1] : null,
+    questionLines: [],
+    subarea: null,
+    options: [],
+    answerLetter: null,
+  };
 
     let currentSection = null;
     let currentOption = null;
@@ -401,13 +402,21 @@ function parseBlock(lines) {
             continue;
         }
 
-        const questionMatch = line.match(/^Pregunta:\s*(.*)$/i);
-        if (questionMatch) {
-            parsed.questionLines.push(questionMatch[1]);
-            currentSection = "question";
-            currentOption = null;
-            continue;
-        }
+    const questionMatch = line.match(/^Pregunta:\s*(.*)$/i);
+    if (questionMatch) {
+      parsed.questionLines.push(questionMatch[1]);
+      currentSection = "question";
+      currentOption = null;
+      continue;
+    }
+
+    const subareaMatch = line.match(/^Sub[áa]rea:\s*(.*)$/i);
+    if (subareaMatch) {
+      parsed.subarea = normalizeWhitespace(subareaMatch[1]);
+      currentSection = "subarea";
+      currentOption = null;
+      continue;
+    }
 
         const optionMatch = line.match(/^(?:Inciso\s+)?([A-Z])[):]\s*(.*)$/i);
         if (optionMatch) {
@@ -438,12 +447,13 @@ function parseBlock(lines) {
         return null;
     }
 
-    return {
-        id: parsed.id,
-        question,
-        options,
-        answer,
-    };
+  return {
+    id: parsed.id,
+    question,
+    subarea: parsed.subarea,
+    options,
+    answer,
+  };
 }
 
 function getAreaFromSubarea(subarea) {
@@ -498,15 +508,19 @@ function classifyEntry(inputFile, entry) {
         return SOURCE_AREA_MAP[inputFile];
     }
 
+    if (isSyntheticSource(inputFile) && entry.subarea) {
+        return {
+            area: getAreaFromSubarea(entry.subarea),
+            subarea: entry.subarea,
+            method: "synthetic-subarea",
+        };
+    }
+
     if (inputFile === "conceptos.txt") {
         return classifyConceptos(entry) ?? DEFAULT_CASOS_CLASSIFICATION;
     }
 
     if (inputFile === "casos.txt") {
-        return classifyByRules(entry) ?? DEFAULT_CASOS_CLASSIFICATION;
-    }
-
-    if (isSyntheticSource(inputFile)) {
         return classifyByRules(entry) ?? DEFAULT_CASOS_CLASSIFICATION;
     }
 
