@@ -431,10 +431,190 @@ D: Reemplaza protocolos
 Respuesta correcta: A
 
 Numero de pregunta: 49
-Pregunta: ¿Qué diferencia clave hay entre BFS y DFS?
+Pregunta: ¿Cuál es la complejidad promedio de búsqueda en una tabla hash bien distribuida?
+Subárea: Estructuras de datos
+A: O(1)
+B: O(n)
+C: O(log n)
+D: O(n log n)
+Respuesta correcta: A
+
+Numero de pregunta: 50
+Pregunta: ¿Qué estructura es más adecuada para implementar una pila?
+Subárea: Estructuras de datos
+A: Arreglo o lista ligada
+B: Árbol binario
+C: Grafo dirigido
+D: Tabla hash
+Respuesta correcta: A
+
+Numero de pregunta: 51
+Pregunta: ¿Qué característica define a un árbol binario de búsqueda?
+Subárea: Estructuras de datos
+A: Hijos izquierdos menores y derechos mayores
+B: Todos los nodos tienen dos hijos
+C: Es balanceado por definición
+D: Solo almacena números
+Respuesta correcta: A
+
+Numero de pregunta: 52
+Pregunta: ¿Qué ocurre en thrashing?
+Subárea: Arquitectura de computadoras y sistemas operativos
+A: El sistema pasa más tiempo intercambiando memoria que ejecutando procesos
+B: Se eliminan procesos automáticamente
+C: El CPU se detiene
+D: No hay uso de memoria
+Respuesta correcta: A
+
+Numero de pregunta: 53
+Pregunta: ¿Qué política de planificación puede causar starvation?
+Subárea: Arquitectura de computadoras y sistemas operativos
+A: Prioridades
+B: Round Robin
+C: FIFO
+D: LIFO
+Respuesta correcta: A
+
+Numero de pregunta: 54
+Pregunta: ¿Qué fase del compilador detecta errores de tipo?
+Subárea: Compiladores
+A: Análisis semántico
+B: Análisis léxico
+C: Generación de código
+D: Optimización
+Respuesta correcta: A
+
+Numero de pregunta: 55
+Pregunta: ¿Qué protocolo se encarga del direccionamiento lógico?
+Subárea: Redes de computadoras
+A: IP
+B: HTTP
+C: TCP
+D: FTP
+Respuesta correcta: A
+
+Numero de pregunta: 56
+Pregunta: ¿Qué dispositivo opera en la capa de red?
+Subárea: Redes de computadoras
+A: Router
+B: Switch
+C: Hub
+D: Repetidor
+Respuesta correcta: A
+
+Numero de pregunta: 57
+Pregunta: ¿Qué modelo de desarrollo permite iteraciones constantes?
+Subárea: Ingeniería de software
+A: Ágil
+B: Cascada
+C: Espiral rígido
+D: Lineal
+Respuesta correcta: A
+
+Numero de pregunta: 58
+Pregunta: ¿Qué prueba valida integración entre módulos?
+Subárea: Ingeniería de software
+A: Integración
+B: Unitaria
+C: Sistema
+D: Aceptación
+Respuesta correcta: A
+
+Numero de pregunta: 59
+Pregunta: ¿Qué característica define programación funcional?
+Subárea: Lenguajes de programación
+A: Funciones puras sin efectos secundarios
+B: Uso intensivo de clases
+C: Mutabilidad constante
+D: Dependencia de estado global
+Respuesta correcta: A
+
+Numero de pregunta: 60
+Pregunta: ¿Qué forma normal elimina dependencias transitivas?
+Subárea: Bases de datos
+A: 3NF
+B: 1NF
+C: 2NF
+D: BCNF
+Respuesta correcta: A
+
+Numero de pregunta: 61
+Pregunta: ¿Qué propiedad ACID evita interferencia entre transacciones?
+Subárea: Bases de datos
+A: Isolation
+B: Atomicity
+C: Consistency
+D: Durability
+Respuesta correcta: A
+
+Numero de pregunta: 62
+Pregunta: ¿Qué tipo de ataque implica engaño al usuario para obtener credenciales?
+Subárea: Seguridad informática
+A: Phishing
+B: MITM
+C: DoS
+D: Sniffing
+Respuesta correcta: A
+
+Numero de pregunta: 63
+Pregunta: ¿Qué control reduce probabilidad de ataque?
+Subárea: Seguridad informática
+A: Preventivo
+B: Correctivo
+C: Detectivo
+D: Reactivo
+Respuesta correcta: A
+
+Numero de pregunta: 64
+Pregunta: ¿Qué algoritmo garantiza camino más corto con pesos positivos?
 Subárea: Inteligencia artificial
-A: BFS explora por niveles, DFS en profundidad
-B: DFS es siempre óptimo
-C: BFS usa pila
-D: Ambos son iguales
+A: Dijkstra
+B: DFS
+C: BFS
+D: Backtracking
+Respuesta correcta: A
+
+Numero de pregunta: 65
+Pregunta: ¿Qué técnica agrupa datos sin etiquetas?
+Subárea: Minería de datos
+A: Clustering
+B: Clasificación
+C: Regresión
+D: Validación
+Respuesta correcta: A
+
+Numero de pregunta: 66
+Pregunta: ¿Qué propiedad permite agregar nodos sin degradar rendimiento?
+Subárea: Cómputo distribuido
+A: Escalabilidad
+B: Consistencia
+C: Seguridad
+D: Atomicidad
+Respuesta correcta: A
+
+Numero de pregunta: 67
+Pregunta: ¿Qué arquitectura usa cliente y servidor central?
+Subárea: Cómputo distribuido
+A: Cliente-servidor
+B: P2P
+C: Mesh
+D: Distribuida pura
+Respuesta correcta: A
+
+Numero de pregunta: 68
+Pregunta: ¿Qué algoritmo explora completamente antes de retroceder?
+Subárea: Análisis y diseño de algoritmos
+A: DFS
+B: BFS
+C: Greedy
+D: Dinámico
+Respuesta correcta: A
+
+Numero de pregunta: 69
+Pregunta: ¿Qué estructura representa relaciones entre entidades?
+Subárea: Bases de datos
+A: Diagrama ER
+B: Árbol binario
+C: Grafo no dirigido
+D: Tabla hash
 Respuesta correcta: A
